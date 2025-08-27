@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  btcmi-metrics:
+    build: { context: ., dockerfile: docker/Dockerfile }
+    command: ["python3","ops/metrics/exporter.py"]
+    ports: ["9101:9101"]
+  prometheus:
+    image: prom/prometheus:latest
+    volumes: ["./ops/prometheus/job.sample.yml:/etc/prometheus/prometheus.yml:ro"]
+    ports: ["9090:9090"]
+  grafana:
+    image: grafana/grafana:latest
+    ports: ["3000:3000"]

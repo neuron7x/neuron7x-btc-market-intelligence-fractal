@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BTCMI Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "scenario",
+    "window"
+  ],
+  "properties": {
+    "scenario": {
+      "type": "string",
+      "enum": [
+        "intraday",
+        "scalp",
+        "swing"
+      ]
+    },
+    "window": {
+      "type": "string",
+      "pattern": "^[0-9]+(m|h|d)$"
+    },
+    "asof": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "v1",
+        "v2.fractal"
+      ]
+    },
+    "features": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "nagr_nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "weight",
+          "score"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "number"
+          },
+          "score": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "features_micro": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "features_mezo": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "features_macro": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "vol_regime_pctl": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "freshness_seconds": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "features"
+      ],
+      "properties": {
+        "mode": {
+          "const": "v1"
+        }
+      }
+    },
+    {
+      "required": [
+        "features_micro",
+        "features_mezo",
+        "features_macro",
+        "vol_regime_pctl"
+      ],
+      "properties": {
+        "mode": {
+          "const": "v2.fractal"
+        }
+      }
+    }
+  ]
+}

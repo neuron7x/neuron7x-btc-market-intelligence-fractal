@@ -1,0 +1,32 @@
+{
+  "scenario": "intraday",
+  "window": "1h",
+  "mode": "v2.fractal",
+  "features_micro": {
+    "price_change_pct": 0.8,
+    "volume_change_pct": 35.0,
+    "funding_rate_bps": 4.0,
+    "oi_change_pct": 12.0
+  },
+  "features_mezo": {
+    "oi_term_structure_slope": 0.12,
+    "funding_premium_spread": 0.08
+  },
+  "features_macro": {
+    "active_addrs_trend": 0.1,
+    "macro_regime_score": 0.15
+  },
+  "vol_regime_pctl": 0.55,
+  "nagr_nodes": [
+    {
+      "id": "micro_liquidity",
+      "weight": 0.6,
+      "score": 0.2
+    },
+    {
+      "id": "macro_bias",
+      "weight": 0.4,
+      "score": 0.1
+    }
+  ]
+}

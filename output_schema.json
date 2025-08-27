@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BTCMI Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "summary",
+    "details",
+    "asof"
+  ],
+  "properties": {
+    "asof": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario",
+        "window",
+        "overall_signal",
+        "confidence",
+        "router_path"
+      ],
+      "properties": {
+        "scenario": {
+          "type": "string"
+        },
+        "window": {
+          "type": "string"
+        },
+        "overall_signal": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "router_path": {
+          "type": "string"
+        },
+        "nagr_score": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "advisories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "overall_signal_L1": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "overall_signal_L2": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "overall_signal_L3": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "level_weights": {
+          "type": "object",
+          "properties": {
+            "L1": {
+              "type": "number"
+            },
+            "L2": {
+              "type": "number"
+            },
+            "L3": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "diagnostics"
+      ],
+      "properties": {
+        "normalized_features": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "weights": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "contributions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "constraints_applied": {
+          "type": "boolean"
+        },
+        "normalized_micro": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "normalized_mezo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "normalized_macro": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "router_regime": {
+          "type": "string",
+          "enum": [
+            "low",
+            "mid",
+            "high"
+          ]
+        },
+        "diagnostics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "completeness",
+            "notes"
+          ],
+          "properties": {
+            "completeness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "notes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,398 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "name": "btcmi",
+  "versionInfo": "1.2.1",
+  "created": "2025-08-26T11:25:19Z",
+  "files": [
+    {
+      "fileName": "VERSION",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6cf4e084b47f33c9b02ef79279d157833868f8f70514169a768be353ee328fea"
+        }
+      ],
+      "fileSize": 6
+    },
+    {
+      "fileName": "input_schema.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "af34ac9d1bcdec8a9b0f273568b55fa79ac00981682bdb3a73b067e82547ee2c"
+        }
+      ],
+      "fileSize": 2139
+    },
+    {
+      "fileName": "output_schema.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2f50567042f11aa14e7281ed2c1c08063237a1c3f08ec47266857f3e85f14e43"
+        }
+      ],
+      "fileSize": 3648
+    },
+    {
+      "fileName": "pyproject.toml",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "afbc5a1a0d97582e32b50fb09a143b0bcaca19c24c51e88f53257d012268144d"
+        }
+      ],
+      "fileSize": 394
+    },
+    {
+      "fileName": "requirements.txt",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "185d4cf11cc7688664137fdafefdc397a30d0b458485c6ace656d28454555f4f"
+        }
+      ],
+      "fileSize": 19
+    },
+    {
+      "fileName": "docker-compose.yml",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "53fa4a2a5872d1ea028830220c49208d9a94fb2b1e137c40d69088dfcf2d52db"
+        }
+      ],
+      "fileSize": 401
+    },
+    {
+      "fileName": "CHECKSUMS.SHA256",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a3d486bfc1b93e55c396a3de3d5ef7ec35393dcecce35a457733ba91bc7336e6"
+        }
+      ],
+      "fileSize": 3530
+    },
+    {
+      "fileName": "btcmi/__init__.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6d9d176a843b27fd783dad2d46b823e9b00d54d5c5de11bdfc56996a7e135b06"
+        }
+      ],
+      "fileSize": 83
+    },
+    {
+      "fileName": "btcmi/logging_util.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5e23ddd22486e682d0a219895894075b9f05eec3f9b73f156a61166998b469ec"
+        }
+      ],
+      "fileSize": 281
+    },
+    {
+      "fileName": "btcmi/schema_util.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5db6d47f8e75e3610b59528d215deee04266e4a83075f41383f5291a9ac9dc4d"
+        }
+      ],
+      "fileSize": 723
+    },
+    {
+      "fileName": "btcmi/engine_v1.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b41b61c301a3219c77ce58f5fd9e7b3d91bd4a4ac478e0589fa078f8d788044e"
+        }
+      ],
+      "fileSize": 1733
+    },
+    {
+      "fileName": "btcmi/engine_v2.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "deac8e0710f8d9b022a6667aa1a73fb24e83ce560faf54ad34222db5f071fa95"
+        }
+      ],
+      "fileSize": 1980
+    },
+    {
+      "fileName": "btcmi/__pycache__/__init__.cpython-311.pyc",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "17a7ab6473229cf29e386af7a00aa4a0611bb20decb870967f44f815186c5168"
+        }
+      ],
+      "fileSize": 256
+    },
+    {
+      "fileName": "btcmi/__pycache__/logging_util.cpython-311.pyc",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "21b6819f180a6d12a7538beed4003737ede3e51ee614422dbcff63bfd1ed03af"
+        }
+      ],
+      "fileSize": 1165
+    },
+    {
+      "fileName": "btcmi/__pycache__/schema_util.cpython-311.pyc",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a83a3501486b058673fe6ff6a5da7361865338661bfc0a37039dcaedf11f85f0"
+        }
+      ],
+      "fileSize": 1933
+    },
+    {
+      "fileName": "btcmi/__pycache__/engine_v1.cpython-311.pyc",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ee86f33f479a9aa1e7029262384a6c21fe2322717c93ce8e0c00157077af8a3b"
+        }
+      ],
+      "fileSize": 3951
+    },
+    {
+      "fileName": "btcmi/__pycache__/engine_v2.cpython-311.pyc",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e9c082842228961a688ef7409f8b75a609c2c866c84b2c2eb595f0da41459f18"
+        }
+      ],
+      "fileSize": 5206
+    },
+    {
+      "fileName": "cli/btcmi.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "09c7899277d38ea86b0cf9e65c696ec7ce223d1873ba8419e1bed862dc67f36e"
+        }
+      ],
+      "fileSize": 5179
+    },
+    {
+      "fileName": "examples/intraday.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4ea05aeb71b6a1ff73a02233121c88c156d87740fe0670f9943c622dde6ae203"
+        }
+      ],
+      "fileSize": 422
+    },
+    {
+      "fileName": "examples/intraday_fractal.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "12ff38bf124333d28f4d88a0a842f4fedf050fc123b0b3ffe2a5d5a1fa7efa68"
+        }
+      ],
+      "fileSize": 611
+    },
+    {
+      "fileName": "examples/swing_fractal.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0532e148b4ef8df03049634c0f0e8f46916fb2bceddaf6649822e079dd655b53"
+        }
+      ],
+      "fileSize": 607
+    },
+    {
+      "fileName": "tests/test_golden_v1.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "51487beea22c47cd46ae09057423144a57f8b7a63b766466c1eb699067e7d83d"
+        }
+      ],
+      "fileSize": 488
+    },
+    {
+      "fileName": "tests/test_golden_v2.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3b3d825a80e11b31a98f4a236eef9d1fd1fb045b3b63cf9f6a4db816c3518c3b"
+        }
+      ],
+      "fileSize": 577
+    },
+    {
+      "fileName": "tests/test_router_regime.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7ee294aa7e5ffc27af129a0a4c49349af76607ff4e6828f04d7fb05d57d2caa1"
+        }
+      ],
+      "fileSize": 416
+    },
+    {
+      "fileName": "tests/test_drift_guard.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a855f8b6d8d510cd76f44c6406e609f17943b22fc9bd7649a45eb175c46c92f0"
+        }
+      ],
+      "fileSize": 1069
+    },
+    {
+      "fileName": "tests/golden/intraday_v1.golden.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "dd1595944f2d9156fb6bf10d7304ea600032cbe7bc768d48e474dd52b1dfaf40"
+        }
+      ],
+      "fileSize": 1007
+    },
+    {
+      "fileName": "tests/golden/intraday_fractal.golden.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f51f565913bb921c7261c34d377f5e83addbe0000271c9784542ae2718936e4f"
+        }
+      ],
+      "fileSize": 949
+    },
+    {
+      "fileName": "tests/golden/swing_fractal.golden.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "db4792e4513115f6450dd58ed37d74fce2ee147d80dc656ea8ff7e6ed12020a7"
+        }
+      ],
+      "fileSize": 949
+    },
+    {
+      "fileName": "tests/tmp/intraday_v1.out.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "dd1595944f2d9156fb6bf10d7304ea600032cbe7bc768d48e474dd52b1dfaf40"
+        }
+      ],
+      "fileSize": 1007
+    },
+    {
+      "fileName": "tests/tmp/intraday_fractal.out.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f51f565913bb921c7261c34d377f5e83addbe0000271c9784542ae2718936e4f"
+        }
+      ],
+      "fileSize": 949
+    },
+    {
+      "fileName": "tests/tmp/swing_fractal.out.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "db4792e4513115f6450dd58ed37d74fce2ee147d80dc656ea8ff7e6ed12020a7"
+        }
+      ],
+      "fileSize": 949
+    },
+    {
+      "fileName": "ops/metrics/exporter.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3d006abe6115ce74d988b21d0f90bf6e9c4eb3b80d4d192a6ec8b11bb39acc3a"
+        }
+      ],
+      "fileSize": 744
+    },
+    {
+      "fileName": "ops/prometheus/job.sample.yml",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "81050edcba26222f0c33c12521d9a1a0f0ebbab75a1b2ac6d14e0a261e085b2f"
+        }
+      ],
+      "fileSize": 123
+    },
+    {
+      "fileName": "ops/grafana/dashboard.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "56008361db0d5aba65557fa2337318348530763397ed914cedec800700911f2e"
+        }
+      ],
+      "fileSize": 68
+    },
+    {
+      "fileName": "scripts/generate_sbom.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "53664fbe4c80a3b4a777a645e06a49268b4897486643586a9202ebd229b08b8f"
+        }
+      ],
+      "fileSize": 901
+    },
+    {
+      "fileName": "scripts/verify_checksums.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ecd4117a4008ac43886a07172194ed0fc78fb67f4940c3bc0e5dddd0deed6712"
+        }
+      ],
+      "fileSize": 867
+    },
+    {
+      "fileName": "docs/QUICKSTART.md",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "dc382388c6468273ab66c423a376337bfd8189b48efc2c40ca58afd35709540d"
+        }
+      ],
+      "fileSize": 308
+    },
+    {
+      "fileName": "docs/SECURITY.md",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b0f79fde0807e14390e5ad58b37f3e07a67a2e753c367e5e67ed5225b66b6765"
+        }
+      ],
+      "fileSize": 59
+    },
+    {
+      "fileName": "docker/Dockerfile",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "845b6b774d0e0e27cd7f27570ee889b4c2e56beecd9294693c077997c954ca85"
+        }
+      ],
+      "fileSize": 274
+    }
+  ]
+}

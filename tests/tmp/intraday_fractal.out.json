@@ -1,0 +1,41 @@
+{
+  "asof": "2025-01-01T00:00:00Z",
+  "summary": {
+    "scenario": "intraday",
+    "window": "1h",
+    "overall_signal": 0.238605,
+    "confidence": 1.0,
+    "router_path": "intraday/v2.fractal",
+    "nagr_score": 0.0,
+    "advisories": [],
+    "overall_signal_L1": 0.412263,
+    "overall_signal_L2": 0.189658,
+    "overall_signal_L3": 0.170504,
+    "level_weights": {
+      "L1": 0.25,
+      "L2": 0.4,
+      "L3": 0.35
+    }
+  },
+  "details": {
+    "normalized_micro": {
+      "price_change_pct": 0.379949,
+      "volume_change_pct": 0.604368,
+      "funding_rate_bps": 0.379949,
+      "oi_change_pct": 0.53705
+    },
+    "normalized_mezo": {
+      "oi_term_structure_slope": 0.235496,
+      "funding_premium_spread": 0.158649
+    },
+    "normalized_macro": {
+      "active_addrs_trend": 0.197375,
+      "macro_regime_score": 0.148885
+    },
+    "router_regime": "mid",
+    "diagnostics": {
+      "completeness": 1.0,
+      "notes": []
+    }
+  }
+}
