@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
@@ -13,26 +14,38 @@ jobs:
       matrix:
         python-version: [ "3.10", "3.11", "3.12" ]
       fail-fast: false
+
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install project and tools
-      run: |
-        python -m pip install --upgrade pip
-        pip install .
-        pip install pytest pytest-cov ruff mypy
+      - name: Install tools and deps (no package build)
+        run: |
+          python -m pip install --upgrade pip
+          # якщо є requirements.txt/constraints.txt — встановимо
+          if [ -f requirements.txt ]; then
+            if [ -f constraints.txt ]; then
+              pip install -r requirements.txt -c constraints.txt
+            else
+              pip install -r requirements.txt
+            fi
+          fi
+          pip install pytest pytest-cov ruff mypy
 
-    - name: Lint with ruff (non-blocking)
-      run: ruff check . || echo "ruff warnings"
+      - name: Lint with ruff (non-blocking)
+        run: ruff check . || echo "ruff warnings"
 
-    - name: Type check with mypy (non-blocking)
-      run: |
-        if [ -d "btcmi" ]; then
-          mypy btcmi || echo "mypy warnings"
-        else
-          echo "btcmi not
+      - name: Type check with mypy (non-blocking)
+        run: |
+          if [ -d "btcmi" ]; then
+            mypy btcmi || echo "mypy warnings"
+          fi
+
+      - name: Run tests with pytest
+        env:
+          PYTHONPATH: .
+        run: pytest -q --disable-warnings --maxfail=1
