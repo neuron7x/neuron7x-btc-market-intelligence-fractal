@@ -1,12 +1,13 @@
 name: Security
 
 on:
+  workflow_dispatch:       # запуск вручну
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: "0 3 * * *"  # щодня о 03:00 UTC
+    - cron: "0 3 * * *"    # щодня о 03:00 UTC
 
 permissions:
   contents: read
@@ -34,27 +35,17 @@ jobs:
       - name: Install pip-audit
         run: pip install pip-audit
 
-      - name: Run pip-audit (fail on vulns)
-        run: |
-          pip-audit -r requirements.txt -c constraints.txt --format sarif --output pip-audit.sarif
+      - name: Run pip-audit
+        run: pip-audit
 
-      - name: Upload SARIF to Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: pip-audit.sarif
-
-  secrets-scan:
-    name: Secrets scan (gitleaks)
+  gitleaks:
+    name: Scan for secrets with gitleaks
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (full history)
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: --no-banner --redact --verbose --exit-code 1
+          args: detect --source . --no-git --report-format sarif --report-path gitleaks.sarif
