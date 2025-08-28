@@ -1,0 +1,4 @@
+# CODEOWNERS file for BTC Market Intelligence Fractal
+# Формат: <шлях> <користувач або команда>
+
+* @neuron7x
