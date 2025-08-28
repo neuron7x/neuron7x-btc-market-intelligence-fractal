@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest an idea or improvement for the project
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What problem or limitation are you trying to solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe your idea or the feature you'd like to see.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Have you considered other ways to solve this?
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any screenshots, sketches, or context that helps explain.
