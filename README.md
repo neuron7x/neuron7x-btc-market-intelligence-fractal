@@ -103,6 +103,8 @@ Refer to `docs/SECURITY.md`. Report issues via GitHub Issues (Security).
 ## License
 
 MIT. Educational use only. No financial advice. Timezone: Europe/Kyiv; ISO-8601 timestamps.
+<!-- trigger security -->
+
 
 ## Maintainer
 
