@@ -1,13 +1,13 @@
 name: Security
 
 on:
-  workflow_dispatch:       # запуск вручну
+  workflow_dispatch:   # запуск вручну
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: "0 3 * * *"    # щодня о 03:00 UTC
+    - cron: "0 3 * * *"   # щодня о 03:00 UTC
 
 permissions:
   contents: read
@@ -38,8 +38,8 @@ jobs:
       - name: Run pip-audit
         run: pip-audit
 
-  gitleaks:
-    name: Scan for secrets with gitleaks
+  gitleaks-scan:
+    name: Secret scanning with gitleaks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -47,5 +47,3 @@ jobs:
 
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
-        with:
-          args: detect --source . --no-git --report-format sarif --report-path gitleaks.sarif
