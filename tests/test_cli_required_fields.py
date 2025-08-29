@@ -28,3 +28,15 @@ def test_run_v2_missing_window(tmp_path):
     data = {"scenario": "intraday"}
     with pytest.raises(ValueError, match="window"):
         run_v2(data, None, tmp_path / "out.json")
+
+
+def test_run_v1_invalid_scenario(tmp_path):
+    data = {"scenario": "invalid", "window": "intraday"}
+    with pytest.raises(ValueError, match="scenario"):
+        run_v1(data, None, tmp_path / "out.json")
+
+
+def test_run_v2_invalid_scenario(tmp_path):
+    data = {"scenario": "invalid", "window": "intraday"}
+    with pytest.raises(ValueError, match="scenario"):
+        run_v2(data, None, tmp_path / "out.json")

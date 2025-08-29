@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, json, datetime as dt, sys, logging
+import argparse
+import json
+import datetime as dt
+import sys
+import logging
 from pathlib import Path
 from typing import Dict
 # Ensure local package importable
@@ -10,10 +14,14 @@ from btcmi.schema_util import load_json, validate_json
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 
+ALLOWED_SCENARIOS = frozenset(v1.SCENARIO_WEIGHTS.keys())
+
 def run_v1(data, fixed_ts, out_path):
     scenario=data.get("scenario")
     if scenario is None:
         raise ValueError("'scenario' field is required")
+    if scenario not in ALLOWED_SCENARIOS:
+        raise ValueError("'scenario' must be one of: "+", ".join(sorted(ALLOWED_SCENARIOS)))
     window=data.get("window")
     if window is None:
         raise ValueError("'window' field is required")
@@ -35,6 +43,8 @@ def run_v2(data, fixed_ts, out_path):
     scenario=data.get("scenario")
     if scenario is None:
         raise ValueError("'scenario' field is required")
+    if scenario not in ALLOWED_SCENARIOS:
+        raise ValueError("'scenario' must be one of: "+", ".join(sorted(ALLOWED_SCENARIOS)))
     window=data.get("window")
     if window is None:
         raise ValueError("'window' field is required")
