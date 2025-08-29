@@ -1,10 +1,7 @@
 from __future__ import annotations
 from typing import Dict, Tuple, List
 import math
-
-
-def is_number(x):
-    return isinstance(x, (int, float)) and not isinstance(x, bool)
+from btcmi.utils import is_number
 
 def tanh_norm(x: float, s: float) -> float:
     return math.tanh(x/s) if s else 0.0
