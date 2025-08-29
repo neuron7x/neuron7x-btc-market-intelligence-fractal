@@ -1,10 +1,7 @@
 from __future__ import annotations
 from typing import Dict, Tuple, Any
 import math
-
-
-def is_number(x):
-    return isinstance(x, (int, float)) and not isinstance(x, bool)
+from btcmi.utils import is_number
 
 
 FeatureMap = Dict[str, float]
