@@ -10,6 +10,7 @@ Production-grade toolkit for Bitcoin market intelligence: strict data contracts,
 * **Observability:** Prometheus job, Grafana dashboard
 * **Containerized runtime:** Docker Compose
 * **Versioning:** semantic tags, `VERSION`, `CHANGELOG.md`
+* **Deterministic runs:** seedable via `--seed` and `--deterministic`
 * **Conventional Commits** for history hygiene
 
 ## Repository layout
@@ -45,7 +46,7 @@ pip install -e .
 Run:
 
 ```bash
-python -m cli.run --mode execution_plan --input examples/input.sample.json --out out.json
+python cli/btcmi.py run --input examples/intraday.json --out out.json --seed 1 --deterministic
 python tests/validate_output.py out.json
 ```
 

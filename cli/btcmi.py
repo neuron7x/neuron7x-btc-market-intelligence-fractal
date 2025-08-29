@@ -10,7 +10,8 @@ from btcmi.schema_util import load_json, validate_json
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 
-def run_v1(data, fixed_ts, out_path):
+def run_v1(data, fixed_ts, out_path, seed=None, deterministic=False):
+    v1.set_seed(seed, deterministic)
     scenario=data["scenario"]; window=data["window"]; feats:Dict[str,float]=data.get("features",{})
     norm=v1.normalize(feats); base,weights,contrib=v1.base_signal(scenario,norm); ng=v1.nagr_score(data.get("nagr_nodes",[])); overall=v1.combine(base,ng)
     exp=set(v1.NORM_SCALE.keys()); comp=len([k for k in feats.keys() if k in exp])/(len(exp) or 1)
@@ -22,7 +23,8 @@ def run_v1(data, fixed_ts, out_path):
     Path(out_path).parent.mkdir(parents=True, exist_ok=True); Path(out_path).write_text(json.dumps(out, indent=2), encoding="utf-8")
     return out
 
-def run_v2(data, fixed_ts, out_path):
+def run_v2(data, fixed_ts, out_path, seed=None, deterministic=False):
+    v2.set_seed(seed, deterministic)
     scenario=data["scenario"]; window=data["window"]
     f1=data.get("features_micro",{}); f2=data.get("features_mezo",{}); f3=data.get("features_macro",{})
     vol_pctl=float(data.get("vol_regime_pctl",0.5))
@@ -45,8 +47,9 @@ def main():
     sub=p.add_subparsers(dest="cmd", required=True)
     pr=sub.add_parser("run", help="Produce BTCMI report from input JSON")
     pr.add_argument("--input", required=True); pr.add_argument("--out", required=True); pr.add_argument("--fixed-ts", dest="fixed_ts"); pr.add_argument("--fractal", action="store_true")
+    pr.add_argument("--seed", type=int); pr.add_argument("--deterministic", action="store_true")
     pv=sub.add_parser("validate", help="Validate JSON against schema"); pv.add_argument("--schema", required=True, type=Path); pv.add_argument("--data", required=True, type=Path)
-    args=p.parse_args(); trace=new_trace_id()
+    args=p.parse_args(); trace=new_trace_id(getattr(args,"seed",None), getattr(args,"deterministic",False))
     if args.cmd=="run":
         data=load_json(args.input)
         try: validate_json(data, Path(__file__).resolve().parents[1]/"input_schema.json")
@@ -55,7 +58,7 @@ def main():
         mode = data.get("mode")
         if mode=="v1" and args.fractal: log("warn","mode_flag_mismatch",trace=trace,mode=mode,fractal_flag=True)
         if mode=="v2.fractal" and not args.fractal: log("warn","mode_flag_mismatch",trace=trace,mode=mode,fractal_flag=False)
-        out = run_v2(data, args.fixed_ts, args.out) if args.fractal or mode=="v2.fractal" else run_v1(data, args.fixed_ts, args.out)
+        out = run_v2(data, args.fixed_ts, args.out, args.seed, args.deterministic) if args.fractal or mode=="v2.fractal" else run_v1(data, args.fixed_ts, args.out, args.seed, args.deterministic)
         try: validate_json(out, Path(__file__).resolve().parents[1]/"output_schema.json")
         except Exception as e: log("error","output_schema_validation_failed",trace=trace,error=str(e)); return 2
         log("info","run_ok",trace=trace,out=args.out,fractal=(args.fractal or mode=='v2.fractal'),overall=out["summary"]["overall_signal"]); return 0

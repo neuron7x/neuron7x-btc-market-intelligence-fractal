@@ -1,6 +1,9 @@
 from __future__ import annotations
 from typing import Dict, Tuple, Any
-import math
+import math, random
+def set_seed(seed: int | None, deterministic: bool = False):
+    if seed is not None: random.seed(seed)
+    if deterministic: pass
 FeatureMap = Dict[str, float]
 SCENARIO_WEIGHTS = {
     "intraday": {"price_change_pct":0.35,"volume_change_pct":0.25,"funding_rate_bps":-0.10,"oi_change_pct":0.20,"onchain_active_addrs_change_pct":0.10},

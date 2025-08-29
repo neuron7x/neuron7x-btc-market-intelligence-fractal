@@ -1,6 +1,9 @@
 from __future__ import annotations
 from typing import Dict, Tuple, List
-import math
+import math, random
+def set_seed(seed: int | None, deterministic: bool = False):
+    if seed is not None: random.seed(seed)
+    if deterministic: pass
 
 def tanh_norm(x: float, s: float) -> float:
     return math.tanh(x/s) if s else 0.0
