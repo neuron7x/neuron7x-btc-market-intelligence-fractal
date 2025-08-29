@@ -1,0 +1,44 @@
+{
+  "schema_version": "2.0.0",
+  "lineage": {
+    "request_id": "1234567890abcdef1234567890abcdef"
+  },
+  "asof": "2025-01-01T00:00:00Z",
+  "summary": {
+    "scenario": "intraday",
+    "window": "1h",
+    "overall_signal": 0.312587,
+    "confidence": 1.0,
+    "router_path": "intraday/v1",
+    "nagr_score": 0.16,
+    "advisories": []
+  },
+  "details": {
+    "normalized_features": {
+      "price_change_pct": 0.379949,
+      "volume_change_pct": 0.604368,
+      "funding_rate_bps": 0.379949,
+      "oi_change_pct": 0.53705,
+      "onchain_active_addrs_change_pct": 0.244919
+    },
+    "weights": {
+      "price_change_pct": 0.35,
+      "volume_change_pct": 0.25,
+      "funding_rate_bps": -0.1,
+      "oi_change_pct": 0.2,
+      "onchain_active_addrs_change_pct": 0.1
+    },
+    "contributions": {
+      "price_change_pct": 0.132982,
+      "volume_change_pct": 0.151092,
+      "funding_rate_bps": -0.037995,
+      "oi_change_pct": 0.10741,
+      "onchain_active_addrs_change_pct": 0.024492
+    },
+    "constraints_applied": false,
+    "diagnostics": {
+      "completeness": 1.0,
+      "notes": []
+    }
+  }
+}
