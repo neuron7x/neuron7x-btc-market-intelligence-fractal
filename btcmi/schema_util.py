@@ -6,6 +6,14 @@ def validate_json(data, schema_path):
     schema = load_json(schema_path)
     try:
         from jsonschema import Draft202012Validator
+    except ImportError:
+        if schema.get("type") == "object":
+            if not isinstance(data, dict):
+                raise ValueError("root: must be object")
+            for req in schema.get("required", []):
+                if req not in data:
+                    raise ValueError(f"{req}: is a required property")
+    else:
         v = Draft202012Validator(schema)
         errors = sorted(v.iter_errors(data), key=lambda e: e.path)
         if errors:
@@ -14,10 +22,3 @@ def validate_json(data, schema_path):
                 loc = "/".join(map(str, e.path))
                 msgs.append(f"{loc}: {e.message}")
             raise ValueError("\n".join(msgs))
-    except Exception:
-        if schema.get("type") == "object":
-            if not isinstance(data, dict):
-                raise ValueError("root: must be object")
-            for req in schema.get("required", []):
-                if req not in data:
-                    raise ValueError(f"{req}: is a required property")
