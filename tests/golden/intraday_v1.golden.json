@@ -1,4 +1,6 @@
 {
+  "schema_version": "2.0.0",
+  "lineage": {"request_id": "1234567890abcdef1234567890abcdef"},
   "asof": "2025-01-01T00:00:00Z",
   "lineage": {
     "input_hash": "934b158020c7ffe5aa54746b761e88fb4d87e33f5c348054750bfada5e920df3",

@@ -4,6 +4,8 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "schema_version",
+    "lineage",
     "summary",
     "details",
     "asof",
@@ -11,6 +13,17 @@
     "audit"
   ],
   "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{32}$"
+      }
+    },
     "asof": {
       "type": "string",
       "format": "date-time"
