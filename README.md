@@ -1,3 +1,6 @@
+[![CI](https://github.com/neuron7x/btc-market-intelligence-fractal/actions/workflows/ci.yml/badge.svg)](https://github.com/neuron7x/btc-market-intelligence-fractal/actions/workflows/ci.yml)
+[![Security](https://github.com/neuron7x/btc-market-intelligence-fractal/actions/workflows/security.yml/badge.svg)](https://github.com/neuron7x/btc-market-intelligence-fractal/actions/workflows/security.yml)
+
 # BTC Market Intelligence — FRACTAL
 
 Production-grade toolkit for Bitcoin market intelligence: strict data contracts, deterministic pipelines, validation, observability, and release artifacts.
