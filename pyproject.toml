@@ -15,5 +15,18 @@ dependencies = [
 ]
 authors = [{name="BTCMI Team"}]
 license = {text="MIT"}
+[project.optional-dependencies]
+dev = [
+    "black>=24.4.2",
+    "ruff>=0.6.4",
+]
 [project.scripts]
 btcmi = "cli.btcmi:main"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
