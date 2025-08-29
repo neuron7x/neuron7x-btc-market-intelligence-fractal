@@ -27,7 +27,7 @@ def run_v1(data, fixed_ts, out_path):
         raise ValueError("'window' field is required")
     feats:Dict[str,float]=data.get("features",{})
     norm=v1.normalize(feats); base,weights,contrib=v1.base_signal(scenario,norm); ng=v1.nagr_score(data.get("nagr_nodes",[])); overall=v1.combine(base,ng)
-    exp=set(v1.NORM_SCALE.keys()); comp=len([k for k in feats.keys() if k in exp])/(len(exp) or 1)
+    comp=v1.completeness(feats)
     conf=round(0.5+0.5*comp,3); notes=[]; constraints=False
     if comp<0.6: notes.append("low_feature_completeness")
     asof=fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat()+"Z"
