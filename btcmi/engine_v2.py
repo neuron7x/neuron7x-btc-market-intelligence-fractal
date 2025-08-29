@@ -2,11 +2,15 @@ from __future__ import annotations
 from typing import Dict, Tuple, List
 import math
 
+
+def is_number(x):
+    return isinstance(x, (int, float)) and not isinstance(x, bool)
+
 def tanh_norm(x: float, s: float) -> float:
     return math.tanh(x/s) if s else 0.0
 
 def normalize_layer(feats: Dict[str, float], scales: Dict[str, float]) -> Dict[str, float]:
-    return {k: tanh_norm(v, scales.get(k,1.0)) for k,v in feats.items() if isinstance(v,(int,float))}
+    return {k: tanh_norm(v, scales.get(k, 1.0)) for k, v in feats.items() if is_number(v)}
 
 def linear_score(norm: Dict[str, float], weights: Dict[str, float]):
     s=0.0; den=0.0; contrib={}
