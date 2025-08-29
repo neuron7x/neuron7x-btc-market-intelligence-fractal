@@ -34,6 +34,14 @@ pyproject.toml
 requirements.txt
 ```
 
+## Adapters
+
+External IO is abstracted via `btcmi.adapters.Adapter`. The default
+`FileAdapter` reads and writes JSON files, while an example `APIAdapter`
+illustrates how to integrate remote HTTP services. Custom adapters can hook
+databases, message queues or other systems by implementing the `load`,
+`validate`, and `emit` methods.
+
 ## Quickstart (local)
 
 ```bash
