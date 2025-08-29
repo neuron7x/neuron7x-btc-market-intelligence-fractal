@@ -18,13 +18,14 @@ Production-grade toolkit for Bitcoin market intelligence: strict data contracts,
 btcmi/               # core package
 cli/                 # CLI entrypoints
 docker/              # container images
-docs/                # guides, SECURITY.md
+docs/                # guides
 examples/            # sample inputs/outputs
 ops/                 # prometheus/, grafana/
 provenance/          # sbom.spdx.json
 scripts/             # generate_sbom.py, verify_checksums.py
 tests/               # validators, fixtures
 CHECKSUMS.SHA256
+SECURITY.md
 VERSION
 CHANGELOG.md
 docker-compose.yml
@@ -98,7 +99,7 @@ python scripts/verify_checksums.py
 
 ## Security
 
-Refer to `docs/SECURITY.md`. Report issues via GitHub Issues (Security).
+Refer to `SECURITY.md`. Report issues via GitHub Issues (Security).
 
 ## License
 
