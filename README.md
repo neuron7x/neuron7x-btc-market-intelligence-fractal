@@ -45,7 +45,10 @@ pip install -e .
 Run:
 
 ```bash
-python -m cli.run --mode execution_plan --input examples/input.sample.json --out out.json
+# Option 1: use module path directly
+python -m cli.btcmi run --mode execution_plan --input examples/input.sample.json --out out.json
+# Option 2: after installation, invoke the script
+btcmi run --mode execution_plan --input examples/input.sample.json --out out.json
 python tests/validate_output.py out.json
 ```
 
