@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, json, datetime as dt, sys
+import argparse, json, datetime as dt, sys, logging
 from pathlib import Path
 from typing import Dict
 # Ensure local package importable
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from btcmi.logging_util import log, new_trace_id
+from btcmi.logging_cfg import configure_logging, new_run_id
 from btcmi.schema_util import load_json, validate_json
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
@@ -47,24 +47,31 @@ def run_v2(data, fixed_ts, out_path):
     return out
 
 def main():
+    configure_logging(); logger=logging.getLogger(__name__)
     p=argparse.ArgumentParser(prog="btcmi")
     sub=p.add_subparsers(dest="cmd", required=True)
     pr=sub.add_parser("run", help="Produce BTCMI report from input JSON")
     pr.add_argument("--input", required=True); pr.add_argument("--out", required=True); pr.add_argument("--fixed-ts", dest="fixed_ts"); pr.add_argument("--fractal", action="store_true")
     pv=sub.add_parser("validate", help="Validate JSON against schema"); pv.add_argument("--schema", required=True, type=Path); pv.add_argument("--data", required=True, type=Path)
-    args=p.parse_args(); trace=new_trace_id()
+    args=p.parse_args(); run_id=new_run_id()
     if args.cmd=="run":
         data=load_json(args.input)
-        try: validate_json(data, Path(__file__).resolve().parents[1]/"input_schema.json")
-        except Exception as e: log("warn","input_schema_validation_failed",trace=trace,error=str(e))
+        try:
+            validate_json(data, Path(__file__).resolve().parents[1]/"input_schema.json")
+        except Exception:
+            logger.warning("input_schema_validation_failed", extra={"run_id": run_id})
         # If explicit mode present, enforce consistency with --fractal flag
         mode = data.get("mode")
-        if mode=="v1" and args.fractal: log("warn","mode_flag_mismatch",trace=trace,mode=mode,fractal_flag=True)
-        if mode=="v2.fractal" and not args.fractal: log("warn","mode_flag_mismatch",trace=trace,mode=mode,fractal_flag=False)
+        if mode=="v1" and args.fractal:
+            logger.warning("mode_flag_mismatch", extra={"run_id": run_id, "mode": mode})
+        if mode=="v2.fractal" and not args.fractal:
+            logger.warning("mode_flag_mismatch", extra={"run_id": run_id, "mode": mode})
         out = run_v2(data, args.fixed_ts, args.out) if args.fractal or mode=="v2.fractal" else run_v1(data, args.fixed_ts, args.out)
-        try: validate_json(out, Path(__file__).resolve().parents[1]/"output_schema.json")
-        except Exception as e: log("error","output_schema_validation_failed",trace=trace,error=str(e)); return 2
-        log("info","run_ok",trace=trace,out=args.out,fractal=(args.fractal or mode=='v2.fractal'),overall=out["summary"]["overall_signal"]); return 0
+        try:
+            validate_json(out, Path(__file__).resolve().parents[1]/"output_schema.json")
+        except Exception:
+            logger.error("output_schema_validation_failed", extra={"run_id": run_id, "mode": mode}); return 2
+        logger.info("run_ok", extra={"run_id": run_id, "mode": "v2.fractal" if (args.fractal or mode=='v2.fractal') else "v1"}); return 0
     else:
         data=load_json(args.data); validate_json(data,args.schema); print("OK"); return 0
 if __name__=="__main__":
