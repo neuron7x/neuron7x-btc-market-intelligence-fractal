@@ -1,4 +1,6 @@
 {
+  "schema_version": "2.0.0",
+  "lineage": {"request_id": "1234567890abcdef1234567890abcdef"},
   "asof": "2025-01-01T00:00:00Z",
   "summary": {
     "scenario": "intraday",
