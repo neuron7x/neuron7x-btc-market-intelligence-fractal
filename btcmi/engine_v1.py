@@ -9,7 +9,11 @@ SCENARIO_WEIGHTS = {
 }
 NORM_SCALE = {"price_change_pct":2.0,"volume_change_pct":50.0,"funding_rate_bps":10.0,"oi_change_pct":20.0,"onchain_active_addrs_change_pct":20.0}
 def normalize(features: FeatureMap) -> FeatureMap:
-    return {k: math.tanh(v/NORM_SCALE.get(k,1.0)) for k,v in features.items() if isinstance(v,(int,float))}
+    return {
+        k: math.tanh(v / NORM_SCALE.get(k, 1.0))
+        for k, v in features.items()
+        if isinstance(v, (int, float)) and not isinstance(v, bool)
+    }
 def completeness(features: FeatureMap) -> float:
     exp=set(NORM_SCALE.keys()); pres=set(k for k in features.keys() if k in exp); 
     return len(pres)/len(exp) if exp else 1.0
@@ -22,8 +26,16 @@ def base_signal(scenario: str, norm: FeatureMap):
 def nagr_score(nodes: Any) -> float:
     if not nodes: return 0.0
     num=0.0; den=0.0
-    for n in nodes: 
-        w=float(n.get("weight",0.0)); sc=float(n.get("score",0.0)); num+=w*sc; den+=abs(w)
+    for n in nodes:
+        w = n.get("weight", 0.0); sc = n.get("score", 0.0)
+        if (
+            isinstance(w, (int, float))
+            and not isinstance(w, bool)
+            and isinstance(sc, (int, float))
+            and not isinstance(sc, bool)
+        ):
+            w = float(w); sc = float(sc)
+            num += w * sc; den += abs(w)
     return max(-1.0,min(1.0, num/den if den else 0.0))
 def combine(base: float, nagr: float) -> float:
     return max(-1.0, min(1.0, 0.7*base + 0.3*nagr))

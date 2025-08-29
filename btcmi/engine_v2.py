@@ -6,7 +6,11 @@ def tanh_norm(x: float, s: float) -> float:
     return math.tanh(x/s) if s else 0.0
 
 def normalize_layer(feats: Dict[str, float], scales: Dict[str, float]) -> Dict[str, float]:
-    return {k: tanh_norm(v, scales.get(k,1.0)) for k,v in feats.items() if isinstance(v,(int,float))}
+    return {
+        k: tanh_norm(v, scales.get(k, 1.0))
+        for k, v in feats.items()
+        if isinstance(v, (int, float)) and not isinstance(v, bool)
+    }
 
 def linear_score(norm: Dict[str, float], weights: Dict[str, float]):
     s=0.0; den=0.0; contrib={}
@@ -18,8 +22,19 @@ def linear_score(norm: Dict[str, float], weights: Dict[str, float]):
 
 def nagr(nodes: List[dict]) -> float:
     if not nodes: return 0.0
-    num=sum(float(n.get("weight",0.0))*float(n.get("score",0.0)) for n in nodes)
-    den=sum(abs(float(n.get("weight",0.0))) for n in nodes) or 1.0
+    valid = [
+        n
+        for n in nodes
+        if (
+            isinstance(n.get("weight"), (int, float))
+            and not isinstance(n.get("weight"), bool)
+            and isinstance(n.get("score"), (int, float))
+            and not isinstance(n.get("score"), bool)
+        )
+    ]
+    if not valid: return 0.0
+    num = sum(float(n["weight"]) * float(n["score"]) for n in valid)
+    den = sum(abs(float(n["weight"])) for n in valid) or 1.0
     return max(-1.0, min(1.0, num/den))
 
 def level_signal(norm, weights, nagr_nodes):
