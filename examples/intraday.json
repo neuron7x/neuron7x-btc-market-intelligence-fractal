@@ -1,4 +1,6 @@
 {
+  "schema_version": "2.0.0",
+  "lineage": {"request_id": "1234567890abcdef1234567890abcdef"},
   "scenario": "intraday",
   "window": "1h",
   "mode": "v1",

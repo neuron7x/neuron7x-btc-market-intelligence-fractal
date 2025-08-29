@@ -4,10 +4,23 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "schema_version",
+    "lineage",
     "scenario",
     "window"
   ],
   "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "2.0.0"
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{32}$"
+      }
+    },
     "scenario": {
       "type": "string",
       "enum": [

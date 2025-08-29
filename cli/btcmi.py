@@ -17,7 +17,10 @@ def run_v1(data, fixed_ts, out_path):
     conf=round(0.5+0.5*comp,3); notes=[]; constraints=False
     if comp<0.6: notes.append("low_feature_completeness")
     asof=fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat()+"Z"
-    out={"asof":asof,"summary":{"scenario":scenario,"window":window,"overall_signal":round(overall,6),"confidence":conf,"router_path":f"{scenario}/v1","nagr_score":round(ng,6),"advisories":notes},
+    out={"schema_version":data.get("schema_version","2.0.0"),
+         "lineage":data.get("lineage",{}),
+         "asof":asof,
+         "summary":{"scenario":scenario,"window":window,"overall_signal":round(overall,6),"confidence":conf,"router_path":f"{scenario}/v1","nagr_score":round(ng,6),"advisories":notes},
          "details":{"normalized_features":{k:round(v,6) for k,v in norm.items()},"weights":v1.SCENARIO_WEIGHTS[scenario],"contributions":{k:round(v,6) for k,v in contrib.items()},"constraints_applied":constraints,"diagnostics":{"completeness":round(comp,3),"notes":notes}}}
     Path(out_path).parent.mkdir(parents=True, exist_ok=True); Path(out_path).write_text(json.dumps(out, indent=2), encoding="utf-8")
     return out
@@ -33,7 +36,10 @@ def run_v2(data, fixed_ts, out_path):
     overall=v2.combine_levels(s1,s2,s3,alphas)
     coverage=sum(len(x)>0 for x in [n1,n2,n3])/3.0
     conf=round(0.5+0.5*min(coverage,1.0),3); notes=[]; asof=fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat()+"Z"
-    out={"asof":asof,"summary":{"scenario":scenario,"window":window,"overall_signal":round(overall,6),"confidence":conf,"router_path":f"{scenario}/v2.fractal","nagr_score":0.0,"advisories":notes,
+    out={"schema_version":data.get("schema_version","2.0.0"),
+         "lineage":data.get("lineage",{}),
+         "asof":asof,
+         "summary":{"scenario":scenario,"window":window,"overall_signal":round(overall,6),"confidence":conf,"router_path":f"{scenario}/v2.fractal","nagr_score":0.0,"advisories":notes,
                                  "overall_signal_L1":round(s1,6),"overall_signal_L2":round(s2,6),"overall_signal_L3":round(s3,6),"level_weights":alphas},
          "details":{"normalized_micro":{k:round(v,6) for k,v in n1.items()},"normalized_mezo":{k:round(v,6) for k,v in n2.items()},"normalized_macro":{k:round(v,6) for k,v in n3.items()},"router_regime":regime,
                     "diagnostics":{"completeness":round(coverage,3),"notes":notes}}}

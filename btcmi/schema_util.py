@@ -15,5 +15,9 @@ def validate_json(data, schema_path):
                 msgs.append(f"{loc}: {e.message}")
             raise ValueError("\n".join(msgs))
     except Exception:
-        if schema.get("type") == "object" and not isinstance(data, dict):
-            raise ValueError("root: must be object")
+        if schema.get("type") == "object":
+            if not isinstance(data, dict):
+                raise ValueError("root: must be object")
+            for req in schema.get("required", []):
+                if req not in data:
+                    raise ValueError(f"{req}: is a required property")
