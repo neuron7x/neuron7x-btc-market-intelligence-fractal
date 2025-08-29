@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
+    tags: [ "v*" ]
   pull_request:
     branches: [ "main" ]
 
@@ -34,18 +35,58 @@ jobs:
               pip install -r requirements.txt
             fi
           fi
-          pip install pytest pytest-cov ruff mypy
+          pip install pytest pytest-cov hypothesis ruff mypy pre-commit
 
-      - name: Lint with ruff (non-blocking)
-        run: ruff check . || echo "ruff warnings"
+      - name: Run pre-commit
+        run: pre-commit run --all-files --show-diff-on-failure
 
-      - name: Type check with mypy (non-blocking)
+      - name: Lint with ruff
+        run: ruff check .
+
+      - name: Type check with mypy
         run: |
           if [ -d "btcmi" ]; then
-            mypy btcmi || echo "mypy warnings"
+            mypy btcmi
           fi
 
-      - name: Run tests with pytest
+      - name: Run tests with pytest and Hypothesis
         env:
           PYTHONPATH: .
         run: pytest -q --disable-warnings --maxfail=1
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: build-test
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build multi-arch image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: false
+
+  release-artifacts:
+    runs-on: ubuntu-latest
+    needs: build-test
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate SBOM
+        run: python scripts/generate_sbom.py
+      - name: Generate checksums
+        run: |
+          find . -type f -not -path "./.git/*" -exec sha256sum {} \; | sort -k 2 > CHECKSUMS.SHA256
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            provenance/sbom.spdx.json
+            CHECKSUMS.SHA256
