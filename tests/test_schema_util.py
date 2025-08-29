@@ -16,3 +16,32 @@ def test_validate_json_additional_properties(tmp_path):
     data = {"foo": "bar", "extra": "baz"}
     with pytest.raises(ValueError):
         validate_json(data, schema_path)
+
+
+def test_validate_json_without_jsonschema(monkeypatch, tmp_path):
+    """Fallback performs minimal checks when jsonschema is absent."""
+    import sys
+
+    # Simulate jsonschema being unavailable
+    monkeypatch.setitem(sys.modules, "jsonschema", None)
+
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["foo"],
+    }
+    schema_path = tmp_path / "schema.json"
+    schema_path.write_text(json.dumps(schema))
+
+    # Valid data should pass
+    validate_json({"foo": "bar"}, schema_path)
+
+    # Missing required field
+    with pytest.raises(ValueError) as err:
+        validate_json({}, schema_path)
+    assert "foo: is a required property" in str(err.value)
+
+    # Wrong root type
+    with pytest.raises(ValueError) as err:
+        validate_json([], schema_path)
+    assert "root: must be object" in str(err.value)
