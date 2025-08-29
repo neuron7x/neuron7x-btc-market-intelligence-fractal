@@ -1,5 +1,15 @@
 {
   "asof": "2025-01-01T00:00:00Z",
+  "lineage": {
+    "input_hash": "237564ef3f867dfc572836449e15c11030157e06b5ec42c09d2944e21db312b2",
+    "seed": 0,
+    "mode": "v2.fractal"
+  },
+  "audit": {
+    "ts_start": 0,
+    "ts_end": 0,
+    "trace_id": "trace"
+  },
   "summary": {
     "scenario": "swing",
     "window": "1d",

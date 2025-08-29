@@ -6,7 +6,9 @@
   "required": [
     "summary",
     "details",
-    "asof"
+    "asof",
+    "lineage",
+    "audit"
   ],
   "properties": {
     "asof": {
@@ -160,6 +162,46 @@
               }
             }
           }
+        }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_hash",
+        "seed",
+        "mode"
+      ],
+      "properties": {
+        "input_hash": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "number"
+        },
+        "mode": {
+          "type": "string"
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ts_start",
+        "ts_end",
+        "trace_id"
+      ],
+      "properties": {
+        "ts_start": {
+          "type": "integer"
+        },
+        "ts_end": {
+          "type": "integer"
+        },
+        "trace_id": {
+          "type": "string"
         }
       }
     }

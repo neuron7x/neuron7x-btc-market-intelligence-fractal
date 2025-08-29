@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import argparse, json, datetime as dt, sys
+import argparse, json, datetime as dt, sys, hashlib, time
 from pathlib import Path
 from typing import Dict
 # Ensure local package importable
@@ -10,19 +10,44 @@ from btcmi.schema_util import load_json, validate_json
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 
-def run_v1(data, fixed_ts, out_path):
+def run_v1(data, fixed_ts, out_path, trace, ts_start):
     scenario=data["scenario"]; window=data["window"]; feats:Dict[str,float]=data.get("features",{})
     norm=v1.normalize(feats); base,weights,contrib=v1.base_signal(scenario,norm); ng=v1.nagr_score(data.get("nagr_nodes",[])); overall=v1.combine(base,ng)
     exp=set(v1.NORM_SCALE.keys()); comp=len([k for k in feats.keys() if k in exp])/(len(exp) or 1)
     conf=round(0.5+0.5*comp,3); notes=[]; constraints=False
     if comp<0.6: notes.append("low_feature_completeness")
     asof=fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat()+"Z"
-    out={"asof":asof,"summary":{"scenario":scenario,"window":window,"overall_signal":round(overall,6),"confidence":conf,"router_path":f"{scenario}/v1","nagr_score":round(ng,6),"advisories":notes},
-         "details":{"normalized_features":{k:round(v,6) for k,v in norm.items()},"weights":v1.SCENARIO_WEIGHTS[scenario],"contributions":{k:round(v,6) for k,v in contrib.items()},"constraints_applied":constraints,"diagnostics":{"completeness":round(comp,3),"notes":notes}}}
+    lineage={
+        "input_hash": hashlib.sha256(json.dumps(data, sort_keys=True).encode("utf-8")).hexdigest(),
+        "seed": data.get("seed", 0),
+        "mode": data.get("mode", "v1"),
+    }
+    audit={"ts_start": ts_start, "ts_end": int(time.time()*1000), "trace_id": trace}
+    out={
+        "asof": asof,
+        "summary": {
+            "scenario": scenario,
+            "window": window,
+            "overall_signal": round(overall,6),
+            "confidence": conf,
+            "router_path": f"{scenario}/v1",
+            "nagr_score": round(ng,6),
+            "advisories": notes
+        },
+        "details": {
+            "normalized_features": {k:round(v,6) for k,v in norm.items()},
+            "weights": v1.SCENARIO_WEIGHTS[scenario],
+            "contributions": {k:round(v,6) for k,v in contrib.items()},
+            "constraints_applied": constraints,
+            "diagnostics": {"completeness":round(comp,3),"notes":notes}
+        },
+        "lineage": lineage,
+        "audit": audit
+    }
     Path(out_path).parent.mkdir(parents=True, exist_ok=True); Path(out_path).write_text(json.dumps(out, indent=2), encoding="utf-8")
     return out
 
-def run_v2(data, fixed_ts, out_path):
+def run_v2(data, fixed_ts, out_path, trace, ts_start):
     scenario=data["scenario"]; window=data["window"]
     f1=data.get("features_micro",{}); f2=data.get("features_mezo",{}); f3=data.get("features_macro",{})
     vol_pctl=float(data.get("vol_regime_pctl",0.5))
@@ -33,10 +58,37 @@ def run_v2(data, fixed_ts, out_path):
     overall=v2.combine_levels(s1,s2,s3,alphas)
     coverage=sum(len(x)>0 for x in [n1,n2,n3])/3.0
     conf=round(0.5+0.5*min(coverage,1.0),3); notes=[]; asof=fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat()+"Z"
-    out={"asof":asof,"summary":{"scenario":scenario,"window":window,"overall_signal":round(overall,6),"confidence":conf,"router_path":f"{scenario}/v2.fractal","nagr_score":0.0,"advisories":notes,
-                                 "overall_signal_L1":round(s1,6),"overall_signal_L2":round(s2,6),"overall_signal_L3":round(s3,6),"level_weights":alphas},
-         "details":{"normalized_micro":{k:round(v,6) for k,v in n1.items()},"normalized_mezo":{k:round(v,6) for k,v in n2.items()},"normalized_macro":{k:round(v,6) for k,v in n3.items()},"router_regime":regime,
-                    "diagnostics":{"completeness":round(coverage,3),"notes":notes}}}
+    lineage={
+        "input_hash": hashlib.sha256(json.dumps(data, sort_keys=True).encode("utf-8")).hexdigest(),
+        "seed": data.get("seed", 0),
+        "mode": data.get("mode", "v2.fractal"),
+    }
+    audit={"ts_start": ts_start, "ts_end": int(time.time()*1000), "trace_id": trace}
+    out={
+        "asof": asof,
+        "summary": {
+            "scenario": scenario,
+            "window": window,
+            "overall_signal": round(overall,6),
+            "confidence": conf,
+            "router_path": f"{scenario}/v2.fractal",
+            "nagr_score": 0.0,
+            "advisories": notes,
+            "overall_signal_L1": round(s1,6),
+            "overall_signal_L2": round(s2,6),
+            "overall_signal_L3": round(s3,6),
+            "level_weights": alphas
+        },
+        "details": {
+            "normalized_micro": {k:round(v,6) for k,v in n1.items()},
+            "normalized_mezo": {k:round(v,6) for k,v in n2.items()},
+            "normalized_macro": {k:round(v,6) for k,v in n3.items()},
+            "router_regime": regime,
+            "diagnostics": {"completeness":round(coverage,3),"notes":notes}
+        },
+        "lineage": lineage,
+        "audit": audit
+    }
     Path(out_path).parent.mkdir(parents=True, exist_ok=True); Path(out_path).write_text(json.dumps(out, indent=2), encoding="utf-8")
     return out
 
@@ -55,7 +107,8 @@ def main():
         mode = data.get("mode")
         if mode=="v1" and args.fractal: log("warn","mode_flag_mismatch",trace=trace,mode=mode,fractal_flag=True)
         if mode=="v2.fractal" and not args.fractal: log("warn","mode_flag_mismatch",trace=trace,mode=mode,fractal_flag=False)
-        out = run_v2(data, args.fixed_ts, args.out) if args.fractal or mode=="v2.fractal" else run_v1(data, args.fixed_ts, args.out)
+        ts_start=int(time.time()*1000)
+        out = run_v2(data, args.fixed_ts, args.out, trace, ts_start) if args.fractal or mode=="v2.fractal" else run_v1(data, args.fixed_ts, args.out, trace, ts_start)
         try: validate_json(out, Path(__file__).resolve().parents[1]/"output_schema.json")
         except Exception as e: log("error","output_schema_validation_failed",trace=trace,error=str(e)); return 2
         log("info","run_ok",trace=trace,out=args.out,fractal=(args.fractal or mode=='v2.fractal'),overall=out["summary"]["overall_signal"]); return 0
