@@ -38,7 +38,16 @@ async def run_endpoint(payload: dict):
     runner = RUNNERS.get(mode)
     if runner is None:
         raise HTTPException(status_code=400, detail=f"unknown mode: {mode}")
-    result = runner(payload, None, "/dev/null")
+    try:
+        validate_json(payload, SCHEMA_REGISTRY["input"])
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    try:
+        result = runner(payload, None, "/dev/null")
+    except (KeyError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=500, detail="internal error") from exc
     return result
 
 
