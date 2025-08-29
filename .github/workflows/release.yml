@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+jobs:
+  release-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            if [ -f constraints.txt ]; then
+              pip install -r requirements.txt -c constraints.txt
+            else
+              pip install -r requirements.txt
+            fi
+          fi
+          pip install pytest build
+
+      - name: Build package
+        run: python -m build
+
+      - name: Generate SBOM
+        run: python scripts/generate_sbom.py
+
+      - name: Run release checks
+        run: bash scripts/release_check.sh
