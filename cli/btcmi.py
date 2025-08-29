@@ -11,7 +11,13 @@ from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 
 def run_v1(data, fixed_ts, out_path):
-    scenario=data["scenario"]; window=data["window"]; feats:Dict[str,float]=data.get("features",{})
+    scenario=data.get("scenario")
+    if scenario is None:
+        raise ValueError("'scenario' field is required")
+    window=data.get("window")
+    if window is None:
+        raise ValueError("'window' field is required")
+    feats:Dict[str,float]=data.get("features",{})
     norm=v1.normalize(feats); base,weights,contrib=v1.base_signal(scenario,norm); ng=v1.nagr_score(data.get("nagr_nodes",[])); overall=v1.combine(base,ng)
     exp=set(v1.NORM_SCALE.keys()); comp=len([k for k in feats.keys() if k in exp])/(len(exp) or 1)
     conf=round(0.5+0.5*comp,3); notes=[]; constraints=False
@@ -26,7 +32,12 @@ def run_v1(data, fixed_ts, out_path):
     return out
 
 def run_v2(data, fixed_ts, out_path):
-    scenario=data["scenario"]; window=data["window"]
+    scenario=data.get("scenario")
+    if scenario is None:
+        raise ValueError("'scenario' field is required")
+    window=data.get("window")
+    if window is None:
+        raise ValueError("'window' field is required")
     f1=data.get("features_micro",{}); f2=data.get("features_mezo",{}); f3=data.get("features_macro",{})
     vol_pctl=float(data.get("vol_regime_pctl",0.5))
     n1=v2.normalize_layer(f1, v2.SCALES["L1"]); n2=v2.normalize_layer(f2, v2.SCALES["L2"]); n3=v2.normalize_layer(f3, v2.SCALES["L3"])
