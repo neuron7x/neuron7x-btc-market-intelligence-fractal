@@ -49,3 +49,8 @@ jobs:
         env:
           PYTHONPATH: .
         run: pytest -q --disable-warnings --maxfail=1
+
+      - name: Build docs
+        run: |
+          python scripts/generate_schema_docs.py
+          mkdocs build --strict

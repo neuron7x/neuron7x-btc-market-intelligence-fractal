@@ -1,0 +1,9 @@
+site_name: BTC Market Intelligence
+theme:
+  name: material
+nav:
+  - Quickstart: QUICKSTART.md
+  - Security: SECURITY.md
+  - Schemas:
+      - Input Schema: schemas/input_schema.md
+      - Output Schema: schemas/output_schema.md
