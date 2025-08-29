@@ -1,6 +1,3 @@
-import sys
-from pathlib import Path as _P
-sys.path.insert(0, str(_P(__file__).resolve().parents[1]))
 #!/usr/bin/env python3
 from btcmi.engine_v2 import router_weights
 def test_router_low():
