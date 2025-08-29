@@ -1,6 +1,12 @@
 from __future__ import annotations
 from typing import Dict, Tuple, Any
 import math
+
+
+def is_number(x):
+    return isinstance(x, (int, float)) and not isinstance(x, bool)
+
+
 FeatureMap = Dict[str, float]
 SCENARIO_WEIGHTS = {
     "intraday": {"price_change_pct":0.35,"volume_change_pct":0.25,"funding_rate_bps":-0.10,"oi_change_pct":0.20,"onchain_active_addrs_change_pct":0.10},
@@ -9,10 +15,13 @@ SCENARIO_WEIGHTS = {
 }
 NORM_SCALE = {"price_change_pct":2.0,"volume_change_pct":50.0,"funding_rate_bps":10.0,"oi_change_pct":20.0,"onchain_active_addrs_change_pct":20.0}
 def normalize(features: FeatureMap) -> FeatureMap:
-    return {k: math.tanh(v/NORM_SCALE.get(k,1.0)) for k,v in features.items() if isinstance(v,(int,float))}
+    return {k: math.tanh(v / NORM_SCALE.get(k, 1.0)) for k, v in features.items() if is_number(v)}
+
+
 def completeness(features: FeatureMap) -> float:
-    exp=set(NORM_SCALE.keys()); pres=set(k for k in features.keys() if k in exp); 
-    return len(pres)/len(exp) if exp else 1.0
+    exp = set(NORM_SCALE.keys())
+    pres = {k for k, v in features.items() if k in exp and is_number(v)}
+    return len(pres) / len(exp) if exp else 1.0
 def base_signal(scenario: str, norm: FeatureMap):
     weights=SCENARIO_WEIGHTS[scenario]; s=0.0; den=0.0; contrib={}
     for k,w in weights.items():
