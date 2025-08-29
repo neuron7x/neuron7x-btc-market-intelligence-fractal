@@ -45,6 +45,11 @@ jobs:
             mypy btcmi || echo "mypy warnings"
           fi
 
+      - name: Run schema freeze test
+        env:
+          PYTHONPATH: .
+        run: pytest -q --disable-warnings --maxfail=1 tests/test_schema_freeze.py
+
       - name: Run tests with pytest
         env:
           PYTHONPATH: .
