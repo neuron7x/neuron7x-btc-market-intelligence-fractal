@@ -2,6 +2,8 @@
 
 Production-grade toolkit for Bitcoin market intelligence: strict data contracts, deterministic pipelines, validation, observability, and release artifacts.
 
+Documentation: [Quickstart](docs/QUICKSTART.md) · [API usage](docs/API.md) · [Security](docs/SECURITY.md)
+
 ## Features
 
 * **Operational modes:** `quick_brief`, `pro_report`, `signal_scan`, `execution_plan`, `stress_test`, `backtest_hint`
@@ -49,11 +51,33 @@ python -m cli.run --mode execution_plan --input examples/input.sample.json --out
 python tests/validate_output.py out.json
 ```
 
+Deterministic runs can set a fixed timestamp and seed:
+
+```bash
+PYTHONHASHSEED=0 python -m cli.run --mode execution_plan \
+  --input examples/input.sample.json --out out.json --fixed-ts 2025-01-01T00:00:00Z
+```
+
 ## Docker
 
 ```bash
 docker compose up --build
 docker compose run --rm app --mode quick_brief --input /data/input.json --out /data/out.json
+```
+
+For API usage see [docs/API.md](docs/API.md).
+
+## FastAPI server
+
+```bash
+uvicorn btcmi.api:app --host 0.0.0.0 --port 8000
+```
+
+Docker:
+
+```bash
+docker run --rm -p 8000:8000 btcmi-api \
+  uvicorn btcmi.api:app --host 0.0.0.0 --port 8000
 ```
 
 ## Modes
@@ -84,12 +108,13 @@ python scripts/verify_checksums.py
 
 * Prometheus job: `ops/prometheus/job.sample.yml`
 * Grafana dashboard: `ops/grafana/dashboard.json`
+* Expose metrics locally: `python ops/metrics/exporter.py` → `http://localhost:9101/metrics`
 
 ## Releases
 
 1. Tag `vX.Y.Z`
 2. Create GitHub Release with `CHANGELOG.md` excerpt
-3. Attach distributable ZIP as artifact
+3. Attach distributable ZIP as artifact; include `CHECKSUMS.SHA256` and `provenance/sbom.spdx.json`
 
 ## Contributing
 
@@ -98,7 +123,7 @@ python scripts/verify_checksums.py
 
 ## Security
 
-Refer to `docs/SECURITY.md`. Report issues via GitHub Issues (Security).
+Refer to [docs/SECURITY.md](docs/SECURITY.md). Report issues via GitHub Issues (Security).
 
 ## License
 
