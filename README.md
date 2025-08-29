@@ -20,6 +20,7 @@ cli/                 # CLI entrypoints
 docker/              # container images
 docs/                # guides, SECURITY.md
 examples/            # sample inputs/outputs
+examples/golden/     # golden outputs
 ops/                 # prometheus/, grafana/
 provenance/          # sbom.spdx.json
 scripts/             # generate_sbom.py, verify_checksums.py

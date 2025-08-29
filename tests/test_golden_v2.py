@@ -3,7 +3,7 @@ import json, subprocess
 from pathlib import Path
 R=Path(__file__).resolve().parents[1]; CLI=R/"cli"/"btcmi.py"
 def _cmp(nm):
-    out=R/f"tests/tmp/{nm}.out.json"; gold=R/f"tests/golden/{nm}.golden.json"
+    out=R/f"tests/tmp/{nm}.out.json"; gold=R/f"examples/golden/{nm}.json"
     r=subprocess.run(["python3",str(CLI),"run","--input",str(R/f"examples/{nm}.json"),"--out",str(out),"--fixed-ts","2025-01-01T00:00:00Z","--fractal"])
     assert r.returncode==0
     assert json.loads(out.read_text())==json.loads(gold.read_text())
