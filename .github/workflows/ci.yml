@@ -54,3 +54,8 @@ jobs:
         env:
           PYTHONPATH: .
         run: pytest -q --disable-warnings --maxfail=1
+
+      - name: Run end-to-end examples
+        env:
+          PYTHONPATH: .
+        run: python examples/run_e2e.py
