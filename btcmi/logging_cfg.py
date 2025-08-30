@@ -8,6 +8,7 @@ class JsonFormatter(logging.Formatter):
             "msg": record.getMessage(),
             "run_id": getattr(record, "run_id", None),
             "mode": getattr(record, "mode", None),
+            "scenario": getattr(record, "scenario", None),
         }
         return json.dumps(rec, ensure_ascii=False)
 
