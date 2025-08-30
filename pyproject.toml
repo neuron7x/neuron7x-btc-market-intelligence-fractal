@@ -26,6 +26,7 @@ dynamic = ["version"]
 dev = [
     "black>=24.4.2",
     "ruff>=0.6.4",
+    "mypy>=1.11.2",
     "pytest>=8.3.3",
 ]
 [project.scripts]
@@ -47,3 +48,7 @@ target-version = ["py311"]
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true

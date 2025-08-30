@@ -39,10 +39,10 @@ jobs:
       - name: Lint with ruff (non-blocking)
         run: ruff check . || echo "ruff warnings"
 
-      - name: Type check with mypy (non-blocking)
+      - name: Type check with mypy
         run: |
           if [ -d "btcmi" ]; then
-            mypy btcmi || echo "mypy warnings"
+            mypy btcmi
           fi
 
       - name: Run schema freeze test

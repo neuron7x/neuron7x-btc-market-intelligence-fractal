@@ -57,7 +57,7 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
     overall = v1.combine(base, ng)
     comp = v1.completeness(feats)
     conf = round(0.5 + 0.5 * comp, 3)
-    notes = []
+    notes: list[str] = []
     constraints = False
     if comp < 0.6:
         notes.append("low_feature_completeness")
@@ -110,7 +110,7 @@ def run_v2(data, fixed_ts, out_path: str | Path | None = None):
     overall = v2.combine_levels(s1, s2, s3, alphas)
     coverage = sum(len(x) > 0 for x in [n1, n2, n3]) / 3.0
     conf = round(0.5 + 0.5 * min(coverage, 1.0), 3)
-    notes = []
+    notes: list[str] = []
     asof = fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
     out = {
         "schema_version": data.get("schema_version", "2.0.0"),
