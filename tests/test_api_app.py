@@ -1,13 +1,15 @@
 import json
+import sys
 from pathlib import Path
 
 from fastapi.testclient import TestClient
 from prometheus_client import CONTENT_TYPE_LATEST
 from prometheus_client.parser import text_string_to_metric_families
 
-from api.app import app, RUNNERS, REQUEST_COUNTER
-
 R = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(R))
+
+from api.app import app, RUNNERS, REQUEST_COUNTER
 
 
 def _load_example(name: str) -> dict:
