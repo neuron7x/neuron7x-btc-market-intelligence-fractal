@@ -55,6 +55,12 @@ btcmi run --input examples/intraday_fractal.json --out out_fractal.json --fracta
 python tests/validate_output.py out.json  # validate against output_schema.json
 ```
 
+Start the HTTP API server:
+
+```bash
+uvicorn btcmi.api:app
+```
+
 ### Platform notes
 
 Scientific libraries such as `numpy` and `scipy` may require native build
