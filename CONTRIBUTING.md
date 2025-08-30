@@ -15,3 +15,11 @@
   ruff check .
   ```
 
+## Оновлення залежностей
+- Зафіксуйте нові версії в `constraints.txt`.
+- Вкажіть ті самі версії в `pyproject.toml` (лише `==`).
+- Перегенеруйте `requirements.txt` з `pyproject.toml`:
+  ```bash
+  pip-compile pyproject.toml --output-file requirements.txt
+  ```
+
