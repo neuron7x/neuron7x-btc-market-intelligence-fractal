@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import sys
 from pathlib import Path
 
 from btcmi.logging_cfg import configure_logging, new_run_id
@@ -21,7 +22,7 @@ def main() -> int:
     parser_run = subparsers.add_parser(
         "run", help="Produce BTCMI report from input JSON"
     )
-    parser_run.add_argument("--input", required=True)
+    parser_run.add_argument("--input", required=True, help="Input JSON file or '-' for stdin")
     parser_run.add_argument("--out")
     parser_run.add_argument("--fixed-ts", dest="fixed_ts")
     parser_run.add_argument(
@@ -38,7 +39,10 @@ def main() -> int:
     run_id = new_run_id()
 
     if args.cmd == "run":
-        data = load_json(args.input)
+        if args.input == "-":
+            data = json.load(sys.stdin)
+        else:
+            data = load_json(args.input)
         try:
             validate_json(
                 data, Path(__file__).resolve().parents[1] / "input_schema.json"
