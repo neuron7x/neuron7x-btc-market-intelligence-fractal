@@ -205,3 +205,31 @@ def test_run_cli_prints_json_without_out():
     assert result.returncode == 0
     parsed = json.loads(result.stdout)
     assert parsed["summary"]["scenario"] == "intraday"
+
+
+def test_run_cli_json_errors(tmp_path):
+    invalid = tmp_path / "invalid.json"
+    invalid.write_text("{}")
+    out = tmp_path / "out.json"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            CLI,
+            "--json-errors",
+            "run",
+            "--input",
+            str(invalid),
+            "--out",
+            str(out),
+            "--mode",
+            "v1",
+        ],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 2
+    parsed = json.loads(result.stdout)
+    assert parsed["error"] == "input_schema_validation_failed"
+    assert "run_id" in parsed["details"]
+    assert result.stderr == ""

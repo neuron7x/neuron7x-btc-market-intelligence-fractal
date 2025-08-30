@@ -17,6 +17,11 @@ def main() -> int:
     logger = logging.getLogger(__name__)
 
     parser = argparse.ArgumentParser(prog="btcmi")
+    parser.add_argument(
+        "--json-errors",
+        action="store_true",
+        help="Emit errors as JSON to stdout",
+    )
     subparsers = parser.add_subparsers(dest="cmd", required=True)
 
     parser_run = subparsers.add_parser(
@@ -38,6 +43,12 @@ def main() -> int:
     args = parser.parse_args()
     run_id = new_run_id()
 
+    def report(error: str, level: str = "exception", **details) -> None:
+        if args.json_errors:
+            print(json.dumps({"error": error, "details": details}))
+        else:
+            getattr(logger, level)(error, extra=details)
+
     if args.cmd == "run":
         if args.input == "-":
             data = json.load(sys.stdin)
@@ -48,17 +59,13 @@ def main() -> int:
                 data, Path(__file__).resolve().parents[1] / "input_schema.json"
             )
         except Exception:
-            logger.exception(
-                "input_schema_validation_failed", extra={"run_id": run_id}
-            )
+            report("input_schema_validation_failed", run_id=run_id)
             return 2
 
         # If explicit mode present, enforce consistency with --mode argument
         mode = data.get("mode")
         if mode not in (None, "v1", "v2.fractal"):
-            logger.error(
-                "unknown_mode", extra={"run_id": run_id, "mode": mode}
-            )
+            report("unknown_mode", level="error", run_id=run_id, mode=mode)
             return 2
         if mode is not None and mode != args.mode:
             logger.warning("mode_mismatch", extra={"run_id": run_id, "mode": mode})
@@ -69,9 +76,12 @@ def main() -> int:
                 if args.mode == "v2.fractal"
                 else run_v1(data, args.fixed_ts, args.out)
             )
-        except ValueError:
-            logger.exception(
-                "runner_error", extra={"run_id": run_id, "mode": mode}
+        except ValueError as e:
+            report(
+                "runner_error",
+                run_id=run_id,
+                mode=mode,
+                message=str(e),
             )
             return 2
         try:
@@ -79,9 +89,10 @@ def main() -> int:
                 out, Path(__file__).resolve().parents[1] / "output_schema.json"
             )
         except Exception:
-            logger.exception(
+            report(
                 "output_schema_validation_failed",
-                extra={"run_id": run_id, "mode": mode},
+                run_id=run_id,
+                mode=mode,
             )
             return 2
         if args.out is None:
@@ -99,7 +110,7 @@ def main() -> int:
     try:
         validate_json(data, args.schema)
     except Exception:
-        logger.exception("schema_validation_failed", extra={"run_id": run_id})
+        report("schema_validation_failed", run_id=run_id)
         return 2
     print("OK")
     return 0
