@@ -4,6 +4,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import cli.btcmi as btcmi
 from btcmi.runner import run_v1, run_v2
 
 R = Path(__file__).resolve().parents[1]
@@ -147,6 +148,33 @@ def test_run_cli_returns_code_2_on_missing_window(monkeypatch, tmp_path):
         capture_output=True,
     )
     assert result.returncode == 2
+
+
+def test_run_cli_returns_code_2_on_unknown_mode(monkeypatch, tmp_path, capsys):
+    data = {
+        "schema_version": "2.0.0",
+        "lineage": {},
+        "scenario": "intraday",
+        "window": "1h",
+        "mode": "foo",
+    }
+    invalid = tmp_path / "invalid.json"
+    invalid.write_text(json.dumps(data))
+    out = tmp_path / "out.json"
+    monkeypatch.setattr("cli.btcmi.validate_json", lambda *a, **k: None)
+    argv = [
+        "btcmi",
+        "run",
+        "--input",
+        str(invalid),
+        "--out",
+        str(out),
+    ]
+    monkeypatch.setattr(sys, "argv", argv)
+    code = btcmi.main()
+    captured = capsys.readouterr()
+    assert code == 2
+    assert "unknown_mode" in captured.err
 
 
 def test_run_cli_prints_json_without_out():
