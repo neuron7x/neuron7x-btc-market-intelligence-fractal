@@ -91,7 +91,6 @@ it's not already available. Use the helper below to confirm a run complies with
 `output_schema.json`.
 
 ```bash
-python tests/validate_output.py out.json  # schema validation
 sha256sum -c CHECKSUMS.SHA256
 python scripts/verify_checksums.py
 ```
