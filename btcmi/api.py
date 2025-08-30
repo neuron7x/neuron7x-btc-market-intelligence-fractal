@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import asyncio
+import logging
 
 from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel
@@ -9,8 +10,12 @@ from typing import Any, Dict
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
 from btcmi.enums import Scenario, Window
+from btcmi.logging_cfg import configure_logging, new_run_id
 from btcmi.runner import run_v1, run_v2
 from btcmi.schema_util import validate_json
+
+configure_logging()
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -69,22 +74,44 @@ class ValidateRequest(BaseModel):
 @app.post("/run", response_model=RunResponse)
 async def run_endpoint(payload: RunRequest) -> RunResponse:
     data = payload.model_dump()
+    run_id = new_run_id()
+    scenario = data.get("scenario")
     mode = data.get("mode", "v1")
     runner = RUNNERS.get(mode)
     if runner is None:
+        logger.error(
+            "unknown_mode",
+            extra={"run_id": run_id, "mode": mode, "scenario": scenario},
+        )
         raise HTTPException(status_code=400, detail=f"unknown mode: {mode}")
     try:
         validate_json(data, SCHEMA_REGISTRY["input"])
     except Exception as exc:  # noqa: BLE001
+        logger.exception(
+            "input_schema_validation_failed",
+            extra={"run_id": run_id, "mode": mode, "scenario": scenario},
+        )
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     try:
         # API requests should not leave artifacts on disk; explicitly disable
         # writing the output file.
         result = await asyncio.to_thread(runner, data, None, out_path=None)
     except (KeyError, ValueError) as exc:
+        logger.exception(
+            "runner_error",
+            extra={"run_id": run_id, "mode": mode, "scenario": scenario},
+        )
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001
+        logger.exception(
+            "runner_error",
+            extra={"run_id": run_id, "mode": mode, "scenario": scenario},
+        )
         raise HTTPException(status_code=500, detail="internal error") from exc
+    logger.info(
+        "run_ok",
+        extra={"run_id": run_id, "mode": mode, "scenario": scenario},
+    )
     return result
 
 

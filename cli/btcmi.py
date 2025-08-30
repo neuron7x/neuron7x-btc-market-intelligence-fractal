@@ -43,25 +43,31 @@ def main() -> int:
             data = json.load(sys.stdin)
         else:
             data = load_json(args.input)
+        scenario = data.get("scenario")
+        mode = data.get("mode")
         try:
             validate_json(
                 data, Path(__file__).resolve().parents[1] / "input_schema.json"
             )
         except Exception:
             logger.exception(
-                "input_schema_validation_failed", extra={"run_id": run_id}
+                "input_schema_validation_failed",
+                extra={"run_id": run_id, "mode": mode, "scenario": scenario},
             )
             return 2
 
         # If explicit mode present, enforce consistency with --mode argument
-        mode = data.get("mode")
         if mode not in (None, "v1", "v2.fractal"):
             logger.error(
-                "unknown_mode", extra={"run_id": run_id, "mode": mode}
+                "unknown_mode",
+                extra={"run_id": run_id, "mode": mode, "scenario": scenario},
             )
             return 2
         if mode is not None and mode != args.mode:
-            logger.warning("mode_mismatch", extra={"run_id": run_id, "mode": mode})
+            logger.warning(
+                "mode_mismatch",
+                extra={"run_id": run_id, "mode": mode, "scenario": scenario},
+            )
 
         try:
             out = (
@@ -71,7 +77,8 @@ def main() -> int:
             )
         except ValueError:
             logger.exception(
-                "runner_error", extra={"run_id": run_id, "mode": mode}
+                "runner_error",
+                extra={"run_id": run_id, "mode": mode, "scenario": scenario},
             )
             return 2
         try:
@@ -81,7 +88,7 @@ def main() -> int:
         except Exception:
             logger.exception(
                 "output_schema_validation_failed",
-                extra={"run_id": run_id, "mode": mode},
+                extra={"run_id": run_id, "mode": mode, "scenario": scenario},
             )
             return 2
         if args.out is None:
@@ -91,15 +98,21 @@ def main() -> int:
             extra={
                 "run_id": run_id,
                 "mode": args.mode,
+                "scenario": scenario,
             },
         )
         return 0
 
     data = load_json(args.data)
+    scenario = data.get("scenario")
+    mode = data.get("mode")
     try:
         validate_json(data, args.schema)
     except Exception:
-        logger.exception("schema_validation_failed", extra={"run_id": run_id})
+        logger.exception(
+            "schema_validation_failed",
+            extra={"run_id": run_id, "mode": mode, "scenario": scenario},
+        )
         return 2
     print("OK")
     return 0
