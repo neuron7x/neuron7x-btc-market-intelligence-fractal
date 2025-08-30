@@ -41,7 +41,10 @@ def main() -> int:
                 data, Path(__file__).resolve().parents[1] / "input_schema.json"
             )
         except Exception:
-            logger.warning("input_schema_validation_failed", extra={"run_id": run_id})
+            logger.error(
+                "input_schema_validation_failed", extra={"run_id": run_id}
+            )
+            return 2
 
         # If explicit mode present, enforce consistency with --fractal flag
         mode = data.get("mode")
