@@ -1,4 +1,262 @@
 {
   "uid": "btcmi-sli-dashboard",
-  "title": "BTCMI SLI Dashboard"
+  "title": "BTCMI SLI Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Overall Signal L1",
+      "type": "stat",
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 0},
+      "targets": [
+        {"expr": "btcmi_overall_signal_l1", "refId": "A"}
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "green", "value": -0.8},
+              {"color": "red", "value": 0.8}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+        "orientation": "auto"
+      },
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {"type": "outside_range", "params": [-0.8, 0.8]},
+            "operator": {"type": "and"},
+            "query": {"params": ["A", "5m", "now"]},
+            "reducer": {"type": "avg", "params": []},
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "keep_state",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "overall_signal_l1_alert",
+        "noDataState": "no_data"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Overall Signal L2",
+      "type": "stat",
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 0},
+      "targets": [
+        {"expr": "btcmi_overall_signal_l2", "refId": "A"}
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "green", "value": -0.8},
+              {"color": "red", "value": 0.8}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+        "orientation": "auto"
+      },
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {"type": "outside_range", "params": [-0.8, 0.8]},
+            "operator": {"type": "and"},
+            "query": {"params": ["A", "5m", "now"]},
+            "reducer": {"type": "avg", "params": []},
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "keep_state",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "overall_signal_l2_alert",
+        "noDataState": "no_data"
+      }
+    },
+    {
+      "id": 3,
+      "title": "Overall Signal L3",
+      "type": "stat",
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 0},
+      "targets": [
+        {"expr": "btcmi_overall_signal_l3", "refId": "A"}
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "green", "value": -0.8},
+              {"color": "red", "value": 0.8}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+        "orientation": "auto"
+      },
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {"type": "outside_range", "params": [-0.8, 0.8]},
+            "operator": {"type": "and"},
+            "query": {"params": ["A", "5m", "now"]},
+            "reducer": {"type": "avg", "params": []},
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "keep_state",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "overall_signal_l3_alert",
+        "noDataState": "no_data"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Confidence",
+      "type": "stat",
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
+      "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8},
+      "targets": [
+        {"expr": "btcmi_confidence", "refId": "A"}
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "green", "value": 0.5}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+        "orientation": "auto"
+      },
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {"type": "lt", "params": [0.5]},
+            "operator": {"type": "and"},
+            "query": {"params": ["A", "5m", "now"]},
+            "reducer": {"type": "avg", "params": []},
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "keep_state",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "confidence_low_alert",
+        "noDataState": "no_data"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Volatility Regime Percentile",
+      "type": "stat",
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
+      "gridPos": {"h": 8, "w": 8, "x": 8, "y": 8},
+      "targets": [
+        {"expr": "btcmi_vol_regime_pctl", "refId": "A"}
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"color": "red", "value": null},
+              {"color": "green", "value": 0.1},
+              {"color": "red", "value": 0.9}
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+        "orientation": "auto"
+      },
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {"type": "outside_range", "params": [0.1, 0.9]},
+            "operator": {"type": "and"},
+            "query": {"params": ["A", "5m", "now"]},
+            "reducer": {"type": "avg", "params": []},
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "keep_state",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "vol_regime_pctl_alert",
+        "noDataState": "no_data"
+      }
+    },
+    {
+      "id": 6,
+      "title": "Router Path",
+      "type": "stat",
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
+      "gridPos": {"h": 8, "w": 8, "x": 16, "y": 8},
+      "targets": [
+        {"expr": "btcmi_router_path", "legendFormat": "{{path}}", "refId": "A"},
+        {"expr": "max(btcmi_router_path{path=\"unknown\"})", "refId": "B"}
+      ],
+      "fieldConfig": {"defaults": {}, "overrides": []},
+      "options": {
+        "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false},
+        "orientation": "auto"
+      },
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {"type": "gt", "params": [0]},
+            "operator": {"type": "and"},
+            "query": {"params": ["B", "5m", "now"]},
+            "reducer": {"type": "avg", "params": []},
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "keep_state",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "router_path_unknown_alert",
+        "noDataState": "no_data"
+      }
+    }
+  ]
 }
