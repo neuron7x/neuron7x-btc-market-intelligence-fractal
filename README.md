@@ -52,6 +52,14 @@ btcmi run --mode execution_plan --input examples/input.sample.json --out out.jso
 python tests/validate_output.py out.json  # validate against output_schema.json
 ```
 
+### Run the API
+
+Run the API with:
+
+```bash
+uvicorn btcmi.api.app:app --reload
+```
+
 ### Platform notes
 
 Scientific libraries such as `numpy` and `scipy` may require native build
