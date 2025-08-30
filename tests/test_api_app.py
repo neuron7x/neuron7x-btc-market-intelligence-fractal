@@ -9,7 +9,7 @@ from prometheus_client.parser import text_string_to_metric_families
 R = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(R))
 
-from api.app import app, RUNNERS, REQUEST_COUNTER
+from api.app import app, RUNNERS, REQUEST_COUNTER  # noqa: E402
 
 
 def _load_example(name: str) -> dict:
@@ -46,7 +46,13 @@ def test_run_out_path_none(monkeypatch):
 
     def runner(p, _t, *, out_path=None):
         seen["out_path"] = out_path
-        return {"summary": {}}
+        return {
+            "schema_version": "2.0.0",
+            "lineage": {},
+            "summary": {},
+            "details": {},
+            "asof": "1970-01-01T00:00:00Z",
+        }
 
     monkeypatch.setitem(RUNNERS, "v1", runner)
     client = TestClient(app)
