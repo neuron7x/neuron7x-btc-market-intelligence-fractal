@@ -1,13 +1,8 @@
-import sys
-from pathlib import Path
 from decimal import Decimal
 from fractions import Fraction
 
 import pytest
 
-
-# Allow tests to import the project modules directly.
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from btcmi.utils import is_number
 
 

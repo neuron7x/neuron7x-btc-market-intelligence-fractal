@@ -3,8 +3,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
 from btcmi.runner import run_v1, run_v2
 
 R = Path(__file__).resolve().parents[1]
