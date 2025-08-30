@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 from pathlib import Path
+import sys
 
 from fastapi import FastAPI, HTTPException, Response
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from btcmi.runner import run_v1, run_v2
 from btcmi.schema_util import validate_json
-from cli.btcmi import run_v1, run_v2
 
 app = FastAPI()
 
