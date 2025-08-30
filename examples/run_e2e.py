@@ -21,6 +21,7 @@ from typing import Tuple, List
 ROOT = Path(__file__).resolve().parents[1]
 CLI = "cli.btcmi"
 
+
 def run_example(path: Path) -> Tuple[float, float]:
     """Run CLI for one example file and return predicted and reference signals."""
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -49,6 +50,7 @@ def run_example(path: Path) -> Tuple[float, float]:
     pred = float(out["summary"]["overall_signal"])
     return pred, ref
 
+
 def correlation(xs: List[float], ys: List[float]) -> float:
     """Compute Pearson correlation coefficient between two sequences."""
     if not xs or not ys:
@@ -60,6 +62,7 @@ def correlation(xs: List[float], ys: List[float]) -> float:
     den_y = sum((y - my) ** 2 for y in ys)
     denom = (den_x * den_y) ** 0.5
     return num / denom if denom else 0.0
+
 
 def main() -> int:
     example_dir = Path(__file__).resolve().parent
@@ -81,6 +84,7 @@ def main() -> int:
     print(f"MAE: {mae:.6f}")
     print(f"Correlation: {corr:.6f}")
     return 0
+
 
 if __name__ == "__main__":  # pragma: no cover
     raise SystemExit(main())

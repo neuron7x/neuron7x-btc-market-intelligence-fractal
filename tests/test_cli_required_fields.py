@@ -10,6 +10,7 @@ from btcmi.runner import run_v1, run_v2
 R = Path(__file__).resolve().parents[1]
 CLI = "cli.btcmi"
 
+
 def test_run_v1_missing_scenario(tmp_path):
     data = {"window": "intraday"}
     with pytest.raises(ValueError, match="scenario"):

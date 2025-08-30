@@ -9,6 +9,8 @@ from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 from btcmi.config import SCENARIO_WEIGHTS
 from btcmi.enums import Scenario, Window
+
+
 def _validate_scenario_window(data: dict) -> tuple[Scenario, Window]:
     """Return the scenario and window ensuring both are valid."""
 
@@ -145,4 +147,3 @@ def run_v2(data, fixed_ts, out_path: str | Path | None = None):
 
 
 __all__ = ["run_v1", "run_v2"]
-

@@ -24,6 +24,7 @@ def load_runners() -> Dict[str, Callable]:
         "v2.fractal": run_v2,
     }
 
+
 BASE_DIR = Path(__file__).resolve().parents[1]
 SCHEMA_REGISTRY = {
     "input": BASE_DIR / "input_schema.json",

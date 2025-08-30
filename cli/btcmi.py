@@ -27,7 +27,9 @@ def main() -> int:
     parser_run = subparsers.add_parser(
         "run", help="Produce BTCMI report from input JSON"
     )
-    parser_run.add_argument("--input", required=True, help="Input JSON file or '-' for stdin")
+    parser_run.add_argument(
+        "--input", required=True, help="Input JSON file or '-' for stdin"
+    )
     parser_run.add_argument("--out")
     parser_run.add_argument("--fixed-ts", dest="fixed_ts")
     parser_run.add_argument(
