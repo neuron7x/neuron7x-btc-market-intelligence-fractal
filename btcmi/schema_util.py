@@ -2,8 +2,20 @@ from pathlib import Path
 import json
 
 
+_SCHEMA_CACHE: dict[str, dict] = {}
+
+
 def load_json(p):
     return json.loads(Path(p).read_text(encoding="utf-8"))
+
+
+def _load_schema(schema_path):
+    key = str(schema_path)
+    schema = _SCHEMA_CACHE.get(key)
+    if schema is None:
+        schema = load_json(schema_path)
+        _SCHEMA_CACHE[key] = schema
+    return schema
 
 
 def validate_json(data, schema_path):
@@ -13,7 +25,7 @@ def validate_json(data, schema_path):
     ``pip install jsonschema``.
     """
 
-    schema = load_json(schema_path)
+    schema = _load_schema(schema_path)
     try:
         from jsonschema import Draft202012Validator
     except ImportError as exc:  # pragma: no cover - exercised in tests
