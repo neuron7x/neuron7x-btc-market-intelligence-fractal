@@ -5,6 +5,10 @@ import asyncio
 from functools import lru_cache
 
 from fastapi import FastAPI, HTTPException, Response
+try:
+    from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+except Exception:  # pragma: no cover - optional dependency
+    FastAPIInstrumentor = None
 from pydantic import BaseModel
 from typing import Any, Dict, Callable
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
@@ -14,6 +18,8 @@ from btcmi.runner import run_v1, run_v2
 from btcmi.schema_util import validate_json
 
 app = FastAPI()
+if FastAPIInstrumentor is not None:
+    FastAPIInstrumentor().instrument_app(app)
 
 
 @lru_cache()
