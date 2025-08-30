@@ -7,8 +7,9 @@ from typing import Dict
 
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
+from btcmi.config import SCENARIO_WEIGHTS
 
-ALLOWED_SCENARIOS = frozenset(v1.SCENARIO_WEIGHTS.keys())
+ALLOWED_SCENARIOS = frozenset(SCENARIO_WEIGHTS.keys())
 
 
 def run_v1(data, fixed_ts, out_path: str | Path | None = None):
@@ -47,7 +48,7 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
         },
         "details": {
             "normalized_features": {k: round(v, 6) for k, v in norm.items()},
-            "weights": v1.SCENARIO_WEIGHTS[scenario],
+            "weights": SCENARIO_WEIGHTS[scenario],
             "contributions": {k: round(v, 6) for k, v in contrib.items()},
             "constraints_applied": constraints,
             "diagnostics": {"completeness": round(comp, 3), "notes": notes},
