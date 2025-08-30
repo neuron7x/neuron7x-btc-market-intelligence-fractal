@@ -5,13 +5,38 @@ from fastapi.testclient import TestClient
 from prometheus_client import CONTENT_TYPE_LATEST
 from prometheus_client.parser import text_string_to_metric_families
 
-from btcmi.api import app, RUNNERS, REQUEST_COUNTER
+from btcmi.api import app, REQUEST_COUNTER
 
 R = Path(__file__).resolve().parents[1]
 
 
 def _load_example(name: str) -> dict:
     return json.loads((R / "examples" / f"{name}.json").read_text())
+
+
+def _exception_runners() -> dict:
+    """Return runner mapping that raises an exception."""
+
+    def bad_runner(*_args, **_kwargs):  # pragma: no cover - behavior under test
+        raise RuntimeError("boom")
+
+    return {"v1": bad_runner}
+
+
+def _out_path_runners(seen: dict) -> dict:
+    """Return runner mapping that records the provided out_path."""
+
+    def runner(p, _t, *, out_path: str | Path | None = None):
+        seen["out_path"] = out_path
+        return {
+            "schema_version": "2.0.0",
+            "lineage": {},
+            "summary": {"scenario": "intraday", "window": "1h"},
+            "details": {},
+            "asof": "1970-01-01T00:00:00Z",
+        }
+
+    return {"v1": runner}
 
 
 def test_run_success():
@@ -29,10 +54,9 @@ def test_run_invalid_payload():
 
 
 def test_run_runner_exception(monkeypatch):
-    def bad_runner(*args, **kwargs):  # pragma: no cover
-        raise RuntimeError("boom")
-
-    monkeypatch.setitem(RUNNERS, "v1", bad_runner)
+    monkeypatch.setattr(
+        "btcmi.runner_registry.load_runners", _exception_runners
+    )
     client = TestClient(app)
     payload = _load_example("intraday")
     resp = client.post("/run", json=payload)
@@ -42,17 +66,9 @@ def test_run_runner_exception(monkeypatch):
 def test_run_out_path_none(monkeypatch):
     seen = {}
 
-    def runner(p, _t, *, out_path: str | Path | None = None):
-        seen["out_path"] = out_path
-        return {
-            "schema_version": "2.0.0",
-            "lineage": {},
-            "summary": {"scenario": "intraday", "window": "1h"},
-            "details": {},
-            "asof": "1970-01-01T00:00:00Z",
-        }
-
-    monkeypatch.setitem(RUNNERS, "v1", runner)
+    monkeypatch.setattr(
+        "btcmi.runner_registry.load_runners", lambda: _out_path_runners(seen)
+    )
     client = TestClient(app)
     payload = _load_example("intraday")
     resp = client.post("/run", json=payload)

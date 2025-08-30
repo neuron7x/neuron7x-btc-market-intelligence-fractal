@@ -4,7 +4,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from btcmi.api import app, RUNNERS
+from btcmi.api import app
 from btcmi.runner import run_v1, run_v2
 
 R = Path(__file__).resolve().parents[1]
@@ -16,15 +16,20 @@ def _load_example(name: str) -> dict:
     return json.loads((R / "examples" / f"{name}.json").read_text())
 
 
-def _prepare_client(monkeypatch) -> TestClient:
+def _snapshot_runners() -> dict:
+    """Return deterministic runner mapping for snapshot tests."""
+
     def r1(p, _t, *, out_path=None):
         return run_v1(p, FIXED_TS, out_path)
 
     def r2(p, _t, *, out_path=None):
         return run_v2(p, FIXED_TS, out_path)
 
-    monkeypatch.setitem(RUNNERS, "v1", r1)
-    monkeypatch.setitem(RUNNERS, "v2.fractal", r2)
+    return {"v1": r1, "v2.fractal": r2}
+
+
+def _prepare_client(monkeypatch) -> TestClient:
+    monkeypatch.setattr("btcmi.runner_registry.load_runners", _snapshot_runners)
     return TestClient(app)
 
 

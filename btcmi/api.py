@@ -9,16 +9,10 @@ from typing import Any, Dict
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
 from btcmi.enums import Scenario, Window
-from btcmi.runner import run_v1, run_v2
 from btcmi.schema_util import validate_json
+from btcmi import runner_registry
 
 app = FastAPI()
-
-# Registry mapping modes to runner implementations
-RUNNERS = {
-    "v1": run_v1,
-    "v2.fractal": run_v2,
-}
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 SCHEMA_REGISTRY = {
@@ -70,7 +64,8 @@ class ValidateRequest(BaseModel):
 async def run_endpoint(payload: RunRequest) -> RunResponse:
     data = payload.model_dump()
     mode = data.get("mode", "v1")
-    runner = RUNNERS.get(mode)
+    runners = runner_registry.load_runners()
+    runner = runners.get(mode)
     if runner is None:
         raise HTTPException(status_code=400, detail=f"unknown mode: {mode}")
     try:
