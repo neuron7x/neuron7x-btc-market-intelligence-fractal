@@ -1,3 +1,4 @@
+import json
 import pytest
 import subprocess
 import sys
@@ -102,3 +103,21 @@ def test_run_cli_logs_validation_error(tmp_path):
     )
     assert result.returncode == 2
     assert b"input_schema_validation_failed" in result.stderr
+
+
+def test_run_cli_prints_json_without_out():
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            CLI,
+            "run",
+            "--input",
+            str(R / "examples/intraday.json"),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0
+    parsed = json.loads(result.stdout)
+    assert parsed["summary"]["scenario"] == "intraday"
