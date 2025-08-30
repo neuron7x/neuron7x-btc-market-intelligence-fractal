@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import asyncio
 
 from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel
@@ -79,7 +80,7 @@ async def run_endpoint(payload: RunRequest) -> RunResponse:
     try:
         # API requests should not leave artifacts on disk; explicitly disable
         # writing the output file.
-        result = runner(data, None, out_path=None)
+        result = await asyncio.to_thread(runner, data, None, out_path=None)
     except (KeyError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001
