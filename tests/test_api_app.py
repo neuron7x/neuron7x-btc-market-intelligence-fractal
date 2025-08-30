@@ -28,6 +28,15 @@ def test_run_invalid_payload():
     assert resp.status_code == 422
 
 
+def test_run_unknown_mode():
+    client = TestClient(app)
+    payload = _load_example("intraday")
+    payload["mode"] = "foo"
+    resp = client.post("/run", json=payload)
+    assert resp.status_code == 400
+    assert "unknown mode" in resp.json()["detail"]
+
+
 def test_run_runner_exception(monkeypatch):
     def bad_runner(*args, **kwargs):  # pragma: no cover
         raise RuntimeError("boom")
