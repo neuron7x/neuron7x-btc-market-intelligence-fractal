@@ -1,4 +1,9 @@
-import logging, json, os, sys, time, uuid
+import json
+import logging
+import os
+import sys
+import time
+import uuid
 
 class JsonFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
