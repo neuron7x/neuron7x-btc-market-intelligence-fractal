@@ -4,6 +4,8 @@ from pathlib import Path
 import sys
 
 from fastapi import FastAPI, HTTPException, Response
+from pydantic import BaseModel
+from typing import Any, Dict
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -35,18 +37,39 @@ async def count_requests(request, call_next):
     return response
 
 
-@app.post("/run")
-async def run_endpoint(payload: dict):
-    mode = payload.get("mode", "v1")
+class RunRequest(BaseModel):
+    mode: str = "v1"
+
+    class Config:
+        extra = "allow"
+
+
+class RunResponse(BaseModel):
+    schema_version: str
+    lineage: Dict[str, str]
+    summary: Dict[str, Any]
+    details: Dict[str, Any]
+    asof: str
+
+
+class ValidateRequest(BaseModel):
+    class Config:
+        extra = "allow"
+
+
+@app.post("/run", response_model=RunResponse)
+async def run_endpoint(payload: RunRequest) -> RunResponse:
+    data = payload.model_dump()
+    mode = data.get("mode", "v1")
     runner = RUNNERS.get(mode)
     if runner is None:
         raise HTTPException(status_code=400, detail=f"unknown mode: {mode}")
     try:
-        validate_json(payload, SCHEMA_REGISTRY["input"])
+        validate_json(data, SCHEMA_REGISTRY["input"])
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     try:
-        result = runner(payload, None, out_path=None)
+        result = runner(data, None, out_path=None)
     except (KeyError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001
@@ -55,12 +78,12 @@ async def run_endpoint(payload: dict):
 
 
 @app.post("/validate/{schema_name}")
-async def validate_endpoint(schema_name: str, payload: dict):
+async def validate_endpoint(schema_name: str, payload: ValidateRequest):
     schema_path = SCHEMA_REGISTRY.get(schema_name)
     if schema_path is None:
         raise HTTPException(status_code=404, detail="schema not found")
     try:
-        validate_json(payload, schema_path)
+        validate_json(payload.model_dump(), schema_path)
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return {"valid": True}
