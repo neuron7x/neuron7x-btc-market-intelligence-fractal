@@ -1,10 +1,6 @@
-import sys
-from pathlib import Path
-
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from cli.btcmi import run_v1, run_v2
+from btcmi.runner import run_v1, run_v2
 
 def test_run_v1_missing_scenario(tmp_path):
     data = {"window": "intraday"}
