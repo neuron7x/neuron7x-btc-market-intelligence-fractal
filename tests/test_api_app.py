@@ -25,7 +25,7 @@ def test_run_success():
 def test_run_invalid_payload():
     client = TestClient(app)
     resp = client.post("/run", json={"mode": "v1"})
-    assert resp.status_code == 400
+    assert resp.status_code == 422
 
 
 def test_run_runner_exception(monkeypatch):
@@ -47,7 +47,7 @@ def test_run_out_path_none(monkeypatch):
         return {
             "schema_version": "2.0.0",
             "lineage": {},
-            "summary": {},
+            "summary": {"scenario": "intraday", "window": "1h"},
             "details": {},
             "asof": "1970-01-01T00:00:00Z",
         }
