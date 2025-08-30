@@ -1,8 +1,8 @@
 # Quickstart
 ## v1 (baseline)
-btcmi run --input examples/intraday.json --out outputs/intraday_v1.out.json --fixed-ts 2025-01-01T00:00:00Z
+btcmi run --input examples/intraday.json --out outputs/intraday_v1.out.json --mode v1 --fixed-ts 2025-01-01T00:00:00Z
 ## v2 Fractal
-btcmi run --input examples/intraday_fractal.json --out outputs/intraday_v2.out.json --fractal --fixed-ts 2025-01-01T00:00:00Z
+btcmi run --input examples/intraday_fractal.json --out outputs/intraday_v2.out.json --mode v2.fractal --fixed-ts 2025-01-01T00:00:00Z
 ## End-to-end evaluation
 python examples/run_e2e.py
 

@@ -22,6 +22,8 @@ def test_drift_guard_mid():
             str(out1),
             "--fixed-ts",
             "2025-01-01T00:00:00Z",
+            "--mode",
+            "v1",
         ]
     )
     assert r1.returncode == 0
@@ -57,7 +59,8 @@ def test_drift_guard_mid():
             str(out2),
             "--fixed-ts",
             "2025-01-01T00:00:00Z",
-            "--fractal",
+            "--mode",
+            "v2.fractal",
         ]
     )
     assert r2.returncode == 0

@@ -79,6 +79,8 @@ def test_run_cli_returns_code_2_on_invalid_input(tmp_path):
             str(invalid),
             "--out",
             str(out),
+            "--mode",
+            "v1",
         ],
         capture_output=True,
     )
@@ -99,6 +101,8 @@ def test_run_cli_logs_validation_error(tmp_path):
             str(invalid),
             "--out",
             str(out),
+            "--mode",
+            "v1",
         ],
         capture_output=True,
     )
@@ -122,6 +126,8 @@ def test_run_cli_returns_code_2_on_missing_scenario(monkeypatch, tmp_path):
             str(invalid),
             "--out",
             str(out),
+            "--mode",
+            "v1",
         ],
         capture_output=True,
     )
@@ -144,6 +150,8 @@ def test_run_cli_returns_code_2_on_missing_window(monkeypatch, tmp_path):
             str(invalid),
             "--out",
             str(out),
+            "--mode",
+            "v1",
         ],
         capture_output=True,
     )
@@ -169,6 +177,8 @@ def test_run_cli_returns_code_2_on_unknown_mode(monkeypatch, tmp_path, capsys):
         str(invalid),
         "--out",
         str(out),
+        "--mode",
+        "v1",
     ]
     monkeypatch.setattr(sys, "argv", argv)
     code = btcmi.main()
@@ -186,6 +196,8 @@ def test_run_cli_prints_json_without_out():
             "run",
             "--input",
             str(R / "examples/intraday.json"),
+            "--mode",
+            "v1",
         ],
         capture_output=True,
         text=True,
