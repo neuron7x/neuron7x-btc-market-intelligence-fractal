@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 from pathlib import Path
 
@@ -21,7 +22,7 @@ def main() -> int:
         "run", help="Produce BTCMI report from input JSON"
     )
     parser_run.add_argument("--input", required=True)
-    parser_run.add_argument("--out", required=True)
+    parser_run.add_argument("--out")
     parser_run.add_argument("--fixed-ts", dest="fixed_ts")
     parser_run.add_argument("--fractal", action="store_true")
 
@@ -68,6 +69,8 @@ def main() -> int:
                 extra={"run_id": run_id, "mode": mode},
             )
             return 2
+        if args.out is None:
+            print(json.dumps(out, indent=2))
         logger.info(
             "run_ok",
             extra={
