@@ -10,7 +10,7 @@ Production-grade toolkit for Bitcoin market intelligence: strict data contracts,
 * **Observability:** Prometheus job, Grafana dashboard
 * **HTTP API:** `/run`, `/validate/{schema}`, `/metrics`, `/healthz` ([docs/API.md](docs/API.md))
 * **Containerized runtime:** Docker Compose
-* **Versioning:** semantic tags, `VERSION`, `CHANGELOG.md`
+* **Versioning:** update the root `VERSION` file (single source of truth) and sync `CHANGELOG.md`
 * **Conventional Commits** for history hygiene
 
 ## Repository layout
@@ -113,9 +113,10 @@ python scripts/verify_checksums.py
 
 ## Releases
 
-1. Tag `vX.Y.Z`
-2. Create GitHub Release with `CHANGELOG.md` excerpt
-3. Attach distributable ZIP as artifact
+1. Update `VERSION` and `CHANGELOG.md`
+2. Tag `vX.Y.Z`
+3. Create GitHub Release with `CHANGELOG.md` excerpt
+4. Attach distributable ZIP as artifact
 
 ## Contributing
 
