@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 from btcmi.logging_cfg import configure_logging, new_run_id
-from btcmi.runner import run_v1, run_v2
+from btcmi.runner_registry import RUNNERS
 from btcmi.schema_util import load_json, validate_json
 
 
@@ -26,7 +26,7 @@ def main() -> int:
     parser_run.add_argument("--out")
     parser_run.add_argument("--fixed-ts", dest="fixed_ts")
     parser_run.add_argument(
-        "--mode", required=True, choices=("v1", "v2.fractal"), dest="mode"
+        "--mode", required=True, choices=tuple(RUNNERS), dest="mode"
     )
 
     parser_validate = subparsers.add_parser(
@@ -55,7 +55,7 @@ def main() -> int:
 
         # If explicit mode present, enforce consistency with --mode argument
         mode = data.get("mode")
-        if mode not in (None, "v1", "v2.fractal"):
+        if mode is not None and mode not in RUNNERS:
             logger.error(
                 "unknown_mode", extra={"run_id": run_id, "mode": mode}
             )
@@ -64,11 +64,8 @@ def main() -> int:
             logger.warning("mode_mismatch", extra={"run_id": run_id, "mode": mode})
 
         try:
-            out = (
-                run_v2(data, args.fixed_ts, args.out)
-                if args.mode == "v2.fractal"
-                else run_v1(data, args.fixed_ts, args.out)
-            )
+            runner = RUNNERS[args.mode]
+            out = runner(data, args.fixed_ts, args.out)
         except ValueError:
             logger.exception(
                 "runner_error", extra={"run_id": run_id, "mode": mode}
