@@ -117,6 +117,13 @@ python scripts/verify_checksums.py
 * Prometheus job: `ops/prometheus/job.sample.yml`
 * Grafana dashboard: `ops/grafana/dashboard.json`
 
+Import the dashboard into Grafana:
+
+1. Open Grafana and click the **+** icon in the sidebar.
+2. Select **Import**.
+3. Upload `ops/grafana/dashboard.json` or paste its JSON.
+4. Choose your Prometheus data source and click **Import**.
+
 ## Releases
 
 1. Update `VERSION` and `CHANGELOG.md`
