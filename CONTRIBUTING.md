@@ -16,9 +16,9 @@
   ```
 
 ## Оновлення залежностей
-- Зафіксуйте нові версії в `constraints.txt`.
-- Вкажіть ті самі версії в `pyproject.toml` (лише `==`).
-- Перегенеруйте `requirements.txt` з `pyproject.toml`:
+- У `pyproject.toml` та `requirements.txt` вказуйте мінімальні підтримувані версії (`>=` або `~=`).
+- Точні версії фіксуйте лише у `constraints.txt` для відтворюваності CI.
+- За потреби перегенеруйте `requirements.txt` на основі `pyproject.toml`:
   ```bash
   pip-compile pyproject.toml --output-file requirements.txt
   ```
