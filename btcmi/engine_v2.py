@@ -132,8 +132,6 @@ def combine_levels(L1: float, L2: float, L3: float, w):
     return max(-1.0, min(1.0, s))
 
 
-
-
 def layer_equal_weights(norm: Dict[str, float]) -> Dict[str, float]:
     """Generate equal weights for a layer's features.
 

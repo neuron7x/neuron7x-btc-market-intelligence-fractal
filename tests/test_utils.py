@@ -19,4 +19,3 @@ def test_is_number_with_numeric_types(val):
 def test_is_number_with_non_numeric_types(val):
     """``is_number`` should return False for non-numeric objects."""
     assert not is_number(val)
-
