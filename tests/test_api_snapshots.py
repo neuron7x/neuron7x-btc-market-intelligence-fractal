@@ -9,7 +9,7 @@ sys.path.insert(0, str(R))
 from fastapi.testclient import TestClient
 
 from api.app import app, RUNNERS
-from cli.btcmi import run_v1, run_v2
+from btcmi.runner import run_v1, run_v2
 
 def _load_example(name: str) -> dict:
     return json.loads((R / "examples" / f"{name}.json").read_text())
