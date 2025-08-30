@@ -2,6 +2,8 @@
 
 This service exposes a minimal FastAPI interface for running analyses, validating JSON payloads and reporting status.
 
+The OpenAPI schema is available in [openapi.json](openapi.json).
+
 Available endpoints:
 
 - `POST /run` – execute an analysis run.
