@@ -21,6 +21,10 @@ uvicorn btcmi.api:app
 
 Execute an analysis run. The payload must conform to `input_schema.json` and specify the desired mode (`v1` or `v2.fractal`).
 
+The heavy computation is executed in a background thread so the API
+remains responsive and other requests are not blocked while the run is
+in progress.
+
 ### Example
 
 ```bash
