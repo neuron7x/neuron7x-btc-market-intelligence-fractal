@@ -12,6 +12,22 @@ from btcmi.config import SCENARIO_WEIGHTS
 ALLOWED_SCENARIOS = frozenset(SCENARIO_WEIGHTS.keys())
 
 
+def _validate_scenario_window(data: dict) -> tuple[str, str]:
+    """Return the scenario and window ensuring both are valid."""
+
+    scenario = data.get("scenario")
+    if scenario is None:
+        raise ValueError("'scenario' field is required")
+    if scenario not in ALLOWED_SCENARIOS:
+        raise ValueError(
+            "'scenario' must be one of: " + ", ".join(sorted(ALLOWED_SCENARIOS))
+        )
+    window = data.get("window")
+    if window is None:
+        raise ValueError("'window' field is required")
+    return scenario, window
+
+
 def run_v1(data, fixed_ts, out_path: str | Path | None = None):
     """Run the v1 engine and optionally persist the output.
 
@@ -27,14 +43,7 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
         ``None`` (the default) the output is only returned and no file is
         created.
     """
-    scenario = data.get("scenario")
-    if scenario is None:
-        raise ValueError("'scenario' field is required")
-    if scenario not in ALLOWED_SCENARIOS:
-        raise ValueError("'scenario' must be one of: " + ", ".join(sorted(ALLOWED_SCENARIOS)))
-    window = data.get("window")
-    if window is None:
-        raise ValueError("'window' field is required")
+    scenario, window = _validate_scenario_window(data)
     feats: Dict[str, float] = data.get("features", {})
     norm = v1.normalize(feats)
     base, weights, contrib = v1.base_signal(scenario, norm)
@@ -77,14 +86,7 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
 
 def run_v2(data, fixed_ts, out_path: str | Path | None = None):
     """Run the v2 fractal engine and optionally persist the output."""
-    scenario = data.get("scenario")
-    if scenario is None:
-        raise ValueError("'scenario' field is required")
-    if scenario not in ALLOWED_SCENARIOS:
-        raise ValueError("'scenario' must be one of: " + ", ".join(sorted(ALLOWED_SCENARIOS)))
-    window = data.get("window")
-    if window is None:
-        raise ValueError("'window' field is required")
+    scenario, window = _validate_scenario_window(data)
     f1 = data.get("features_micro", {})
     f2 = data.get("features_mezo", {})
     f3 = data.get("features_macro", {})
