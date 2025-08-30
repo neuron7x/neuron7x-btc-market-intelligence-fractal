@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 R = Path(__file__).resolve().parents[1]
-CLI = R / "cli" / "btcmi.py"
+CLI = "cli.btcmi"
 
 
 def test_drift_guard_mid():
     out1 = R / "tests/tmp/dg_v1.out.json"
     r1 = subprocess.run(
         [
-            "python3",
-            str(CLI),
+            sys.executable,
+            "-m",
+            CLI,
             "run",
             "--input",
             str(R / "examples/intraday.json"),
@@ -45,8 +47,9 @@ def test_drift_guard_mid():
     out2 = R / "tests/tmp/dg_v2.out.json"
     r2 = subprocess.run(
         [
-            "python3",
-            str(CLI),
+            sys.executable,
+            "-m",
+            CLI,
             "run",
             "--input",
             str(inp),

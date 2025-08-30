@@ -19,7 +19,7 @@ from tempfile import TemporaryDirectory
 from typing import Tuple, List
 
 ROOT = Path(__file__).resolve().parents[1]
-CLI = ROOT / "cli" / "btcmi.py"
+CLI = "cli.btcmi"
 
 def run_example(path: Path) -> Tuple[float, float]:
     """Run CLI for one example file and return predicted and reference signals."""
@@ -34,7 +34,8 @@ def run_example(path: Path) -> Tuple[float, float]:
         input_path.write_text(json.dumps(inp), encoding="utf-8")
         cmd = [
             sys.executable,
-            str(CLI),
+            "-m",
+            CLI,
             "run",
             "--input",
             str(input_path),

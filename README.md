@@ -47,9 +47,11 @@ Run:
 
 ```bash
 # Option 1: use module path directly
-python -m cli.btcmi run --mode execution_plan --input examples/input.sample.json --out out.json
+python -m cli.btcmi run --input examples/intraday.json --out out.json
 # Option 2: after installation, invoke the script
-btcmi run --mode execution_plan --input examples/input.sample.json --out out.json
+btcmi run --input examples/intraday.json --out out.json
+# Enable Fractal Engine v2
+btcmi run --input examples/intraday_fractal.json --out out_fractal.json --fractal
 python tests/validate_output.py out.json  # validate against output_schema.json
 ```
 
@@ -65,7 +67,7 @@ tools.
 
 ```bash
 docker compose up --build
-docker compose run --rm app --mode quick_brief --input /data/input.json --out /data/out.json
+docker compose run --rm app --input /data/input.json --out /data/out.json
 ```
 
 ## Modes
