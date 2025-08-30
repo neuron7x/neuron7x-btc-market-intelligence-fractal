@@ -77,6 +77,10 @@ docker compose run --rm app --mode quick_brief --input /data/input.json --out /d
 
 ## Validation & integrity
 
+This project relies on the [`jsonschema`](https://pypi.org/project/jsonschema/)
+package for contract enforcement. Install it with `pip install jsonschema` if
+it's not already available.
+
 ```bash
 python tests/validate_output.py out.json
 sha256sum -c CHECKSUMS.SHA256
