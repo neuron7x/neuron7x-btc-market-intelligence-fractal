@@ -8,7 +8,7 @@ Production-grade toolkit for Bitcoin market intelligence: strict data contracts,
 * **Data contracts:** `input_schema.json`, `output_schema.json`
 * **Validation & integrity:** structural validator, checksums, SBOM/provenance
 * **Observability:** Prometheus job, Grafana dashboard
-* **HTTP API:** `/run`, `/validate/{schema}`, `/metrics`, `/healthz` ([docs/API.md](docs/API.md))
+* **HTTP API:** `/run`, `/validate/{schema}`, `/metrics`, `/healthz` ([docs/API.md](docs/API.md), [openapi.json](docs/openapi.json))
 * **Containerized runtime:** Docker Compose
 * **Versioning:** update the root `VERSION` file (single source of truth) and sync `CHANGELOG.md`
 * **Conventional Commits** for history hygiene
@@ -66,7 +66,7 @@ Start the HTTP API server:
 uvicorn btcmi.api:app
 ```
 
-Refer to [docs/API.md](docs/API.md) for available endpoints and examples.
+Refer to [docs/API.md](docs/API.md) or the [OpenAPI schema](docs/openapi.json) for available endpoints and examples.
 
 ### Platform notes
 
