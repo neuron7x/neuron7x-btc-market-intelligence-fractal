@@ -1,27 +1,16 @@
 #!/usr/bin/env python3
 import json
-import subprocess
 from pathlib import Path
 
+from btcmi.runner import run_v1
+
 R = Path(__file__).resolve().parents[1]
-CLI = R / "cli" / "btcmi.py"
 
 
-def test_v1_intraday():
-    out = R / "tests/tmp/intraday_v1.out.json"
-    gold = R / "tests/golden/intraday_v1.golden.json"
-    r = subprocess.run(
-        [
-            "python3",
-            str(CLI),
-            "run",
-            "--input",
-            str(R / "examples/intraday.json"),
-            "--out",
-            str(out),
-            "--fixed-ts",
-            "2025-01-01T00:00:00Z",
-        ]
-    )
-    assert r.returncode == 0
-    assert json.loads(out.read_text()) == json.loads(gold.read_text())
+def test_v1_intraday(tmp_path):
+    data = json.loads((R / "examples/intraday.json").read_text())
+    out_path = tmp_path / "intraday_v1.out.json"
+    gold = json.loads((R / "tests/golden/intraday_v1.golden.json").read_text())
+    result = run_v1(data, "2025-01-01T00:00:00Z", out_path)
+    assert result == gold
+    assert json.loads(out_path.read_text()) == gold

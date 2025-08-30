@@ -46,7 +46,7 @@ async def run_endpoint(payload: dict):
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     try:
-        result = runner(payload, None, "/dev/null")
+        result = runner(payload, None, out_path=None)
     except (KeyError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001

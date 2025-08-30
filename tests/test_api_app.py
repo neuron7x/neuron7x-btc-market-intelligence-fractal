@@ -41,6 +41,21 @@ def test_run_runner_exception(monkeypatch):
     assert resp.status_code == 500
 
 
+def test_run_out_path_none(monkeypatch):
+    seen = {}
+
+    def runner(p, _t, *, out_path=None):
+        seen["out_path"] = out_path
+        return {"summary": {}}
+
+    monkeypatch.setitem(RUNNERS, "v1", runner)
+    client = TestClient(app)
+    payload = _load_example("intraday")
+    resp = client.post("/run", json=payload)
+    assert resp.status_code == 200
+    assert seen["out_path"] is None
+
+
 def test_validate_input_valid():
     client = TestClient(app)
     payload = _load_example("intraday")
