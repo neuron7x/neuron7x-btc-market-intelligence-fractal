@@ -4,6 +4,7 @@ from __future__ import annotations
 from typing import Dict, List
 import math
 from btcmi.utils import is_number
+from btcmi.config import SCALES
 
 
 def tanh_norm(x: float, s: float) -> float:
@@ -129,27 +130,6 @@ def combine_levels(L1: float, L2: float, L3: float, w):
     return max(-1.0, min(1.0, s))
 
 
-SCALES = {
-    "L1": {
-        "price_change_pct": 2.0,
-        "volume_change_pct": 50.0,
-        "funding_rate_bps": 10.0,
-        "oi_change_pct": 20.0,
-        "micro_liquidity_gaps": 5.0,
-    },
-    "L2": {
-        "oi_term_structure_slope": 0.5,
-        "funding_premium_spread": 0.5,
-        "net_positioning_index": 0.5,
-        "liquidation_heatmap_entropy": 1.0,
-    },
-    "L3": {
-        "hashrate_trend": 0.5,
-        "active_addrs_trend": 0.5,
-        "supply_in_profit_pct": 0.5,
-        "macro_regime_score": 1.0,
-    },
-}
 
 
 def layer_equal_weights(norm: Dict[str, float]) -> Dict[str, float]:
