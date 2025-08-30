@@ -11,7 +11,7 @@ from btcmi import engine_v2 as v2
 ALLOWED_SCENARIOS = frozenset(v1.SCENARIO_WEIGHTS.keys())
 
 
-def run_v1(data, fixed_ts, out_path):
+def run_v1(data, fixed_ts, out_path: str | Path | None = None):
     scenario = data.get("scenario")
     if scenario is None:
         raise ValueError("'scenario' field is required")
@@ -53,12 +53,14 @@ def run_v1(data, fixed_ts, out_path):
             "diagnostics": {"completeness": round(comp, 3), "notes": notes},
         },
     }
-    Path(out_path).parent.mkdir(parents=True, exist_ok=True)
-    Path(out_path).write_text(json.dumps(out, indent=2), encoding="utf-8")
+    if out_path is not None:
+        p = Path(out_path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps(out, indent=2), encoding="utf-8")
     return out
 
 
-def run_v2(data, fixed_ts, out_path):
+def run_v2(data, fixed_ts, out_path: str | Path | None = None):
     scenario = data.get("scenario")
     if scenario is None:
         raise ValueError("'scenario' field is required")
@@ -111,8 +113,10 @@ def run_v2(data, fixed_ts, out_path):
             "diagnostics": {"completeness": round(coverage, 3), "notes": notes},
         },
     }
-    Path(out_path).parent.mkdir(parents=True, exist_ok=True)
-    Path(out_path).write_text(json.dumps(out, indent=2), encoding="utf-8")
+    if out_path is not None:
+        p = Path(out_path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps(out, indent=2), encoding="utf-8")
     return out
 
 

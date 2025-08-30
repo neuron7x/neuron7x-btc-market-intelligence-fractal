@@ -1,36 +1,24 @@
 #!/usr/bin/env python3
 import json
-import subprocess
 from pathlib import Path
 
+from btcmi.runner import run_v2
+
 R = Path(__file__).resolve().parents[1]
-CLI = R / "cli" / "btcmi.py"
 
 
-def _cmp(nm):
-    out = R / f"tests/tmp/{nm}.out.json"
-    gold = R / f"tests/golden/{nm}.golden.json"
-    r = subprocess.run(
-        [
-            "python3",
-            str(CLI),
-            "run",
-            "--input",
-            str(R / f"examples/{nm}.json"),
-            "--out",
-            str(out),
-            "--fixed-ts",
-            "2025-01-01T00:00:00Z",
-            "--fractal",
-        ]
-    )
-    assert r.returncode == 0
-    assert json.loads(out.read_text()) == json.loads(gold.read_text())
+def _cmp(nm: str, tmp_path: Path) -> None:
+    data = json.loads((R / f"examples/{nm}.json").read_text())
+    out_path = tmp_path / f"{nm}.out.json"
+    gold = json.loads((R / f"tests/golden/{nm}.golden.json").read_text())
+    result = run_v2(data, "2025-01-01T00:00:00Z", out_path)
+    assert result == gold
+    assert json.loads(out_path.read_text()) == gold
 
 
-def test_intraday_fractal():
-    _cmp("intraday_fractal")
+def test_intraday_fractal(tmp_path):
+    _cmp("intraday_fractal", tmp_path)
 
 
-def test_swing_fractal():
-    _cmp("swing_fractal")
+def test_swing_fractal(tmp_path):
+    _cmp("swing_fractal", tmp_path)
