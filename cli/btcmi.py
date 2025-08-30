@@ -49,6 +49,11 @@ def main() -> int:
 
         # If explicit mode present, enforce consistency with --fractal flag
         mode = data.get("mode")
+        if mode not in (None, "v1", "v2.fractal"):
+            logger.error(
+                "unknown_mode", extra={"run_id": run_id, "mode": mode}
+            )
+            return 2
         if mode == "v1" and args.fractal:
             logger.warning("mode_flag_mismatch", extra={"run_id": run_id, "mode": mode})
         if mode == "v2.fractal" and not args.fractal:
