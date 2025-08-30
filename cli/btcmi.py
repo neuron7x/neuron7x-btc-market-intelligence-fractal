@@ -9,7 +9,7 @@ from pathlib import Path
 
 from btcmi.logging_cfg import configure_logging, new_run_id
 from btcmi.runner import run_v1, run_v2
-from btcmi.schema_util import load_json, validate_json
+from btcmi.schema_util import SCHEMA_REGISTRY, load_json, validate_json
 
 
 def main() -> int:
@@ -57,9 +57,7 @@ def main() -> int:
         else:
             data = load_json(args.input)
         try:
-            validate_json(
-                data, Path(__file__).resolve().parents[1] / "input_schema.json"
-            )
+            validate_json(data, SCHEMA_REGISTRY["input"])
         except Exception:
             report("input_schema_validation_failed", run_id=run_id)
             return 2
@@ -87,9 +85,7 @@ def main() -> int:
             )
             return 2
         try:
-            validate_json(
-                out, Path(__file__).resolve().parents[1] / "output_schema.json"
-            )
+            validate_json(out, SCHEMA_REGISTRY["output"])
         except Exception:
             report(
                 "output_schema_validation_failed",

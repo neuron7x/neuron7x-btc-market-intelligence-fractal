@@ -1,7 +1,13 @@
 import json
 from pathlib import Path
 
-__all__ = ["load_json", "_load_schema", "validate_json"]
+BASE_DIR = Path(__file__).resolve().parents[1]
+SCHEMA_REGISTRY = {
+    "input": BASE_DIR / "input_schema.json",
+    "output": BASE_DIR / "output_schema.json",
+}
+
+__all__ = ["load_json", "_load_schema", "validate_json", "SCHEMA_REGISTRY"]
 
 
 _SCHEMA_CACHE: dict[str, dict] = {}

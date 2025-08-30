@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 import asyncio
 from functools import lru_cache
 
@@ -11,7 +10,7 @@ from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
 from btcmi.enums import Scenario, Window
 from btcmi.runner import run_v1, run_v2
-from btcmi.schema_util import validate_json
+from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
 
 app = FastAPI()
 
@@ -23,13 +22,6 @@ def load_runners() -> Dict[str, Callable]:
         "v1": run_v1,
         "v2.fractal": run_v2,
     }
-
-
-BASE_DIR = Path(__file__).resolve().parents[1]
-SCHEMA_REGISTRY = {
-    "input": BASE_DIR / "input_schema.json",
-    "output": BASE_DIR / "output_schema.json",
-}
 
 REQUEST_COUNTER = Counter("btcmi_requests_total", "Total HTTP requests", ["endpoint"])
 

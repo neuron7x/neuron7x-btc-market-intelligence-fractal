@@ -6,6 +6,7 @@ from pathlib import Path
 
 import cli.btcmi as btcmi
 from btcmi.runner import run_v1, run_v2
+from btcmi.schema_util import SCHEMA_REGISTRY
 
 R = Path(__file__).resolve().parents[1]
 CLI = "cli.btcmi"
@@ -57,7 +58,7 @@ def test_validate_cli_returns_code_2(tmp_path):
             CLI,
             "validate",
             "--schema",
-            str(R / "input_schema.json"),
+            str(SCHEMA_REGISTRY["input"]),
             "--data",
             str(invalid),
         ],
