@@ -41,7 +41,7 @@ def main() -> int:
                 data, Path(__file__).resolve().parents[1] / "input_schema.json"
             )
         except Exception:
-            logger.error(
+            logger.exception(
                 "input_schema_validation_failed", extra={"run_id": run_id}
             )
             return 2
@@ -63,7 +63,7 @@ def main() -> int:
                 out, Path(__file__).resolve().parents[1] / "output_schema.json"
             )
         except Exception:
-            logger.error(
+            logger.exception(
                 "output_schema_validation_failed",
                 extra={"run_id": run_id, "mode": mode},
             )

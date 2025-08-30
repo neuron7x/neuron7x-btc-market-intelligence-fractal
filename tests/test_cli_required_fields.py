@@ -81,3 +81,24 @@ def test_run_cli_returns_code_2_on_invalid_input(tmp_path):
         capture_output=True,
     )
     assert result.returncode == 2
+
+
+def test_run_cli_logs_validation_error(tmp_path):
+    invalid = tmp_path / "invalid.json"
+    invalid.write_text("{}")
+    out = tmp_path / "out.json"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            CLI,
+            "run",
+            "--input",
+            str(invalid),
+            "--out",
+            str(out),
+        ],
+        capture_output=True,
+    )
+    assert result.returncode == 2
+    assert b"input_schema_validation_failed" in result.stderr
