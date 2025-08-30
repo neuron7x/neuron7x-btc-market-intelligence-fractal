@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 import asyncio
+from functools import lru_cache
 
 from fastapi import FastAPI, HTTPException, Response
 from pydantic import BaseModel
-from typing import Any, Dict
+from typing import Any, Dict, Callable
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
 from btcmi.enums import Scenario, Window
@@ -14,11 +15,14 @@ from btcmi.schema_util import validate_json
 
 app = FastAPI()
 
-# Registry mapping modes to runner implementations
-RUNNERS = {
-    "v1": run_v1,
-    "v2.fractal": run_v2,
-}
+
+@lru_cache()
+def load_runners() -> Dict[str, Callable]:
+    """Return a mapping of mode names to runner implementations."""
+    return {
+        "v1": run_v1,
+        "v2.fractal": run_v2,
+    }
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 SCHEMA_REGISTRY = {
@@ -70,7 +74,7 @@ class ValidateRequest(BaseModel):
 async def run_endpoint(payload: RunRequest) -> RunResponse:
     data = payload.model_dump()
     mode = data.get("mode", "v1")
-    runner = RUNNERS.get(mode)
+    runner = load_runners().get(mode)
     if runner is None:
         raise HTTPException(status_code=400, detail=f"unknown mode: {mode}")
     try:
@@ -109,3 +113,6 @@ async def metrics() -> Response:
 @app.get("/healthz")
 async def healthz() -> dict[str, str]:
     return {"status": "ok"}
+
+
+__all__ = ["app", "load_runners", "REQUEST_COUNTER"]

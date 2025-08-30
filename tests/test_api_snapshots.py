@@ -4,7 +4,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from btcmi.api import app, RUNNERS
+from btcmi.api import app, load_runners
 from btcmi.runner import run_v1, run_v2
 
 R = Path(__file__).resolve().parents[1]
@@ -23,8 +23,8 @@ def _prepare_client(monkeypatch) -> TestClient:
     def r2(p, _t, *, out_path=None):
         return run_v2(p, FIXED_TS, out_path)
 
-    monkeypatch.setitem(RUNNERS, "v1", r1)
-    monkeypatch.setitem(RUNNERS, "v2.fractal", r2)
+    monkeypatch.setitem(load_runners(), "v1", r1)
+    monkeypatch.setitem(load_runners(), "v2.fractal", r2)
     return TestClient(app)
 
 

@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from prometheus_client import CONTENT_TYPE_LATEST
 from prometheus_client.parser import text_string_to_metric_families
 
-from btcmi.api import app, RUNNERS, REQUEST_COUNTER
+from btcmi.api import app, load_runners, REQUEST_COUNTER
 
 R = Path(__file__).resolve().parents[1]
 
@@ -32,7 +32,7 @@ def test_run_runner_exception(monkeypatch):
     def bad_runner(*args, **kwargs):  # pragma: no cover
         raise RuntimeError("boom")
 
-    monkeypatch.setitem(RUNNERS, "v1", bad_runner)
+    monkeypatch.setitem(load_runners(), "v1", bad_runner)
     client = TestClient(app)
     payload = _load_example("intraday")
     resp = client.post("/run", json=payload)
@@ -52,7 +52,7 @@ def test_run_out_path_none(monkeypatch):
             "asof": "1970-01-01T00:00:00Z",
         }
 
-    monkeypatch.setitem(RUNNERS, "v1", runner)
+    monkeypatch.setitem(load_runners(), "v1", runner)
     client = TestClient(app)
     payload = _load_example("intraday")
     resp = client.post("/run", json=payload)
