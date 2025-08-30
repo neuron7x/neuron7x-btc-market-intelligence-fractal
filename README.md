@@ -49,7 +49,7 @@ Run:
 python -m cli.btcmi run --mode execution_plan --input examples/input.sample.json --out out.json
 # Option 2: after installation, invoke the script
 btcmi run --mode execution_plan --input examples/input.sample.json --out out.json
-python tests/validate_output.py out.json
+python tests/validate_output.py out.json  # validate against output_schema.json
 ```
 
 ## Docker
@@ -79,10 +79,11 @@ docker compose run --rm app --mode quick_brief --input /data/input.json --out /d
 
 This project relies on the [`jsonschema`](https://pypi.org/project/jsonschema/)
 package for contract enforcement. Install it with `pip install jsonschema` if
-it's not already available.
+it's not already available. Use the helper below to confirm a run complies with
+`output_schema.json`.
 
 ```bash
-python tests/validate_output.py out.json
+python tests/validate_output.py out.json  # schema validation
 sha256sum -c CHECKSUMS.SHA256
 python scripts/verify_checksums.py
 ```
