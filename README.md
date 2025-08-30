@@ -50,6 +50,9 @@ Run:
 python -m cli.btcmi run --input examples/intraday.json --out out.json --mode v1
 # Option 2: after installation, invoke the script
 btcmi run --input examples/intraday.json --out out.json --mode v1
+# Option 3: pipe data via stdin
+cat examples/intraday.json | btcmi run --input - --mode v1
+curl -s https://example.com/intraday.json | btcmi run --input - --mode v1
 # Enable Fractal Engine v2
 btcmi run --input examples/intraday_fractal.json --out out_fractal.json --mode v2.fractal
 python tests/validate_output.py out.json  # validate against output_schema.json
