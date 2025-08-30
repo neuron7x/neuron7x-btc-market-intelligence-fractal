@@ -3,7 +3,6 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "btcmi"
-version = "1.2.1"
 description = "BTC Market Intelligence with Fractal Engine v2."
 readme = "docs/QUICKSTART.md"
 requires-python = ">=3.10"
@@ -22,6 +21,7 @@ dependencies = [
 ]
 authors = [{name="BTCMI Team"}]
 license = {text="MIT"}
+dynamic = ["version"]
 [project.optional-dependencies]
 dev = [
     "black>=24.4.2",
@@ -30,6 +30,12 @@ dev = [
 ]
 [project.scripts]
 btcmi = "cli.btcmi:main"
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+
+[tool.setuptools.data-files]
+"" = ["VERSION"]
 
 [tool.black]
 line-length = 88
