@@ -9,16 +9,13 @@ from typing import Any, Dict
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
 from btcmi.enums import Scenario, Window
-from btcmi.runner import run_v1, run_v2
+from btcmi.runner_registry import load_runners
 from btcmi.schema_util import validate_json
 
 app = FastAPI()
 
 # Registry mapping modes to runner implementations
-RUNNERS = {
-    "v1": run_v1,
-    "v2.fractal": run_v2,
-}
+RUNNERS = load_runners()
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 SCHEMA_REGISTRY = {

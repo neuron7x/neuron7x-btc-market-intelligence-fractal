@@ -32,6 +32,10 @@ dev = [
 [project.scripts]
 btcmi = "cli.btcmi:main"
 
+[project.entry-points."btcmi.runners"]
+"v1" = "btcmi.runner:run_v1"
+"v2.fractal" = "btcmi.runner:run_v2"
+
 [tool.setuptools.dynamic]
 version = {file = "VERSION"}
 
