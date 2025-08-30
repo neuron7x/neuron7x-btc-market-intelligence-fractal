@@ -11,12 +11,14 @@ from fastapi.testclient import TestClient
 from api.app import app, RUNNERS
 from btcmi.runner import run_v1, run_v2
 
+FIXED_TS = "2025-01-01T00:00:00Z"
+
 def _load_example(name: str) -> dict:
     return json.loads((R / "examples" / f"{name}.json").read_text())
 
 def _prepare_client(monkeypatch) -> TestClient:
-    monkeypatch.setitem(RUNNERS, "v1", lambda p, _t, o: run_v1(p, "2025-01-01T00:00:00Z", o))
-    monkeypatch.setitem(RUNNERS, "v2.fractal", lambda p, _t, o: run_v2(p, "2025-01-01T00:00:00Z", o))
+    monkeypatch.setitem(RUNNERS, "v1", lambda p, _t, o: run_v1(p, FIXED_TS, o))
+    monkeypatch.setitem(RUNNERS, "v2.fractal", lambda p, _t, o: run_v2(p, FIXED_TS, o))
     return TestClient(app)
 
 def _assert_snapshot(client: TestClient, payload: dict, golden: Path) -> None:
