@@ -52,6 +52,14 @@ btcmi run --mode execution_plan --input examples/input.sample.json --out out.jso
 python tests/validate_output.py out.json
 ```
 
+### Platform notes
+
+Scientific libraries such as `numpy` and `scipy` may require native build
+tools.
+
+* **Debian/Ubuntu:** `sudo apt install build-essential libopenblas-dev gfortran`
+* **Windows:** install the Microsoft C++ Build Tools or use precompiled wheels
+
 ## Docker
 
 ```bash
