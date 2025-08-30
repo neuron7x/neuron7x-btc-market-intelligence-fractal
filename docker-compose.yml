@@ -4,6 +4,15 @@ services:
     build: { context: ., dockerfile: docker/Dockerfile }
     command: ["python3","ops/metrics/exporter.py"]
     ports: ["9101:9101"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:9101/metrics')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  btcmi-api:
+    build: { context: ., dockerfile: docker/Dockerfile }
+    command: ["uvicorn","btcmi.api:app","--host","0.0.0.0","--port","8000"]
+    ports: ["8000:8000"]
   prometheus:
     image: prom/prometheus:latest
     volumes: ["./ops/prometheus/job.sample.yml:/etc/prometheus/prometheus.yml:ro"]
