@@ -54,11 +54,17 @@ def main() -> int:
         if mode == "v2.fractal" and not args.fractal:
             logger.warning("mode_flag_mismatch", extra={"run_id": run_id, "mode": mode})
 
-        out = (
-            run_v2(data, args.fixed_ts, args.out)
-            if args.fractal or mode == "v2.fractal"
-            else run_v1(data, args.fixed_ts, args.out)
-        )
+        try:
+            out = (
+                run_v2(data, args.fixed_ts, args.out)
+                if args.fractal or mode == "v2.fractal"
+                else run_v1(data, args.fixed_ts, args.out)
+            )
+        except ValueError:
+            logger.exception(
+                "runner_error", extra={"run_id": run_id, "mode": mode}
+            )
+            return 2
         try:
             validate_json(
                 out, Path(__file__).resolve().parents[1] / "output_schema.json"

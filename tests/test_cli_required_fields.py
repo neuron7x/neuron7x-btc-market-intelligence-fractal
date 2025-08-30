@@ -105,6 +105,50 @@ def test_run_cli_logs_validation_error(tmp_path):
     assert b"input_schema_validation_failed" in result.stderr
 
 
+def test_run_cli_returns_code_2_on_missing_scenario(monkeypatch, tmp_path):
+    data = {"schema_version": "2.0.0", "lineage": {}, "window": "1h"}
+    invalid = tmp_path / "invalid.json"
+    invalid.write_text(json.dumps(data))
+    out = tmp_path / "out.json"
+    monkeypatch.setattr("cli.btcmi.validate_json", lambda *a, **k: None)
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            CLI,
+            "run",
+            "--input",
+            str(invalid),
+            "--out",
+            str(out),
+        ],
+        capture_output=True,
+    )
+    assert result.returncode == 2
+
+
+def test_run_cli_returns_code_2_on_missing_window(monkeypatch, tmp_path):
+    data = {"schema_version": "2.0.0", "lineage": {}, "scenario": "intraday"}
+    invalid = tmp_path / "invalid.json"
+    invalid.write_text(json.dumps(data))
+    out = tmp_path / "out.json"
+    monkeypatch.setattr("cli.btcmi.validate_json", lambda *a, **k: None)
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            CLI,
+            "run",
+            "--input",
+            str(invalid),
+            "--out",
+            str(out),
+        ],
+        capture_output=True,
+    )
+    assert result.returncode == 2
+
+
 def test_run_cli_prints_json_without_out():
     result = subprocess.run(
         [
