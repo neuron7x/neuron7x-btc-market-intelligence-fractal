@@ -105,16 +105,6 @@
       "fileSize": 1076
     },
     {
-      "fileName": "go.mod",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "05e44b7a15809365b8cbd6ca3c38fe5244e6f46d4a818ecb3f63bc879557bf4f"
-        }
-      ],
-      "fileSize": 23
-    },
-    {
       "fileName": "pyproject.toml",
       "checksums": [
         {
@@ -123,16 +113,6 @@
         }
       ],
       "fileSize": 479
-    },
-    {
-      "fileName": "Makefile",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "0686bf765ba129de19bb84b7bb5a6559366917634fc474a000f434ffdb3b2d0f"
-        }
-      ],
-      "fileSize": 102
     },
     {
       "fileName": "requirements.txt",
@@ -173,26 +153,6 @@
         }
       ],
       "fileSize": 202
-    },
-    {
-      "fileName": "main.go",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "34202838be79cc82dcb08807897f547ac92d1dbf1aaffd362ed74375dc20aaf7"
-        }
-      ],
-      "fileSize": 30
-    },
-    {
-      "fileName": "main_test.go",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "62c6ac53af6fa6c2eeef71e8083667c3318af60142aee45682ca5822fb64491c"
-        }
-      ],
-      "fileSize": 64
     },
     {
       "fileName": "output_schema.json",
