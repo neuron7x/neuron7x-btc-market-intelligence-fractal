@@ -2,6 +2,13 @@
 
 This service exposes a minimal FastAPI interface for running analyses, validating JSON payloads and reporting status.
 
+Available endpoints:
+
+- `POST /run` – execute an analysis run.
+- `POST /validate/{schema}` – validate payloads against `input` or `output` schemas.
+- `GET /metrics` – expose Prometheus metrics.
+- `GET /healthz` – health check for liveness monitoring.
+
 ## Running the server
 
 After installing `btcmi`, launch the API with:
