@@ -61,6 +61,8 @@ Start the HTTP API server:
 uvicorn btcmi.api:app
 ```
 
+Refer to [docs/API.md](docs/API.md) for available endpoints and examples.
+
 ### Platform notes
 
 Scientific libraries such as `numpy` and `scipy` may require native build
