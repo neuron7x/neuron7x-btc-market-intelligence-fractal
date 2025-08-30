@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-import hashlib, json, time
+import hashlib
+import json
+import time
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 out = ROOT / "provenance" / "sbom.spdx.json"

@@ -4,7 +4,9 @@ from __future__ import annotations
 from typing import Dict, List
 import math
 from btcmi.utils import is_number
-from btcmi.config import SCALES
+from btcmi.config import SCALES as CONFIG_SCALES
+
+SCALES = CONFIG_SCALES
 
 
 def tanh_norm(x: float, s: float) -> float:
