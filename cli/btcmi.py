@@ -81,7 +81,11 @@ def main() -> int:
         return 0
 
     data = load_json(args.data)
-    validate_json(data, args.schema)
+    try:
+        validate_json(data, args.schema)
+    except Exception:
+        logger.exception("schema_validation_failed", extra={"run_id": run_id})
+        return 2
     print("OK")
     return 0
 
