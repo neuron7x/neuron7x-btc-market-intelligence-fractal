@@ -1,0 +1,1 @@
+"""BTCMI FastAPI application."""

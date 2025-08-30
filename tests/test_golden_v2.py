@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 R = Path(__file__).resolve().parents[1]
-CLI = R / "cli" / "btcmi.py"
+CLI = [sys.executable, "-m", "btcmi.cli"]
 
 
 def _cmp(nm):
     out = R / f"tests/tmp/{nm}.out.json"
     gold = R / f"tests/golden/{nm}.golden.json"
     r = subprocess.run(
-        [
-            "python3",
-            str(CLI),
+        CLI
+        + [
             "run",
             "--input",
             str(R / f"examples/{nm}.json"),

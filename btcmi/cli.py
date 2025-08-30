@@ -3,15 +3,11 @@ from __future__ import annotations
 
 import argparse
 import logging
-import sys
 from pathlib import Path
 
-# Ensure local package importable
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from btcmi.logging_cfg import configure_logging, new_run_id
-from btcmi.runner import run_v1, run_v2
-from btcmi.schema_util import load_json, validate_json
+from .logging_cfg import configure_logging, new_run_id
+from .runner import run_v1, run_v2
+from .schema_util import load_json, validate_json
 
 
 def main() -> int:

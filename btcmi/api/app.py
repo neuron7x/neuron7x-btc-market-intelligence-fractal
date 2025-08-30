@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 from pathlib import Path
-import sys
 
 from fastapi import FastAPI, HTTPException, Response
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-
-from btcmi.runner import run_v1, run_v2
-from btcmi.schema_util import validate_json
+from ..runner import run_v1, run_v2
+from ..schema_util import validate_json
 
 app = FastAPI()
 
@@ -19,7 +16,7 @@ RUNNERS = {
     "v2.fractal": run_v2,
 }
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path(__file__).resolve().parents[2]
 SCHEMA_REGISTRY = {
     "input": BASE_DIR / "input_schema.json",
     "output": BASE_DIR / "output_schema.json",

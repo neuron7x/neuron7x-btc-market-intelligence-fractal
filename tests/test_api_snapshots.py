@@ -1,15 +1,13 @@
 import json
 import os
-import sys
 from pathlib import Path
-
-R = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(R))
 
 from fastapi.testclient import TestClient
 
-from api.app import app, RUNNERS
+from btcmi.api.app import app, RUNNERS
 from btcmi.runner import run_v1, run_v2
+
+R = Path(__file__).resolve().parents[1]
 
 FIXED_TS = "2025-01-01T00:00:00Z"
 

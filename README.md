@@ -46,10 +46,16 @@ Run:
 
 ```bash
 # Option 1: use module path directly
-python -m cli.btcmi run --mode execution_plan --input examples/input.sample.json --out out.json
+python -m btcmi.cli run --mode execution_plan --input examples/input.sample.json --out out.json
 # Option 2: after installation, invoke the script
 btcmi run --mode execution_plan --input examples/input.sample.json --out out.json
 python tests/validate_output.py out.json
+```
+
+Run the API with:
+
+```bash
+uvicorn btcmi.api.app:app --reload
 ```
 
 ## Docker

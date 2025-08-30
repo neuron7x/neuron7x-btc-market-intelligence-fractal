@@ -815,14 +815,14 @@
       "fileSize": 703
     },
     {
-      "fileName": "cli/btcmi.py",
+      "fileName": "btcmi/cli.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "fd8092b29c7f53848342dd53937d5a16df7511bed731202e94bff010e355a5ba"
+          "checksumValue": "d6ac34d7403ec6b0d948516be76512cfd7db3e400e33f359b15f057634e0a325"
         }
       ],
-      "fileSize": 6264
+      "fileSize": 2731
     },
     {
       "fileName": "scripts/verify_checksums.py",
@@ -845,14 +845,14 @@
       "fileSize": 901
     },
     {
-      "fileName": "api/app.py",
+      "fileName": "btcmi/api/app.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "473f97d9ca58981c4c7a4b88109e596900a1a994be16d873bdeda3e4ee09374c"
+          "checksumValue": "a2c1fec656c4acafb1975f895f6492ac61189e2aeb4be663e3b91d5b676e7aea"
         }
       ],
-      "fileSize": 2256
+      "fileSize": 2251
     },
     {
       "fileName": "provenance/sbom.spdx.json",
