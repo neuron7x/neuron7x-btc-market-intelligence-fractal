@@ -8,6 +8,7 @@ __version__ = VERSION_FILE.read_text().strip()
 __all__ = [
     "engine_v1",
     "engine_v2",
+    "nf3p_engine",
     "logging_cfg",
     "schema_util",
     "utils",
