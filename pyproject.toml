@@ -37,6 +37,9 @@ version = {file = "VERSION"}
 [tool.setuptools.data-files]
 "" = ["VERSION"]
 
+[tool.setuptools.package-data]
+btcmi = ["py.typed"]
+
 [tool.black]
 line-length = 88
 target-version = ["py311"]
