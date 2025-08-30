@@ -7,6 +7,7 @@ from pydantic import BaseModel
 from typing import Any, Dict
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
+from btcmi.enums import Scenario, Window
 from btcmi.runner import run_v1, run_v2
 from btcmi.schema_util import validate_json
 
@@ -35,7 +36,17 @@ async def count_requests(request, call_next):
 
 
 class RunRequest(BaseModel):
+    scenario: Scenario
+    window: Window
     mode: str = "v1"
+
+    class Config:
+        extra = "allow"
+
+
+class Summary(BaseModel):
+    scenario: Scenario
+    window: Window
 
     class Config:
         extra = "allow"
@@ -44,7 +55,7 @@ class RunRequest(BaseModel):
 class RunResponse(BaseModel):
     schema_version: str
     lineage: Dict[str, str]
-    summary: Dict[str, Any]
+    summary: Summary
     details: Dict[str, Any]
     asof: str
 

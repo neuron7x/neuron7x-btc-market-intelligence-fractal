@@ -8,24 +8,30 @@ from typing import Dict
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 from btcmi.config import SCENARIO_WEIGHTS
-
-ALLOWED_SCENARIOS = frozenset(SCENARIO_WEIGHTS.keys())
-
-
-def _validate_scenario_window(data: dict) -> tuple[str, str]:
+from btcmi.enums import Scenario, Window
+def _validate_scenario_window(data: dict) -> tuple[Scenario, Window]:
     """Return the scenario and window ensuring both are valid."""
 
     scenario = data.get("scenario")
     if scenario is None:
         raise ValueError("'scenario' field is required")
-    if scenario not in ALLOWED_SCENARIOS:
-        raise ValueError(
-            "'scenario' must be one of: " + ", ".join(sorted(ALLOWED_SCENARIOS))
+    try:
+        scenario_enum = (
+            scenario if isinstance(scenario, Scenario) else Scenario(scenario)
         )
+    except ValueError as exc:  # pragma: no cover - defensive
+        allowed = ", ".join(sorted(s.value for s in Scenario))
+        raise ValueError("'scenario' must be one of: " + allowed) from exc
+
     window = data.get("window")
     if window is None:
         raise ValueError("'window' field is required")
-    return scenario, window
+    try:
+        window_enum = window if isinstance(window, Window) else Window(window)
+    except ValueError as exc:  # pragma: no cover - defensive
+        allowed = ", ".join(sorted(w.value for w in Window))
+        raise ValueError("'window' must be one of: " + allowed) from exc
+    return scenario_enum, window_enum
 
 
 def run_v1(data, fixed_ts, out_path: str | Path | None = None):
@@ -46,7 +52,7 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
     scenario, window = _validate_scenario_window(data)
     feats: Dict[str, float] = data.get("features", {})
     norm = v1.normalize(feats)
-    base, weights, contrib = v1.base_signal(scenario, norm)
+    base, weights, contrib = v1.base_signal(scenario.value, norm)
     ng = v1.nagr_score(data.get("nagr_nodes", []))
     overall = v1.combine(base, ng)
     comp = v1.completeness(feats)
@@ -61,17 +67,17 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
         "lineage": data.get("lineage", {}),
         "asof": asof,
         "summary": {
-            "scenario": scenario,
-            "window": window,
+            "scenario": scenario.value,
+            "window": window.value,
             "overall_signal": round(overall, 6),
             "confidence": conf,
-            "router_path": f"{scenario}/v1",
+            "router_path": f"{scenario.value}/v1",
             "nagr_score": round(ng, 6),
             "advisories": notes,
         },
         "details": {
             "normalized_features": {k: round(v, 6) for k, v in norm.items()},
-            "weights": SCENARIO_WEIGHTS[scenario],
+            "weights": SCENARIO_WEIGHTS[scenario.value],
             "contributions": {k: round(v, 6) for k, v in contrib.items()},
             "constraints_applied": constraints,
             "diagnostics": {"completeness": round(comp, 3), "notes": notes},
@@ -111,11 +117,11 @@ def run_v2(data, fixed_ts, out_path: str | Path | None = None):
         "lineage": data.get("lineage", {}),
         "asof": asof,
         "summary": {
-            "scenario": scenario,
-            "window": window,
+            "scenario": scenario.value,
+            "window": window.value,
             "overall_signal": round(overall, 6),
             "confidence": conf,
-            "router_path": f"{scenario}/v2.fractal",
+            "router_path": f"{scenario.value}/v2.fractal",
             "nagr_score": 0.0,
             "advisories": notes,
             "overall_signal_L1": round(s1, 6),

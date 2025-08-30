@@ -1,13 +1,14 @@
 import pytest
 
+from btcmi.enums import Scenario, Window
 from btcmi.runner import _validate_scenario_window
 
 
 def test_validate_returns_values():
     data = {"scenario": "intraday", "window": "1h"}
     scenario, window = _validate_scenario_window(data)
-    assert scenario == "intraday"
-    assert window == "1h"
+    assert scenario is Scenario.INTRADAY
+    assert window is Window.ONE_HOUR
 
 
 def test_validate_missing_scenario():
