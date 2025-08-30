@@ -4,39 +4,10 @@ from __future__ import annotations
 from typing import Dict, Any
 import math
 from btcmi.utils import is_number
+from btcmi.config import NORM_SCALE, SCENARIO_WEIGHTS
 
 
 FeatureMap = Dict[str, float]
-SCENARIO_WEIGHTS = {
-    "intraday": {
-        "price_change_pct": 0.35,
-        "volume_change_pct": 0.25,
-        "funding_rate_bps": -0.10,
-        "oi_change_pct": 0.20,
-        "onchain_active_addrs_change_pct": 0.10,
-    },
-    "scalp": {
-        "price_change_pct": 0.45,
-        "volume_change_pct": 0.30,
-        "funding_rate_bps": -0.05,
-        "oi_change_pct": 0.15,
-        "onchain_active_addrs_change_pct": 0.05,
-    },
-    "swing": {
-        "price_change_pct": 0.25,
-        "volume_change_pct": 0.15,
-        "funding_rate_bps": -0.10,
-        "oi_change_pct": 0.25,
-        "onchain_active_addrs_change_pct": 0.25,
-    },
-}
-NORM_SCALE = {
-    "price_change_pct": 2.0,
-    "volume_change_pct": 50.0,
-    "funding_rate_bps": 10.0,
-    "oi_change_pct": 20.0,
-    "onchain_active_addrs_change_pct": 20.0,
-}
 
 
 def normalize(features: FeatureMap) -> FeatureMap:
