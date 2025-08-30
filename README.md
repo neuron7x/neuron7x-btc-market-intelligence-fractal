@@ -12,6 +12,7 @@ Production-grade toolkit for Bitcoin market intelligence: strict data contracts,
 * **Containerized runtime:** Docker Compose
 * **Versioning:** update the root `VERSION` file (single source of truth) and sync `CHANGELOG.md`
 * **Conventional Commits** for history hygiene
+* **Documentation:** [Architecture overview](docs/Architecture.md), [JSON field order](docs/FieldOrder.md)
 
 ## Repository layout
 

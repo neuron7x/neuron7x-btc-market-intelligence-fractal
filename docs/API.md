@@ -29,6 +29,19 @@ in progress.
 
 ### Example
 
+**Request**
+
+```json
+{
+  "schema_version": "2.0.0",
+  "lineage": {"run_id": "00000000000000000000000000000000"},
+  "scenario": "intraday",
+  "window": "1h",
+  "mode": "v1",
+  "features": {"btc_price": 30000}
+}
+```
+
 ```bash
 curl -X POST http://localhost:8000/run \
   -H 'Content-Type: application/json' \
@@ -57,6 +70,19 @@ Validate a payload against a registered schema (`input` or `output`).
 
 ### Example
 
+**Request**
+
+```json
+{
+  "schema_version": "2.0.0",
+  "lineage": {"run_id": "00000000000000000000000000000000"},
+  "scenario": "intraday",
+  "window": "1h",
+  "mode": "v1",
+  "features": {"btc_price": 30000}
+}
+```
+
 ```bash
 curl -X POST http://localhost:8000/validate/input \
   -H 'Content-Type: application/json' \
@@ -82,6 +108,8 @@ Prometheus metrics endpoint.
 
 ### Example
 
+**Request**
+
 ```bash
 curl http://localhost:8000/metrics
 ```
@@ -103,6 +131,8 @@ btcmi_requests_total{endpoint="/run"} 1
 Simple health check.
 
 ### Example
+
+**Request**
 
 ```bash
 curl http://localhost:8000/healthz
