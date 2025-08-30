@@ -8,6 +8,7 @@ Production-grade toolkit for Bitcoin market intelligence: strict data contracts,
 * **Data contracts:** `input_schema.json`, `output_schema.json`
 * **Validation & integrity:** structural validator, checksums, SBOM/provenance
 * **Observability:** Prometheus job, Grafana dashboard
+* **HTTP API:** `/run`, `/validate/{schema}`, `/metrics`, `/healthz` ([docs/API.md](docs/API.md))
 * **Containerized runtime:** Docker Compose
 * **Versioning:** semantic tags, `VERSION`, `CHANGELOG.md`
 * **Conventional Commits** for history hygiene
