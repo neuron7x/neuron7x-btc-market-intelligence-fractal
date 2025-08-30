@@ -41,9 +41,9 @@ def run_example(path: Path) -> Tuple[float, float]:
             str(input_path),
             "--out",
             str(output_path),
+            "--mode",
+            inp.get("mode", "v1"),
         ]
-        if inp.get("mode") == "v2.fractal":
-            cmd.append("--fractal")
         subprocess.run(cmd, check=True)
         out = json.loads(output_path.read_text(encoding="utf-8"))
     pred = float(out["summary"]["overall_signal"])

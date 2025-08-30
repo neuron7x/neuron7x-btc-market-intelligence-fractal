@@ -24,7 +24,9 @@ def main() -> int:
     parser_run.add_argument("--input", required=True)
     parser_run.add_argument("--out")
     parser_run.add_argument("--fixed-ts", dest="fixed_ts")
-    parser_run.add_argument("--fractal", action="store_true")
+    parser_run.add_argument(
+        "--mode", required=True, choices=("v1", "v2.fractal"), dest="mode"
+    )
 
     parser_validate = subparsers.add_parser(
         "validate", help="Validate JSON against schema"
@@ -47,22 +49,20 @@ def main() -> int:
             )
             return 2
 
-        # If explicit mode present, enforce consistency with --fractal flag
+        # If explicit mode present, enforce consistency with --mode argument
         mode = data.get("mode")
         if mode not in (None, "v1", "v2.fractal"):
             logger.error(
                 "unknown_mode", extra={"run_id": run_id, "mode": mode}
             )
             return 2
-        if mode == "v1" and args.fractal:
-            logger.warning("mode_flag_mismatch", extra={"run_id": run_id, "mode": mode})
-        if mode == "v2.fractal" and not args.fractal:
-            logger.warning("mode_flag_mismatch", extra={"run_id": run_id, "mode": mode})
+        if mode is not None and mode != args.mode:
+            logger.warning("mode_mismatch", extra={"run_id": run_id, "mode": mode})
 
         try:
             out = (
                 run_v2(data, args.fixed_ts, args.out)
-                if args.fractal or mode == "v2.fractal"
+                if args.mode == "v2.fractal"
                 else run_v1(data, args.fixed_ts, args.out)
             )
         except ValueError:
@@ -86,9 +86,7 @@ def main() -> int:
             "run_ok",
             extra={
                 "run_id": run_id,
-                "mode": (
-                    "v2.fractal" if (args.fractal or mode == "v2.fractal") else "v1"
-                ),
+                "mode": args.mode,
             },
         )
         return 0

@@ -47,11 +47,11 @@ Run:
 
 ```bash
 # Option 1: use module path directly
-python -m cli.btcmi run --input examples/intraday.json --out out.json
+python -m cli.btcmi run --input examples/intraday.json --out out.json --mode v1
 # Option 2: after installation, invoke the script
-btcmi run --input examples/intraday.json --out out.json
+btcmi run --input examples/intraday.json --out out.json --mode v1
 # Enable Fractal Engine v2
-btcmi run --input examples/intraday_fractal.json --out out_fractal.json --fractal
+btcmi run --input examples/intraday_fractal.json --out out_fractal.json --mode v2.fractal
 python tests/validate_output.py out.json  # validate against output_schema.json
 ```
 
