@@ -42,7 +42,7 @@ def test_run_runner_exception(monkeypatch):
 def test_run_out_path_none(monkeypatch):
     seen = {}
 
-    def runner(p, _t, *, out_path=None):
+    def runner(p, _t, *, out_path: str | Path | None = None):
         seen["out_path"] = out_path
         return {
             "schema_version": "2.0.0",

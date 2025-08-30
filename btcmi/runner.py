@@ -13,6 +13,20 @@ ALLOWED_SCENARIOS = frozenset(SCENARIO_WEIGHTS.keys())
 
 
 def run_v1(data, fixed_ts, out_path: str | Path | None = None):
+    """Run the v1 engine and optionally persist the output.
+
+    Parameters
+    ----------
+    data:
+        Input payload conforming to the input schema.
+    fixed_ts:
+        Timestamp used for the ``asof`` field.  When ``None`` the current
+        UTC time is used.
+    out_path:
+        Optional path where the rendered JSON output should be written.  When
+        ``None`` (the default) the output is only returned and no file is
+        created.
+    """
     scenario = data.get("scenario")
     if scenario is None:
         raise ValueError("'scenario' field is required")
@@ -62,6 +76,7 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
 
 
 def run_v2(data, fixed_ts, out_path: str | Path | None = None):
+    """Run the v2 fractal engine and optionally persist the output."""
     scenario = data.get("scenario")
     if scenario is None:
         raise ValueError("'scenario' field is required")

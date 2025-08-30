@@ -66,6 +66,8 @@ async def run_endpoint(payload: RunRequest) -> RunResponse:
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     try:
+        # API requests should not leave artifacts on disk; explicitly disable
+        # writing the output file.
         result = runner(data, None, out_path=None)
     except (KeyError, ValueError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
