@@ -36,8 +36,8 @@ jobs:
           fi
           pip install pytest pytest-cov ruff mypy
 
-      - name: Lint with ruff (non-blocking)
-        run: ruff check . || echo "ruff warnings"
+      - name: Lint with ruff
+        run: ruff check .
 
       - name: Type check with mypy
         run: |
