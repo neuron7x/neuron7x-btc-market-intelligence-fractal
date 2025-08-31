@@ -2,27 +2,17 @@
   "spdxVersion": "SPDX-2.3",
   "name": "btcmi",
   "versionInfo": "1.2.1",
-  "created": "2025-08-30T11:09:51Z",
+  "created": "2025-08-31T07:02:43Z",
   "files": [
     {
-      "fileName": "CHANGELOG.md",
+      "fileName": "CODEOWNERS",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "26098739de4f7beeff0f887ecd8e242ad5e9b792af9c6c63de4eb359ec139b30"
+          "checksumValue": "9bc71dd11f919b3a30affb8f35f4eedf61dc4c0efb8a2b96f053e76915f3dc2d"
         }
       ],
-      "fileSize": 202
-    },
-    {
-      "fileName": "requirements.txt",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "3bb34a1b6a2b6a7c0a0dfa118da56dda5e8eb5a76e0d3956057bea9bbc146696"
-        }
-      ],
-      "fileSize": 418
+      "fileSize": 139
     },
     {
       "fileName": "VERSION",
@@ -39,90 +29,30 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "c587073c2baebf4317fd80d4e9a059244313ad283eba4abbbfc523d55a346ddf"
+          "checksumValue": "73785babd0d0ccfecea421af95b27b35c4f71049fb2e5fec3e5cbc94ea892203"
         }
       ],
-      "fileSize": 2404
-    },
-    {
-      "fileName": "LICENSE",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "d6dadc697df5db09628ba74ba301d19113359cf6625e25b272689467730d8a48"
-        }
-      ],
-      "fileSize": 1076
-    },
-    {
-      "fileName": "pyproject.toml",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "4cd382fe62f771de90172bc3c276d24edb9c14611cea6e5e96310a5bbabd6e34"
-        }
-      ],
-      "fileSize": 848
-    },
-    {
-      "fileName": "constraints.txt",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "54c8ef8f1674fdc3b54c8c6b51bd6a604c4a082faf2c51ec7a57646e0e271629"
-        }
-      ],
-      "fileSize": 531
+      "fileSize": 2655
     },
     {
       "fileName": ".pre-commit-config.yaml",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "57ad30099cfd1cb8c29e5ec3119fb1fd0c71158a42d0604242e17d3e3fa5d4ed"
+          "checksumValue": "11541a5e42eb1c910b8b57580f8649a981d7fe0cda2b409a3590da3bf8ce73a2"
         }
       ],
-      "fileSize": 530
+      "fileSize": 664
     },
     {
-      "fileName": "output_schema.json",
+      "fileName": "CHECKSUMS.SHA256",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "ad2a0f1f7933df91faf09eb76ca7bbf566913c7a200694ca4b03b9e0effdbac3"
+          "checksumValue": "5fc564e59328e7f86626929b9fe1c9fef92b7ceb026734ea91a5e5c5d5f68d22"
         }
       ],
-      "fileSize": 3913
-    },
-    {
-      "fileName": "CONTRIBUTING.md",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "6e363b1453fc31f2dffbb956dcf097cacf84801703ff80d6d2434a4030063790"
-        }
-      ],
-      "fileSize": 569
-    },
-    {
-      "fileName": "CODEOWNERS",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "9bc71dd11f919b3a30affb8f35f4eedf61dc4c0efb8a2b96f053e76915f3dc2d"
-        }
-      ],
-      "fileSize": 139
-    },
-    {
-      "fileName": ".gitignore",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "25ac8f99be048c4e2dbb37ad63618caffc1c39d59051a6d9d929808e10ffef84"
-        }
-      ],
-      "fileSize": 109
+      "fileSize": 4055
     },
     {
       "fileName": "CODE_OF_CONDUCT.md",
@@ -135,734 +65,384 @@
       "fileSize": 1209
     },
     {
-      "fileName": "README.md",
+      "fileName": "pytest.ini",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "8142a52221f93a0d83b60bb4e50eb78177f465069f1f267235cb3d76fb0879c8"
+          "checksumValue": "07e12af78809b103a9e003b9bf24f9718928fa263046b37bf3ebc9ebbf802ceb"
         }
       ],
-      "fileSize": 4537
+      "fileSize": 24
     },
     {
       "fileName": "docker-compose.yml",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "53fa4a2a5872d1ea028830220c49208d9a94fb2b1e137c40d69088dfcf2d52db"
+          "checksumValue": "0cebadf84d0db710075d788bfd6f0940d67d1f0749848e84f926603f47bfd409"
         }
       ],
-      "fileSize": 401
+      "fileSize": 762
     },
     {
-      "fileName": "CHECKSUMS.SHA256",
+      "fileName": "MANIFEST.in",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "7daa504407585abf1de6709969c819e051c4f41235384c04f73b822affe50a0f"
-        }
-      ],
-      "fileSize": 3408
-    },
-    {
-      "fileName": "examples/real_swing.json",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "80d76eca94392b6732e13d30dda0866893be3df600afdc9edfa1b01b82256b45"
-        }
-      ],
-      "fileSize": 757
-    },
-    {
-      "fileName": "examples/swing_fractal.json",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "918dbaf0e7989d00f6e1d50c08f36882018d3868b43d5d75fcb6de1c9dfd10c3"
-        }
-      ],
-      "fileSize": 701
-    },
-    {
-      "fileName": "examples/intraday.json",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "4edbd64af48949ed679f2e7b474a0944949f37549fef8ccb51c0f01435bd026b"
-        }
-      ],
-      "fileSize": 516
-    },
-    {
-      "fileName": "examples/run_e2e.py",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "d731cf7536574b6ecd0b0d51ce384a434d0ef5a511c10095a4b0d05e6c922340"
-        }
-      ],
-      "fileSize": 2889
-    },
-    {
-      "fileName": "examples/intraday_fractal.json",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "46804d4e671da397d7146b6d45d363a32fa76ebd2b707596017e153c779a5f24"
-        }
-      ],
-      "fileSize": 705
-    },
-    {
-      "fileName": "examples/real_intraday.json",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "632dc49461b9e09c75385a5e4452bc4938b0f065dd05414020eb4a59993aa172"
-        }
-      ],
-      "fileSize": 554
-    },
-    {
-      "fileName": ".git/description",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee"
-        }
-      ],
-      "fileSize": 73
-    },
-    {
-      "fileName": ".git/index",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "adac0971fce781958d67540321f9235fdd13899294e1bbbb28ffe1c636a58045"
-        }
-      ],
-      "fileSize": 6891
-    },
-    {
-      "fileName": ".git/packed-refs",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "0ce7caa40bacab8e490e8ec06e8650c0e51895752d3c86befd498c7e24d35700"
-        }
-      ],
-      "fileSize": 105
-    },
-    {
-      "fileName": ".git/config",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "cfe7ba1238c9a78be7535d7c63bcaf5a4d5011d46b07c9b45d3bbf7d6c312dfe"
-        }
-      ],
-      "fileSize": 92
-    },
-    {
-      "fileName": ".git/FETCH_HEAD",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "7d7b551312df09aa2912af5afa8a6d474e89c4bf909f14e3dbcbe49776d7f6d3"
-        }
-      ],
-      "fileSize": 119
-    },
-    {
-      "fileName": ".git/HEAD",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "b20849f2b0dd22bf5e88c7faebcf4ae9c5273276f91e58fa9213421581cd8482"
-        }
-      ],
-      "fileSize": 21
-    },
-    {
-      "fileName": ".git/info/exclude",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1"
-        }
-      ],
-      "fileSize": 240
-    },
-    {
-      "fileName": ".git/objects/17/3f8c12886b8f63e4573f4af42e09d440f4479a",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "f5c65d26e10f14eb8749a3640b46d84e419e0a2956e572ab4a3d9cfeb781f8eb"
-        }
-      ],
-      "fileSize": 2164
-    },
-    {
-      "fileName": ".git/objects/f1/fe512b8b681161ef2015479cb25781fc19e86b",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "f396f7a2a84893359001c501a82fa809ff37a63e3ddbfd22b520254cd6371e26"
-        }
-      ],
-      "fileSize": 1328
-    },
-    {
-      "fileName": ".git/objects/bc/083b0a2edef836089fdd3749815885dedde9c7",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "46f670e15c804600b21ab79acc3c61043c4ed737ba61f119de940ba9124f74f3"
-        }
-      ],
-      "fileSize": 572
-    },
-    {
-      "fileName": ".git/objects/05/5457cf8b86f45ab74e77aef2a4d1aafe000172",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "8c027eb1051dc66cd444cb5dc02a1db0f946c5b35b9589962fd46828351b9722"
-        }
-      ],
-      "fileSize": 687
-    },
-    {
-      "fileName": ".git/objects/2a/2e21d0904f4e8aa68d074f45585c84b4f8f7c7",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "6a93814c073e44b2c4f7a88672e225cd7761175a876969e8e753577e8ed2c2f3"
-        }
-      ],
-      "fileSize": 533
-    },
-    {
-      "fileName": ".git/objects/pack/pack-fbfaf11e7b3bf442df6fdd262cb86776c86188bf.rev",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "91e10ccbc94226cf3a56a7535498ce2bade994b560956a90dbc67d912bf17381"
-        }
-      ],
-      "fileSize": 2828
-    },
-    {
-      "fileName": ".git/objects/pack/pack-fbfaf11e7b3bf442df6fdd262cb86776c86188bf.pack",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "8e857fe9cf32dc3fb680082e7a4021e16321694ada929e244b50fefa30bfd25f"
-        }
-      ],
-      "fileSize": 192671
-    },
-    {
-      "fileName": ".git/objects/pack/pack-fbfaf11e7b3bf442df6fdd262cb86776c86188bf.idx",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "b41a188411cd4cfb6d63040b19b3e03a69ddfec2d716eaf09666238f520499ac"
-        }
-      ],
-      "fileSize": 20504
-    },
-    {
-      "fileName": ".git/objects/12/0cc864ecb3bccb67128a92a9c45cbb869b6006",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "821bbbe1eb961ff46040b828008eb8f3612d6a10ac760b4ad3998b756b0ea29c"
-        }
-      ],
-      "fileSize": 967
-    },
-    {
-      "fileName": ".git/objects/57/ec132a7428275502f57b6bbd080efad601e42a",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "ce687ea7f11c39a4c3f2ac074f9f551a076afb4a1b347abf7314e3c7fcad33bd"
-        }
-      ],
-      "fileSize": 1006
-    },
-    {
-      "fileName": ".git/objects/b5/191958e67c6b5107aaf137cf852a12011f8834",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "3018adc422f88745f616ca131b866619f5aab4f096a71f50a877547c7f69458c"
-        }
-      ],
-      "fileSize": 868
-    },
-    {
-      "fileName": ".git/objects/b5/cd7574767ecf37eb90524bf55d6ef0185fd7a6",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "662473c6e480d92c0d2e4409fd21492d02fa213e89a5d1344330425d0fba5098"
-        }
-      ],
-      "fileSize": 53
-    },
-    {
-      "fileName": ".git/objects/f6/585dc547baf518ba758a3010e4f7fa17d4f1f3",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "47903d41ff1fc0db0caa6c951a10ff46c2b07cd94135a2df6a305f8f8e494b06"
-        }
-      ],
-      "fileSize": 851
-    },
-    {
-      "fileName": ".git/objects/8d/cb8e164d42827d8c8c8591a7b0df42fa0810f7",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "54a31d4ebb4b047e29c2a6e1161e0d6d6b97f7b6a1a39880399ea483aea9004b"
-        }
-      ],
-      "fileSize": 1139
-    },
-    {
-      "fileName": ".git/objects/f2/af32cef2427ad11aa80bdce5ec1cfdb98bb233",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "d9e08cbb0aa480ac743b7f23c7919b6ed1766689ecd6a94f8a42dce86746c3a7"
-        }
-      ],
-      "fileSize": 532
-    },
-    {
-      "fileName": ".git/objects/52/a0ccfe43ce9bcf50e4a6a173682abb557db149",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "848f3bcc5407445268a2d82c6859a8654efb2945223a384a9fac71d901848b56"
-        }
-      ],
-      "fileSize": 911
-    },
-    {
-      "fileName": ".git/objects/14/3ccd1bfeace505cee03031f68b740ab32d9825",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "0135dd45efbff816f7bde8f0330dc61cfdf1f9c728686fee9c1b55849ab3855e"
-        }
-      ],
-      "fileSize": 213
-    },
-    {
-      "fileName": ".git/objects/63/ac5d517888f0d5e50fa802ad6757fc4d6f36ae",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "406555a21357b4c94cb304ed43ef24d2f2ebcf0a5f1d6048183e9b5f2e5d68f6"
-        }
-      ],
-      "fileSize": 696
-    },
-    {
-      "fileName": ".git/objects/9d/a4489b57e52dba590384df3e7e0348041a958f",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "f8a7bbde319c7206bbb7f9352826d46f28553693ef44031a53e316778dfcb1b8"
-        }
-      ],
-      "fileSize": 856
-    },
-    {
-      "fileName": ".git/objects/74/56e3b2faa1a44892ea2ef4aefd4abcd92943ad",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "5aafe67050a04a8beb52652df67d2c20df00b0949d0289f057503f51651b7135"
-        }
-      ],
-      "fileSize": 51
-    },
-    {
-      "fileName": ".git/objects/ff/7b264326f2128f87403478837918281d061ee2",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "43a452de4ee7d0f762e7cde0536c8c89b1fe4759980372acef0d5c51a293d0e1"
-        }
-      ],
-      "fileSize": 912
-    },
-    {
-      "fileName": ".git/objects/7d/c10754792636a3bd81ca1d5c26e6e04ab7ab4d",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "2e0e7754bb8e9fea3d5636ede5d8fa7f2b963340793fb278bc4c6fcf47ec4c45"
-        }
-      ],
-      "fileSize": 572
-    },
-    {
-      "fileName": ".git/objects/f9/69006849da4456ef25ec208643a23542ab0123",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "4627f6bd4476e31e0a268a10e6ff1d9653bc56ce64187c4bd866b6b0885e4b38"
-        }
-      ],
-      "fileSize": 356
-    },
-    {
-      "fileName": ".git/objects/dc/613c799febad48c6f55ff3039c823de9f92ecb",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "d7cc6cdb18d338668b07c304af2c0e93ba28db7b95ba87f114d976f10faa7fe9"
-        }
-      ],
-      "fileSize": 154
-    },
-    {
-      "fileName": ".git/objects/e3/02ee50dad471d1d8b661f8748eacb87b5c0a8a",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "c678d51af94d20a96181a993f8dacf1da4a9f643d3dd7fe3f0e992555ec17dbd"
-        }
-      ],
-      "fileSize": 910
-    },
-    {
-      "fileName": ".git/objects/7f/37dae38b834cb6007c4ead19ec3009cf20fe36",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "b2b6dccc1417fdc337c33af99af86b18f748822b55493763df4db29ab75fc558"
-        }
-      ],
-      "fileSize": 1821
-    },
-    {
-      "fileName": ".git/objects/65/f4ef9adc122396b2dc9f2877acc52b7f222f74",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "19d62daa75659f0caf321b3de4437fd2ffb5f059fbf5df1039f316449761a61e"
-        }
-      ],
-      "fileSize": 871
-    },
-    {
-      "fileName": ".git/objects/c8/4909703c12557be7f3a791353c4abec994e97c",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "c1311145c79dd7c4628914a30d41d3ea42ab2b3dd891113eda1beff6eefc1fd2"
-        }
-      ],
-      "fileSize": 851
-    },
-    {
-      "fileName": ".git/objects/16/02e16761a11e9d3c2169d5ffe196ed03a56154",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "93f5f540472642c67c02b420f617ba6d308c9a305eac981783779cc3a96e34b3"
-        }
-      ],
-      "fileSize": 861
-    },
-    {
-      "fileName": ".git/objects/be/5372a12937fdaa6d8773fa4d1da3d4ff6eb1c9",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "be1a460c2749f314571add65ed5651f3f517ac4338ea8631cccd01f27697f683"
-        }
-      ],
-      "fileSize": 1004
-    },
-    {
-      "fileName": ".git/objects/36/999fac3b0d0154546fd6df96b30d85d98ae0a6",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "bb1a688874ff13644e1a3897c36097ac1f59653d369debbee23d1c6459c725a9"
-        }
-      ],
-      "fileSize": 910
-    },
-    {
-      "fileName": ".git/objects/39/cf969d4181f250194dbdd5d94d443a4787f071",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "897c086abf2a408f0be130dd21881bbc69fdf76df4aabc89466c63169581b0a7"
-        }
-      ],
-      "fileSize": 2182
-    },
-    {
-      "fileName": ".git/objects/ed/f1dbf3f77d109d9ea3a3443c5cfea79a594b3f",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "e25c0c1629fc552bcdd13db0c7abbbf3110ae549f84326c9d62608e71b8f1592"
-        }
-      ],
-      "fileSize": 910
-    },
-    {
-      "fileName": ".git/objects/49/6aa6307751ccc20087b0bba14ed0ea62047bc8",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "8d1ccff0eccdb2ab4a2bd41ad2eeb91806ace3bc7225b9c8200bceae160f0163"
+          "checksumValue": "9fd67712e699b74bb9cef026dd3bb720ec3409c0de9c14c2d9c0bfb362e0d51b"
         }
       ],
       "fileSize": 52
     },
     {
-      "fileName": ".git/objects/0c/a379fb16a535ea75d99186408b2b8dccd2cc4f",
+      "fileName": "constraints.txt",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "62c2dd53f9c800ff491daf60a1f3be4e0dfeb71f8e3e5ce76246c4e40509b0e1"
+          "checksumValue": "2bdac52479720a929dcf820614eca7dba60e8e2ceefc67496a883a505d667c57"
         }
       ],
-      "fileSize": 508
+      "fileSize": 623
     },
     {
-      "fileName": ".git/objects/db/ad526e219b21877c953cb08c608bfe3b5aa28e",
+      "fileName": "README.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "2f6cb3fff8ff657821c26672acc98c0c91cefed2428601290cd6812c9a8663ef"
+          "checksumValue": "cb66b36ee35bf0ad5c005ef6e248691bd744651d3b9e82c7b1d4750a14ca3818"
         }
       ],
-      "fileSize": 559
+      "fileSize": 5392
     },
     {
-      "fileName": ".git/objects/8b/534ebf1d73e048ef072696324e50aff6009e57",
+      "fileName": "LICENSE",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "fa59e9ac98081eba91dac9cb0bc0a5434d1fd924041624a4dc568fc88b1c99f3"
+          "checksumValue": "d6dadc697df5db09628ba74ba301d19113359cf6625e25b272689467730d8a48"
         }
       ],
-      "fileSize": 153
+      "fileSize": 1076
     },
     {
-      "fileName": ".git/hooks/pre-rebase.sample",
+      "fileName": "output_schema.json",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3"
+          "checksumValue": "ad2a0f1f7933df91faf09eb76ca7bbf566913c7a200694ca4b03b9e0effdbac3"
         }
       ],
-      "fileSize": 4898
+      "fileSize": 3913
     },
     {
-      "fileName": ".git/hooks/applypatch-msg.sample",
+      "fileName": "pyproject.toml",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7"
+          "checksumValue": "442f113b57455f359baa6d6a49dd83f22c142b41ebddc36179071a8ae7f34da2"
         }
       ],
-      "fileSize": 478
+      "fileSize": 1165
     },
     {
-      "fileName": ".git/hooks/sendemail-validate.sample",
+      "fileName": "CHANGELOG.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92"
+          "checksumValue": "26098739de4f7beeff0f887ecd8e242ad5e9b792af9c6c63de4eb359ec139b30"
         }
       ],
-      "fileSize": 2308
+      "fileSize": 202
     },
     {
-      "fileName": ".git/hooks/push-to-checkout.sample",
+      "fileName": "CONTRIBUTING.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f"
+          "checksumValue": "289ac6174661f1eb6a7ff9c1c4dff205963c0b8fc739cb8d30457839f7d3f65c"
         }
       ],
-      "fileSize": 2783
+      "fileSize": 1052
     },
     {
-      "fileName": ".git/hooks/pre-push.sample",
+      "fileName": "requirements.txt",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a"
+          "checksumValue": "aaa65848b23c5f143a65f5d72fd7cc6b36531b70241df03c6bc76838cc35bc4f"
         }
       ],
-      "fileSize": 1374
+      "fileSize": 247
     },
     {
-      "fileName": ".git/hooks/fsmonitor-watchman.sample",
+      "fileName": ".gitignore",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "e0549964e93897b519bd8e333c037e51fff0f88ba13e086a331592bf801fa1d0"
+          "checksumValue": "25ac8f99be048c4e2dbb37ad63618caffc1c39d59051a6d9d929808e10ffef84"
         }
       ],
-      "fileSize": 4726
+      "fileSize": 109
     },
     {
-      "fileName": ".git/hooks/post-update.sample",
+      "fileName": "docs/Architecture.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5"
+          "checksumValue": "9eee8af1a4f68197f61dad5575212c7d526eaca7a7c8d7f68b2cc3a3204e44d6"
         }
       ],
-      "fileSize": 189
+      "fileSize": 501
     },
     {
-      "fileName": ".git/hooks/update.sample",
+      "fileName": "docs/SNAPSHOTS.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106"
+          "checksumValue": "3b79a50b262a706b5bda4bd5eb86b95d08fb56239dbf23789433370458baf5c9"
         }
       ],
-      "fileSize": 3650
+      "fileSize": 367
     },
     {
-      "fileName": ".git/hooks/prepare-commit-msg.sample",
+      "fileName": "docs/api_load_baseline.json",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619"
+          "checksumValue": "8a763d3ba7364baa4e2738c4d37678499d4cc73edb5d9bda1f08ee7db7072b53"
         }
       ],
-      "fileSize": 1492
+      "fileSize": 32
     },
     {
-      "fileName": ".git/hooks/pre-merge-commit.sample",
+      "fileName": "docs/openapi.json",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53"
+          "checksumValue": "30a349e4fe0c634071774ae50fa936ccd590f17c77189b0798e9497cb9f25023"
         }
       ],
-      "fileSize": 416
+      "fileSize": 6580
     },
     {
-      "fileName": ".git/hooks/pre-applypatch.sample",
+      "fileName": "docs/QUICKSTART.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475"
+          "checksumValue": "1f653edab8eaae99e309936f21d86acba848fb200434cef5dc96da45b4881496"
         }
       ],
-      "fileSize": 424
+      "fileSize": 660
     },
     {
-      "fileName": ".git/hooks/pre-receive.sample",
+      "fileName": "docs/FieldOrder.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989"
+          "checksumValue": "f938a419d109ce328bef5e9b7ebc205c6c8aa1d438107c74ea2d8bfe1789895e"
         }
       ],
-      "fileSize": 544
+      "fileSize": 1264
     },
     {
-      "fileName": ".git/hooks/commit-msg.sample",
+      "fileName": "docs/API.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "1f74d5e9292979b573ebd59741d46cb93ff391acdd083d340b94370753d92437"
+          "checksumValue": "37a7d7ddcf4cb1323ded52fd36213abf1d16da639ef4f03c85f5163ea6e812c9"
         }
       ],
-      "fileSize": 896
+      "fileSize": 2726
     },
     {
-      "fileName": ".git/hooks/pre-commit.sample",
+      "fileName": "docs/SECURITY.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "f9af7d95eb1231ecf2eba9770fedfa8d4797a12b02d7240e98d568201251244a"
+          "checksumValue": "b0f79fde0807e14390e5ad58b37f3e07a67a2e753c367e5e67ed5225b66b6765"
         }
       ],
-      "fileSize": 1643
+      "fileSize": 59
     },
     {
-      "fileName": ".git/logs/HEAD",
+      "fileName": "ops/metrics/exporter.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "b6d4855387a9b24be407951c2123d8642ecea343ed214d17c30c1a635f1a29b4"
+          "checksumValue": "ce1991968c6e01b12992045898a08849f0c28e7ffde9c5f87d74f39cbb8304df"
         }
       ],
-      "fileSize": 880
+      "fileSize": 4803
     },
     {
-      "fileName": ".git/logs/refs/heads/work",
+      "fileName": "ops/grafana/dashboard.json",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "9a9452aa8fa5a5142f69d87138c7863732fc17b1737d655b65c089df93c89c51"
+          "checksumValue": "9301311e52b7e3342331a2a82eb6f2f1d56e6a77afc0ae9e62807d6f1766439f"
         }
       ],
-      "fileSize": 156
+      "fileSize": 7697
     },
     {
-      "fileName": ".git/logs/refs/heads/main",
+      "fileName": "ops/prometheus/job.sample.yml",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "abbed6e597ecbdbd84e5b1a487acd16b6a674e1c5deab96d37978824acfdaa89"
+          "checksumValue": "81050edcba26222f0c33c12521d9a1a0f0ebbab75a1b2ac6d14e0a261e085b2f"
         }
       ],
-      "fileSize": 200
+      "fileSize": 123
     },
     {
-      "fileName": ".git/refs/heads/work",
+      "fileName": "cli/btcmi.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "573d78aba10b4f8d3cebbea3e7cf621e2e1c5d200a6cb9bda70dfa46d1f585e7"
+          "checksumValue": "bf13fb60874d66d2056fe6e765759add3fd2bbcb51d7e39a9238344f3f5d13d9"
         }
       ],
-      "fileSize": 41
+      "fileSize": 3756
     },
     {
-      "fileName": ".git/refs/heads/main",
+      "fileName": "tests/test_drift_guard.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "af9dee75843d033b803dff67b2e020ac08644a501f902411aae5606a44df34a7"
+          "checksumValue": "f1de78ff090cd584aa484e3fba84b663a39034fb8e6ea475971d99aaba6cf0a5"
         }
       ],
-      "fileSize": 41
+      "fileSize": 1758
     },
     {
-      "fileName": "tests/test_router_regime.py",
+      "fileName": "tests/test_engine_v2_layers.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "8adc21e3025bb01db61569d9af301a00416481a14961e6a09abfab64aa5c2b2e"
+          "checksumValue": "ac781cb13df2d6575a2e71ac12da7067f5c40df2e30201a52b8390df5e58413a"
         }
       ],
-      "fileSize": 570
+      "fileSize": 2235
+    },
+    {
+      "fileName": "tests/test_runner_nf3p.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3d672d2dc7d0186a0041433eb0395b31b1bbc69639d1131e98c509e6da8560e8"
+        }
+      ],
+      "fileSize": 762
+    },
+    {
+      "fileName": "tests/test_schema_freeze.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "27c6aac520d806f85470a439997b72f765a9669f14d055020fb60bc24d457e9d"
+        }
+      ],
+      "fileSize": 717
+    },
+    {
+      "fileName": "tests/test_validate_scenario_window.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "27a81a1afbd42430b3e4b857b3f7b414968f00a3596fa419f909b7617f34d303"
+        }
+      ],
+      "fileSize": 795
+    },
+    {
+      "fileName": "tests/test_api_app.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "78ece4463f519e1518d5a0a9e3260bbc596d3aae24ae65cc8b6811cf51c5595d"
+        }
+      ],
+      "fileSize": 3097
+    },
+    {
+      "fileName": "tests/test_api_snapshots.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3fe47f122915a449ce7ab429034d034483f3f41c44a171c649d3deee2c978da7"
+        }
+      ],
+      "fileSize": 1449
+    },
+    {
+      "fileName": "tests/test_engine_v1_properties.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8a8c0cd09a71339a5c54c4b6d2910c7ef15e051f9f12919700728e271e2c9d67"
+        }
+      ],
+      "fileSize": 1256
+    },
+    {
+      "fileName": "tests/test_golden_v1.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c2a4720c3e76da8b594beb64b85d3354de3e7a2f706c498b8325396c7c7aac06"
+        }
+      ],
+      "fileSize": 510
+    },
+    {
+      "fileName": "tests/test_cli_stdin.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4565297f2ff335875a68799f58f20ce5f9557107d74e419b93331aa60f3b7dc8"
+        }
+      ],
+      "fileSize": 907
+    },
+    {
+      "fileName": "tests/test_schema_util.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "885663ae528f66606345ded8f492c3b7a36fcff63bef21a39051447827f14223"
+        }
+      ],
+      "fileSize": 1949
+    },
+    {
+      "fileName": "tests/test_utils.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b3c76dafcec512f84a2dd33579a98628fe3ec65857c0a707a733ac81185ea1b7"
+        }
+      ],
+      "fileSize": 695
+    },
+    {
+      "fileName": "tests/test_cli_required_fields.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5f149be5cc007dd831982c775acb2829374309029c6f5159ff96b0a95773478e"
+        }
+      ],
+      "fileSize": 6138
+    },
+    {
+      "fileName": "tests/test_logging_cfg.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "73d4af7d34ac46f18993cb1108aea11228789564e847fd0e8181d710b3e532ca"
+        }
+      ],
+      "fileSize": 665
     },
     {
       "fileName": "tests/test_validate_output_script.py",
@@ -875,114 +455,64 @@
       "fileSize": 703
     },
     {
-      "fileName": "tests/test_api_snapshots.py",
+      "fileName": "tests/test_router_regime.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "ef0837e9ec35e6dd2c4becc75eafd8e116f3e6309056cbf02e2e539cd86c7bda"
+          "checksumValue": "d6281c545a9de2d24060c4b7ea92eec87fd13b1ab3e4a4df11c3e28dd3e22687"
         }
       ],
-      "fileSize": 1425
+      "fileSize": 468
     },
     {
-      "fileName": "tests/test_api_app.py",
+      "fileName": "tests/test_cli_nf3p.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "9351ed3651d812989e368071fbe843d272da7066027d5b677e80188ea0d56bf6"
+          "checksumValue": "740a6876d0cd7954d58b873c0d6ff9be401217ef2d6b7c005bffe296e06534dc"
         }
       ],
-      "fileSize": 2760
+      "fileSize": 739
     },
     {
-      "fileName": "tests/test_utils.py",
+      "fileName": "tests/test_golden_checksums.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "b03cf400dc657ac224ae61630654ca3cc2680d92db357cfdf2cd94467fdf7742"
+          "checksumValue": "615c7c8f20245378699f24fbeec40794a3b7887335b3ca391cd44dadd4b0e6ce"
         }
       ],
-      "fileSize": 722
+      "fileSize": 519
     },
     {
-      "fileName": "tests/test_golden_v1.py",
+      "fileName": "tests/test_engine_v1_layers.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "f7b4bcfbc65f702a7ffc718196dbd2081251afc9109fa3fe409c887b3ca79cfd"
+          "checksumValue": "821c38f361bc6cc8bc7a1b284b1e011b995861c24e550eba52f195b506980d41"
         }
       ],
-      "fileSize": 501
+      "fileSize": 2296
     },
     {
-      "fileName": "tests/test_drift_guard.py",
+      "fileName": "tests/test_vol_regime_pctl.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "2ecd62d4761612893a513d61ac501fe26a737873186cb40e80347fa3c2b7e765"
+          "checksumValue": "47ef0d3f0e1194a63a06d4fb854178c828ce931c544c8da120dae52a5c157a0d"
         }
       ],
-      "fileSize": 1695
-    },
-    {
-      "fileName": "tests/test_schema_freeze.py",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "9713c18ac646fbf83f2fddcf7fdbee5fac40dd3e522e15ccbe7338bdc0443329"
-        }
-      ],
-      "fileSize": 717
-    },
-    {
-      "fileName": "tests/test_engine_v2_layers.py",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "d80e4bb2807147a180842460e1f1e21b9167c566acf52c5510a96d457cfbbab8"
-        }
-      ],
-      "fileSize": 2387
-    },
-    {
-      "fileName": "tests/test_schema_util.py",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "1d0c812f49faefe2494b5d645f4c55906445b93212e00d53d2eb4827475e944b"
-        }
-      ],
-      "fileSize": 1228
-    },
-    {
-      "fileName": "tests/test_logging_cfg.py",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "d87498ca176a4cf4cb9772472449b17996e3193284dafd237cd157a33ed201f9"
-        }
-      ],
-      "fileSize": 715
+      "fileSize": 596
     },
     {
       "fileName": "tests/test_golden_v2.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "56f0eefe226596c48585433be86f5bd911d301deb0015f5701c172091be1cf96"
+          "checksumValue": "4c8bdc4975f732e72d3d4d428fdf578973302da9538e7a1b516738bd044118d5"
         }
       ],
-      "fileSize": 647
-    },
-    {
-      "fileName": "tests/test_cli_required_fields.py",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "63c6275f8283830c73e7cc9b283f73867753ca9ed7b79f6dd9e75b3c6f5c9bd4"
-        }
-      ],
-      "fileSize": 2270
+      "fileSize": 656
     },
     {
       "fileName": "tests/validate_output.py",
@@ -995,34 +525,24 @@
       "fileSize": 992
     },
     {
-      "fileName": "tests/golden/api_run_v1.golden.json",
+      "fileName": "tests/golden/CHECKSUMS.SHA256",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "4b3aece362166f84ad7bfac5ef617bd3b21bb18c5e3728992104098036cfd0c7"
+          "checksumValue": "b0a0fec5ced0b81cd33ebd09cb2a5d77d651408f2309f2e6daaab018f809ab7b"
         }
       ],
-      "fileSize": 1109
+      "fileSize": 455
     },
     {
-      "fileName": "tests/golden/intraday_fractal.golden.json",
+      "fileName": "tests/golden/README.md",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "99e09941eaaa7306befde397181a72c515deb189ee26439838d558a4b1b4df77"
+          "checksumValue": "7455677063c2bb6fb3339dd27da8098d0c8877873abc9868c830340cffe57649"
         }
       ],
-      "fileSize": 1043
-    },
-    {
-      "fileName": "tests/golden/intraday_v1.golden.json",
-      "checksums": [
-        {
-          "algorithm": "SHA256",
-          "checksumValue": "bdc87fdd782a866dd950cc4a6176123409bcab1207b3aae82c9af5228308b1b4"
-        }
-      ],
-      "fileSize": 1101
+      "fileSize": 869
     },
     {
       "fileName": "tests/golden/api_run_v2.golden.json",
@@ -1045,14 +565,44 @@
       "fileSize": 1043
     },
     {
-      "fileName": "tests/tmp/intraday_fractal.out.json",
+      "fileName": "tests/golden/api_run_v1.golden.json",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "4872d7a63aed08006d7586ca17ae7c8a15f30d0bd842cbfcfaf7075bb2819d40"
+          "checksumValue": "4b3aece362166f84ad7bfac5ef617bd3b21bb18c5e3728992104098036cfd0c7"
         }
       ],
-      "fileSize": 1051
+      "fileSize": 1109
+    },
+    {
+      "fileName": "tests/golden/intraday_v1.golden.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bdc87fdd782a866dd950cc4a6176123409bcab1207b3aae82c9af5228308b1b4"
+        }
+      ],
+      "fileSize": 1101
+    },
+    {
+      "fileName": "tests/golden/intraday_fractal.golden.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "99e09941eaaa7306befde397181a72c515deb189ee26439838d558a4b1b4df77"
+        }
+      ],
+      "fileSize": 1043
+    },
+    {
+      "fileName": "tests/perf/test_api_load.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0d17920e24d1cd24bedfc6aff9dfe128102c864032d858ba47da4e54b8bcb393"
+        }
+      ],
+      "fileSize": 706
     },
     {
       "fileName": "tests/tmp/swing_fractal.out.json",
@@ -1060,6 +610,16 @@
         {
           "algorithm": "SHA256",
           "checksumValue": "925e5594c601083e01bf4289f2b1a33e4eeff7a0ce6606a29ac64ff8219162f0"
+        }
+      ],
+      "fileSize": 1051
+    },
+    {
+      "fileName": "tests/tmp/intraday_fractal.out.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4872d7a63aed08006d7586ca17ae7c8a15f30d0bd842cbfcfaf7075bb2819d40"
         }
       ],
       "fileSize": 1051
@@ -1075,124 +635,474 @@
       "fileSize": 1109
     },
     {
-      "fileName": "provenance/sbom.spdx.json",
+      "fileName": ".git/config",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "56b7bef11f0d3912f55373570eedd7f8ba40fc6f2f0cf2b63011dd015579f2da"
+          "checksumValue": "cfe7ba1238c9a78be7535d7c63bcaf5a4d5011d46b07c9b45d3bbf7d6c312dfe"
         }
       ],
-      "fileSize": 30873
+      "fileSize": 92
     },
     {
-      "fileName": "btcmi/api.py",
+      "fileName": ".git/index",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "5f915064c8cc51b8344caaecab140b868979b800b5783341154656cd15bf81e4"
+          "checksumValue": "d9065f57aea842ea7a2efd2101831afa6318933b3e784fdd13bae856dc3921c9"
         }
       ],
-      "fileSize": 2744
+      "fileSize": 8847
     },
     {
-      "fileName": "btcmi/engine_v1.py",
+      "fileName": ".git/HEAD",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "845e1b04c7072a089b13bd4f5ea0281450768ff6958d4071f0fb305c6c411437"
+          "checksumValue": "b20849f2b0dd22bf5e88c7faebcf4ae9c5273276f91e58fa9213421581cd8482"
         }
       ],
-      "fileSize": 2563
+      "fileSize": 21
     },
     {
-      "fileName": "btcmi/utils.py",
+      "fileName": ".git/packed-refs",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "a0a3d5ef775d115620d615b10aa1eaa37786d956d175802c58ce5f5eeb175196"
+          "checksumValue": "0ce7caa40bacab8e490e8ec06e8650c0e51895752d3c86befd498c7e24d35700"
         }
       ],
-      "fileSize": 235
+      "fileSize": 105
     },
     {
-      "fileName": "btcmi/config.py",
+      "fileName": ".git/FETCH_HEAD",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "9d59ffe75b90cefbe7ab39605cf5728b9f5be156c3643e17a4b29862d90664af"
+          "checksumValue": "26aae889defe03e5926cba96e435ea103f2876c894748183a194fe311efa45f0"
         }
       ],
-      "fileSize": 1499
+      "fileSize": 119
     },
     {
-      "fileName": "btcmi/schema_util.py",
+      "fileName": ".git/description",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "1f03dc213b1370ba2841a7c698487daa417488d268313a112b4f3bd30dbae11a"
+          "checksumValue": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee"
         }
       ],
-      "fileSize": 932
+      "fileSize": 73
     },
     {
-      "fileName": "btcmi/logging_cfg.py",
+      "fileName": ".git/objects/be/540d0cdc52deebc5f0a3a753c8e2c5f475ffbb",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "2b9263ca11b45367a6ea8f15ca28b92b1da36c479c86b4ccbd66851ebab12d93"
+          "checksumValue": "0a7f3d1388c1b25e22ec5c2bdf6cec225b4b9037fb62d1c95a077a587976afcd"
         }
       ],
-      "fileSize": 827
+      "fileSize": 2081
     },
     {
-      "fileName": "btcmi/runner.py",
+      "fileName": ".git/objects/c4/4f895c3055f0de1e595866d09994c697e66529",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "1cdc508741bca8fc02053f0de93d0c85fceed960a27f755feeac7d434760cdc7"
+          "checksumValue": "715998a081f2b5075aa82d2d261a183d071b9fa99c4e86d0a304bd6e9b467b28"
         }
       ],
-      "fileSize": 4743
+      "fileSize": 53
     },
     {
-      "fileName": "btcmi/__init__.py",
+      "fileName": ".git/objects/pack/pack-299728d51c4fb5c21e4f58bb9aa677e97cc27cb2.pack",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "b1faf4be5b349d9bd7c9ab0ed14417a6e506deaa537ee06f298734bced97f957"
+          "checksumValue": "5f6141baf24cf30f0e9a29e2a3ad50383676c0f887c1eeeb94e2f23299bf4ceb"
         }
       ],
-      "fileSize": 90
+      "fileSize": 319906
     },
     {
-      "fileName": "btcmi/engine_v2.py",
+      "fileName": ".git/objects/pack/pack-299728d51c4fb5c21e4f58bb9aa677e97cc27cb2.rev",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "b2e53f0802ea108cc4ce43dc96d35987819066d01b6166915f9005298c0d7155"
+          "checksumValue": "75ba4bf1bf3857531790861066cd290e2435bf2d1443cc061f7413b263f63270"
         }
       ],
-      "fileSize": 3771
+      "fileSize": 4636
     },
     {
-      "fileName": "scripts/generate_sbom.py",
+      "fileName": ".git/objects/pack/pack-299728d51c4fb5c21e4f58bb9aa677e97cc27cb2.idx",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "53664fbe4c80a3b4a777a645e06a49268b4897486643586a9202ebd229b08b8f"
+          "checksumValue": "03c1f1f3c59fd72f81b4999b167f275123d4016684c79d6e479ba6ccca352c4a"
         }
       ],
-      "fileSize": 901
+      "fileSize": 33160
     },
     {
-      "fileName": "scripts/verify_checksums.py",
+      "fileName": ".git/objects/8c/5d528e34b2e93137a8f20f5ccc22446f5b0c45",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "b80566721a1e6518b035959eb79c12bde0360c21742984cc6a304cc2f70a6d3a"
+          "checksumValue": "60248bf29c7f1ed9597f7a12d9db08206bf517a7fb2aac338a5bada8c095390f"
         }
       ],
-      "fileSize": 920
+      "fileSize": 860
+    },
+    {
+      "fileName": ".git/objects/54/440e37bcf7b0afb0945c81f3711bc3ba836a28",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f5911e1a15ed402cae63325a75201d1b7156eef4fd9f091b0e55c60cbacc155c"
+        }
+      ],
+      "fileSize": 421
+    },
+    {
+      "fileName": ".git/objects/55/ac67fe399722dc9d681cad7e3be0a75fff5472",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fd6a64dcf65654f7771a3b44335a5281f2f715e7e8e6a3d79b6d0b96f6be68ae"
+        }
+      ],
+      "fileSize": 2079
+    },
+    {
+      "fileName": ".git/objects/96/5f49fb42cfc4ebfddffda08dc8e9d729872578",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8993f461e4c5cf812518bcc8243c4f1bb21a84f7d180175ce98071b012d7c68e"
+        }
+      ],
+      "fileSize": 1346
+    },
+    {
+      "fileName": ".git/objects/b0/566a06937cb5cb69ec937b11e58db4a12efb3d",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "773102b56e94fdb756d8980901379721a2e65169c91a1039d83ad66fbea0551e"
+        }
+      ],
+      "fileSize": 366
+    },
+    {
+      "fileName": ".git/objects/b0/f37fc74bb008abfd02982ba7d541450c71cc2d",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "502b94e030aad4fda0ff32c8a9a0e38adc7dc186a627571d5f2da1fb6a3df2de"
+        }
+      ],
+      "fileSize": 387
+    },
+    {
+      "fileName": ".git/objects/10/e591fbd54b874ab32993a5452b1693abc3c5b4",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "56fadf4d5a5a241c76666df9602e2c9ecd37094147990488415f8cfedfd96570"
+        }
+      ],
+      "fileSize": 866
+    },
+    {
+      "fileName": ".git/objects/27/fd1b58a660439ea9e4aa0f4e06d8e89d3c3a4f",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9258224521b2c37897cc153f7a4b293ba3315b884618cec0c9986fcdba161c7c"
+        }
+      ],
+      "fileSize": 391
+    },
+    {
+      "fileName": ".git/objects/7e/263a2f34c0d99592e2735f235f779acd92a53b",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "c1bc217fdc365505dffb44078e925e135970a33676e8ebc66a52405c7204aae3"
+        }
+      ],
+      "fileSize": 1424
+    },
+    {
+      "fileName": ".git/objects/49/93e59ef4095be0b285533f73986e6daf3c6aea",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "52ecb08c75ee02b2a2bfe705e9286bcad684366a50fc00e14a0d29bc6d0b0759"
+        }
+      ],
+      "fileSize": 854
+    },
+    {
+      "fileName": ".git/objects/82/76c86f09ef258d7a6b8458de3619a1f00e4a97",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "47f20e92622049ebea4df4d61dba221d28fd0750d4374fffc7704cd66c5da8a5"
+        }
+      ],
+      "fileSize": 949
+    },
+    {
+      "fileName": ".git/objects/77/1e8d8680081d5cc5311751b2c919671c35e7e3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "23bd57825c95ceb5c1843357d7e5d38d0e3c1eab9438fd2fd11977948cb79f60"
+        }
+      ],
+      "fileSize": 691
+    },
+    {
+      "fileName": ".git/objects/af/88d2e682fea2ce76ccf7a058a1ebad93fde5f3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "22398a41fc38e39861c830ba3c0176c09b0d71f8dae1381ef4539c3ecca0312e"
+        }
+      ],
+      "fileSize": 950
+    },
+    {
+      "fileName": ".git/objects/cd/38e64d9585f8ec4b6b2ab829a7c0f54eaca83a",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "87934015a289c1c638314789ed34fe25d1e718bcf3b10bc7e4880339f274fc84"
+        }
+      ],
+      "fileSize": 396
+    },
+    {
+      "fileName": ".git/objects/20/a6e6d89b8b888d7f11229f37356dfcc80cc40a",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5f79aceedbc358718cf963fcb0578917f8ad6b9c6d416b3aff5c8d36ec11c849"
+        }
+      ],
+      "fileSize": 624
+    },
+    {
+      "fileName": ".git/objects/5a/b9e52a75c173e25733b9b36a658195be922f5f",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "43c23552c830775179495e7fa8aa25eede496490e976f70951217f480a65f723"
+        }
+      ],
+      "fileSize": 1438
+    },
+    {
+      "fileName": ".git/refs/heads/work",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "be0fea5b6c32870897d8d23839e61d8a18ca8c3c22033a950a7dfd3b977d8b97"
+        }
+      ],
+      "fileSize": 41
+    },
+    {
+      "fileName": ".git/refs/heads/main",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "33b771949ad99d6e6457e09af89fff4eb759e83fd4644edf38e8987b2621e6a7"
+        }
+      ],
+      "fileSize": 41
+    },
+    {
+      "fileName": ".git/info/exclude",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1"
+        }
+      ],
+      "fileSize": 240
+    },
+    {
+      "fileName": ".git/hooks/post-update.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5"
+        }
+      ],
+      "fileSize": 189
+    },
+    {
+      "fileName": ".git/hooks/pre-commit.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f9af7d95eb1231ecf2eba9770fedfa8d4797a12b02d7240e98d568201251244a"
+        }
+      ],
+      "fileSize": 1643
+    },
+    {
+      "fileName": ".git/hooks/pre-merge-commit.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53"
+        }
+      ],
+      "fileSize": 416
+    },
+    {
+      "fileName": ".git/hooks/commit-msg.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1f74d5e9292979b573ebd59741d46cb93ff391acdd083d340b94370753d92437"
+        }
+      ],
+      "fileSize": 896
+    },
+    {
+      "fileName": ".git/hooks/applypatch-msg.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7"
+        }
+      ],
+      "fileSize": 478
+    },
+    {
+      "fileName": ".git/hooks/update.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106"
+        }
+      ],
+      "fileSize": 3650
+    },
+    {
+      "fileName": ".git/hooks/pre-applypatch.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475"
+        }
+      ],
+      "fileSize": 424
+    },
+    {
+      "fileName": ".git/hooks/prepare-commit-msg.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619"
+        }
+      ],
+      "fileSize": 1492
+    },
+    {
+      "fileName": ".git/hooks/pre-rebase.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3"
+        }
+      ],
+      "fileSize": 4898
+    },
+    {
+      "fileName": ".git/hooks/pre-receive.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989"
+        }
+      ],
+      "fileSize": 544
+    },
+    {
+      "fileName": ".git/hooks/pre-push.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a"
+        }
+      ],
+      "fileSize": 1374
+    },
+    {
+      "fileName": ".git/hooks/fsmonitor-watchman.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e0549964e93897b519bd8e333c037e51fff0f88ba13e086a331592bf801fa1d0"
+        }
+      ],
+      "fileSize": 4726
+    },
+    {
+      "fileName": ".git/hooks/sendemail-validate.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92"
+        }
+      ],
+      "fileSize": 2308
+    },
+    {
+      "fileName": ".git/hooks/push-to-checkout.sample",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f"
+        }
+      ],
+      "fileSize": 2783
+    },
+    {
+      "fileName": ".git/logs/HEAD",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "08257dead37a1c5b92dd4d8585254fe9df38a0a3bb458ee2b64e5a59c67fc50b"
+        }
+      ],
+      "fileSize": 880
+    },
+    {
+      "fileName": ".git/logs/refs/heads/work",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3cb5fb658870b63757e7e634ea6c2d13785b7e81e3ee62978d35393490d27214"
+        }
+      ],
+      "fileSize": 156
+    },
+    {
+      "fileName": ".git/logs/refs/heads/main",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "1e5f793e56a311dd94f6c8c1df1a8d83c3dffe4d1ff6353d6487dcad8f5be39e"
+        }
+      ],
+      "fileSize": 200
     },
     {
       "fileName": ".github/PULL_REQUEST_TEMPLATE.md",
@@ -1229,10 +1139,10 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "c112b2187cac08ef5a441357496c4dbb74a738fb14c74c173f5c065a4fecc894"
+          "checksumValue": "0f9cd7a40042509335ed6fbeae6d0249c2bdfee93ea52bbb63fbb359c028650e"
         }
       ],
-      "fileSize": 1619
+      "fileSize": 1580
     },
     {
       "fileName": ".github/workflows/.github/workflows/security.yml",
@@ -1245,94 +1155,264 @@
       "fileSize": 703
     },
     {
-      "fileName": "cli/btcmi.py",
+      "fileName": "btcmi/__init__.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "17edb0ed6cdd69161005032268bf583b18b3021428adf7a32395f19b137fe8d6"
+          "checksumValue": "ef5629b9d0fba47f907e5b18d972a4c2e07faa0c4f9a814dcc4c743f393522fe"
         }
       ],
-      "fileSize": 2926
+      "fileSize": 294
     },
     {
-      "fileName": "ops/metrics/exporter.py",
+      "fileName": "btcmi/api.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "ddca398c696617df588438bb3b985071861dbd3b3c3c7d3997340064874a56dd"
+          "checksumValue": "8008c04c4a6c538a81a77c9c1ce949e4f28a5626ebeb33ed6f5437ca2c08cb33"
         }
       ],
-      "fileSize": 929
+      "fileSize": 3486
     },
     {
-      "fileName": "ops/prometheus/job.sample.yml",
+      "fileName": "btcmi/schema_util.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "81050edcba26222f0c33c12521d9a1a0f0ebbab75a1b2ac6d14e0a261e085b2f"
+          "checksumValue": "4ca48855cc017ddfae1bed4a18aeacc88e146bd9cbd4784d55217e03b7f21373"
         }
       ],
-      "fileSize": 123
+      "fileSize": 2716
     },
     {
-      "fileName": "ops/grafana/dashboard.json",
+      "fileName": "btcmi/engine_nf3p.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "56008361db0d5aba65557fa2337318348530763397ed914cedec800700911f2e"
+          "checksumValue": "46747ec0f03d1434fdf9834e52496488fc9c39d1b704f419380a687cfdc60ac4"
         }
       ],
-      "fileSize": 68
+      "fileSize": 1459
     },
     {
-      "fileName": "docs/QUICKSTART.md",
+      "fileName": "btcmi/py.typed",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "acfa84758bde139b0b34e27d4769083fdb04a73071e0e016d4ff9ab31c5e41d3"
+          "checksumValue": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
         }
       ],
-      "fileSize": 642
+      "fileSize": 0
     },
     {
-      "fileName": "docs/SNAPSHOTS.md",
+      "fileName": "btcmi/logging_cfg.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "3b79a50b262a706b5bda4bd5eb86b95d08fb56239dbf23789433370458baf5c9"
+          "checksumValue": "3fa69b0caec0853ba1529de0c5ee55b52505fb513cefacb17e31c56c54ed8857"
         }
       ],
-      "fileSize": 367
+      "fileSize": 1398
     },
     {
-      "fileName": "docs/SECURITY.md",
+      "fileName": "btcmi/engine_v1.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "b0f79fde0807e14390e5ad58b37f3e07a67a2e753c367e5e67ed5225b66b6765"
+          "checksumValue": "845e1b04c7072a089b13bd4f5ea0281450768ff6958d4071f0fb305c6c411437"
         }
       ],
-      "fileSize": 59
+      "fileSize": 2563
     },
     {
-      "fileName": "docs/API.md",
+      "fileName": "btcmi/engine_v2.py",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "89aeec2261dc5de99208d84501fcce5dcae953017f26d258e7c6839ca2e362b8"
+          "checksumValue": "298a0ddaa44d1542b7ecff63f1e1f5bdd34a8b840f32065682bbab0dc4ac7a25"
         }
       ],
-      "fileSize": 1791
+      "fileSize": 3810
+    },
+    {
+      "fileName": "btcmi/enums.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "73570860fa86743b721b872d301552f5aa8999e7a8c89cecb69f3ed4f3034969"
+        }
+      ],
+      "fileSize": 254
+    },
+    {
+      "fileName": "btcmi/config.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9d59ffe75b90cefbe7ab39605cf5728b9f5be156c3643e17a4b29862d90664af"
+        }
+      ],
+      "fileSize": 1499
+    },
+    {
+      "fileName": "btcmi/utils.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ea9a2ccf9542532e201ce1046155718f8d6e0bc0b400e4a162663e9b83e98076"
+        }
+      ],
+      "fileSize": 271
+    },
+    {
+      "fileName": "btcmi/runner.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "42a7c7cb1015f5d21e21eb46795c06a23f72240d084f106f5fc6e0801621c305"
+        }
+      ],
+      "fileSize": 6891
+    },
+    {
+      "fileName": "examples/__init__.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "fileSize": 0
+    },
+    {
+      "fileName": "examples/swing_fractal.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "918dbaf0e7989d00f6e1d50c08f36882018d3868b43d5d75fcb6de1c9dfd10c3"
+        }
+      ],
+      "fileSize": 701
+    },
+    {
+      "fileName": "examples/real_intraday.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "632dc49461b9e09c75385a5e4452bc4938b0f065dd05414020eb4a59993aa172"
+        }
+      ],
+      "fileSize": 554
+    },
+    {
+      "fileName": "examples/intraday_fractal.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "46804d4e671da397d7146b6d45d363a32fa76ebd2b707596017e153c779a5f24"
+        }
+      ],
+      "fileSize": 705
+    },
+    {
+      "fileName": "examples/ohlcv.csv",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f7c02cad1ba990a7c62e5d97608a2cc59a71aa1e74236904b63344edc7c76bcc"
+        }
+      ],
+      "fileSize": 119
+    },
+    {
+      "fileName": "examples/intraday.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "4edbd64af48949ed679f2e7b474a0944949f37549fef8ccb51c0f01435bd026b"
+        }
+      ],
+      "fileSize": 516
+    },
+    {
+      "fileName": "examples/ohlcv.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "ef45ff07000ee08ff516ebb08a5e340f2d107b3f596dd26a517f6fedd1bc879e"
+        }
+      ],
+      "fileSize": 219
+    },
+    {
+      "fileName": "examples/real_swing.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "80d76eca94392b6732e13d30dda0866893be3df600afdc9edfa1b01b82256b45"
+        }
+      ],
+      "fileSize": 757
+    },
+    {
+      "fileName": "examples/run_e2e.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "db7cf7e3923ffcd9ce959932e126cdfb18c164add82568924c352a3b3d0e3fc0"
+        }
+      ],
+      "fileSize": 2870
+    },
+    {
+      "fileName": "provenance/sbom.spdx.json",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2b837120f3acac4c377bfe0361021fa51fd7740e9a67cd42563ad3d0bba4fa9c"
+        }
+      ],
+      "fileSize": 35558
+    },
+    {
+      "fileName": "scripts/verify_checksums.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b80566721a1e6518b035959eb79c12bde0360c21742984cc6a304cc2f70a6d3a"
+        }
+      ],
+      "fileSize": 920
+    },
+    {
+      "fileName": "scripts/generate_openapi.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "af0a304b72380e3cfc4f8a031ce92f27446f869cbb9c975b16225175a922f873"
+        }
+      ],
+      "fileSize": 584
+    },
+    {
+      "fileName": "scripts/generate_sbom.py",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "044d62a8157f481322bf90452ed1b9f4883fb6c3b7918ca25fcd7c9f89748e5d"
+        }
+      ],
+      "fileSize": 995
     },
     {
       "fileName": "docker/Dockerfile",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "845b6b774d0e0e27cd7f27570ee889b4c2e56beecd9294693c077997c954ca85"
+          "checksumValue": "4c12ecd5a1b3379e65c8514b7636809c9aef1f5b470ef8801fd130afeeb838c4"
         }
       ],
-      "fileSize": 274
+      "fileSize": 968
     }
   ]
 }
