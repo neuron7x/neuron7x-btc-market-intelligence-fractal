@@ -40,8 +40,11 @@ def write_output(data: dict, out_path: Path | str) -> None:
     """Write ``data`` to ``out_path`` as JSON, creating parents if needed."""
 
     p = Path(out_path)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    try:
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    except OSError as e:  # pragma: no cover - handled by unit test
+        raise RuntimeError(f"failed to write output to {out_path}: {e}") from e
 
 
 def run_v1(data, fixed_ts, out_path: str | Path | None = None):
