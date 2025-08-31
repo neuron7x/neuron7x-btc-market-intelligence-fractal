@@ -11,6 +11,7 @@ This FastAPI application exposes several endpoints:
 from __future__ import annotations
 
 import asyncio
+import logging
 from functools import lru_cache
 
 from fastapi import FastAPI, HTTPException, Request, Response
@@ -21,6 +22,8 @@ from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 from btcmi.enums import Scenario, Window
 from btcmi.runner import run_v1, run_v2, run_nf3p
 from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -90,14 +93,17 @@ async def run_endpoint(payload: RunRequest) -> RunResponse:
     try:
         await asyncio.to_thread(validate_json, data, SCHEMA_REGISTRY["input"])
     except Exception as exc:  # noqa: BLE001
+        logger.exception("validation_failed")
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     try:
         # API requests should not leave artifacts on disk; explicitly disable
         # writing the output file.
         result = await asyncio.to_thread(runner, data, None, out_path=None)
     except (KeyError, ValueError) as exc:
+        logger.exception("runner_error")
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:  # noqa: BLE001
+        logger.exception("runner_error")
         raise HTTPException(status_code=500, detail="internal error") from exc
     return result
 
@@ -112,6 +118,7 @@ async def validate_endpoint(schema_name: str, payload: ValidateRequest):
             validate_json, payload.model_dump(), schema_path
         )
     except Exception as exc:  # noqa: BLE001
+        logger.exception("validation_failed")
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return {"valid": True}
 
