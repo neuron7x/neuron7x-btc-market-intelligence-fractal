@@ -1,11 +1,13 @@
 import json
 import pathlib
+import logging
 
 from fastapi.testclient import TestClient
 from prometheus_client import CONTENT_TYPE_LATEST
 from prometheus_client.parser import text_string_to_metric_families
 
 from btcmi.api import app, load_runners, REQUEST_COUNTER, _req_times
+from btcmi.logging_cfg import JsonFormatter
 
 R = pathlib.Path(__file__).resolve().parents[1]
 
@@ -40,7 +42,10 @@ def test_run_unknown_mode():
     assert "unknown mode" in resp.json()["detail"]
 
 
-def test_run_runner_exception(monkeypatch):
+def test_run_runner_exception(monkeypatch, caplog):
+    caplog.handler.setFormatter(JsonFormatter())
+    caplog.set_level(logging.ERROR)
+
     def bad_runner(*args, **kwargs):  # pragma: no cover
         raise RuntimeError("boom")
 
@@ -49,6 +54,11 @@ def test_run_runner_exception(monkeypatch):
     payload = _load_example("intraday")
     resp = client.post("/run", json=payload, headers=HEADERS)
     assert resp.status_code == 500
+
+    record = json.loads(caplog.text)
+    assert record["msg"] == "runner_error"
+    assert record["level"] == "error"
+    assert "ts" in record
 
 
 def test_run_out_path_none(monkeypatch):
