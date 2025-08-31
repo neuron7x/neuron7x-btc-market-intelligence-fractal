@@ -21,7 +21,7 @@ btcmi/               # core package
 cli/                 # CLI entrypoints
 docker/              # container images
 docs/                # guides, SECURITY.md
-examples/            # sample inputs/outputs
+btcmi/examples/      # sample inputs/outputs
 ops/                 # prometheus/, grafana/
 provenance/          # sbom.spdx.json
 scripts/             # generate_sbom.py, verify_checksums.py
@@ -48,16 +48,16 @@ Run:
 
 ```bash
 # Option 1: use module path directly
-python -m cli.btcmi run --input examples/intraday.json --out out.json --mode v1
+python -m cli.btcmi run --input btcmi/examples/intraday.json --out out.json --mode v1
 # Option 2: after installation, invoke the script
-btcmi run --input examples/intraday.json --out out.json --mode v1
+btcmi run --input btcmi/examples/intraday.json --out out.json --mode v1
 # Option 3: pipe data via stdin
-cat examples/intraday.json | btcmi run --input - --mode v1
+cat btcmi/examples/intraday.json | btcmi run --input - --mode v1
 curl -s https://example.com/intraday.json | btcmi run --input - --mode v1
 # Emit machine-readable errors as JSON
 btcmi run --input bad.json --mode v1 --json-errors
 # Enable Fractal Engine v2
-btcmi run --input examples/intraday_fractal.json --out out_fractal.json --mode v2.fractal
+btcmi run --input btcmi/examples/intraday_fractal.json --out out_fractal.json --mode v2.fractal
 python tests/validate_output.py out.json  # validate against output_schema.json
 ```
 

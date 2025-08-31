@@ -9,7 +9,7 @@ R = Path(__file__).resolve().parents[1]
 
 
 def test_run_cli_reads_from_stdin(monkeypatch, capsys):
-    data = (R / "examples/intraday.json").read_text()
+    data = (R / "btcmi/examples/intraday.json").read_text()
     monkeypatch.setattr(sys, "argv", ["btcmi", "run", "--input", "-", "--mode", "v1"])
     monkeypatch.setattr(sys, "stdin", io.StringIO(data))
     code = btcmi.main()

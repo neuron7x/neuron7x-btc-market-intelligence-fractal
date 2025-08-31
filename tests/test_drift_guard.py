@@ -17,7 +17,7 @@ def test_drift_guard_mid():
             CLI,
             "run",
             "--input",
-            str(R / "examples/intraday.json"),
+            str(R / "btcmi/examples/intraday.json"),
             "--out",
             str(out1),
             "--fixed-ts",

@@ -8,7 +8,7 @@ R = Path(__file__).resolve().parents[1]
 
 
 def test_cli_runs_nf3p(tmp_path):
-    data = json.loads((R / "examples/intraday_fractal.json").read_text())
+    data = json.loads((R / "btcmi/examples/intraday_fractal.json").read_text())
     data["mode"] = "v2.nf3p"
     inp = tmp_path / "in.json"
     inp.write_text(json.dumps(data))

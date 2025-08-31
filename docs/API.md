@@ -45,7 +45,7 @@ in progress.
 ```bash
 curl -X POST http://localhost:8000/run \
   -H 'Content-Type: application/json' \
-  -d @examples/intraday.json
+  -d @btcmi/examples/intraday.json
 ```
 
 **Response**
@@ -86,7 +86,7 @@ Validate a payload against a registered schema (`input` or `output`).
 ```bash
 curl -X POST http://localhost:8000/validate/input \
   -H 'Content-Type: application/json' \
-  -d @examples/intraday.json
+  -d @btcmi/examples/intraday.json
 ```
 
 **Response**

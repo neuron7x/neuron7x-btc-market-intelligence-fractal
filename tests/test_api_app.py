@@ -11,7 +11,7 @@ R = Path(__file__).resolve().parents[1]
 
 
 def _load_example(name: str) -> dict:
-    return json.loads((R / "examples" / f"{name}.json").read_text())
+    return json.loads((R / "btcmi/examples" / f"{name}.json").read_text())
 
 
 def test_run_success():

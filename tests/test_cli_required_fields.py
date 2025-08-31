@@ -197,7 +197,7 @@ def test_run_cli_prints_json_without_out():
             CLI,
             "run",
             "--input",
-            str(R / "examples/intraday.json"),
+            str(R / "btcmi/examples/intraday.json"),
             "--mode",
             "v1",
         ],

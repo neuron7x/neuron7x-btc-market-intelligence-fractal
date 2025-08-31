@@ -1275,7 +1275,7 @@
       "fileSize": 6891
     },
     {
-      "fileName": "examples/__init__.py",
+      "fileName": "btcmi/examples/__init__.py",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1285,7 +1285,7 @@
       "fileSize": 0
     },
     {
-      "fileName": "examples/swing_fractal.json",
+      "fileName": "btcmi/examples/swing_fractal.json",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1295,7 +1295,7 @@
       "fileSize": 701
     },
     {
-      "fileName": "examples/real_intraday.json",
+      "fileName": "btcmi/examples/real_intraday.json",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1305,7 +1305,7 @@
       "fileSize": 554
     },
     {
-      "fileName": "examples/intraday_fractal.json",
+      "fileName": "btcmi/examples/intraday_fractal.json",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1315,7 +1315,7 @@
       "fileSize": 705
     },
     {
-      "fileName": "examples/ohlcv.csv",
+      "fileName": "btcmi/examples/ohlcv.csv",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1325,7 +1325,7 @@
       "fileSize": 119
     },
     {
-      "fileName": "examples/intraday.json",
+      "fileName": "btcmi/examples/intraday.json",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1335,7 +1335,7 @@
       "fileSize": 516
     },
     {
-      "fileName": "examples/ohlcv.json",
+      "fileName": "btcmi/examples/ohlcv.json",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1345,7 +1345,7 @@
       "fileSize": 219
     },
     {
-      "fileName": "examples/real_swing.json",
+      "fileName": "btcmi/examples/real_swing.json",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -1355,7 +1355,7 @@
       "fileSize": 757
     },
     {
-      "fileName": "examples/run_e2e.py",
+      "fileName": "btcmi/examples/run_e2e.py",
       "checksums": [
         {
           "algorithm": "SHA256",

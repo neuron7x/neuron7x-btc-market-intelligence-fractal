@@ -9,7 +9,7 @@ R = Path(__file__).resolve().parents[1]
 
 
 def _load_data():
-    data = json.loads((R / "examples/intraday_fractal.json").read_text())
+    data = json.loads((R / "btcmi/examples/intraday_fractal.json").read_text())
     data["mode"] = "v2.nf3p"
     return data
 

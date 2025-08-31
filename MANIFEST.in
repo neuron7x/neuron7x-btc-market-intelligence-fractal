@@ -1,3 +1,2 @@
 include btcmi/py.typed
-include examples/*.csv
-include examples/*.json
+recursive-include btcmi/examples *

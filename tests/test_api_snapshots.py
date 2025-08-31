@@ -13,7 +13,7 @@ FIXED_TS = "2025-01-01T00:00:00Z"
 
 
 def _load_example(name: str) -> dict:
-    return json.loads((R / "examples" / f"{name}.json").read_text())
+    return json.loads((R / "btcmi/examples" / f"{name}.json").read_text())
 
 
 def _prepare_client(monkeypatch) -> TestClient:

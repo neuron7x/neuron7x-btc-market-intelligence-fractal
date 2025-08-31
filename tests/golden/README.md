@@ -8,11 +8,11 @@ API and engine runners.
 To update the engine outputs:
 
 ```
-python -m cli.btcmi run --input examples/intraday.json --mode v1 \
+python -m cli.btcmi run --input btcmi/examples/intraday.json --mode v1 \
     --fixed-ts 2025-01-01T00:00:00Z --out tests/golden/intraday_v1.golden.json
-python -m cli.btcmi run --input examples/intraday_fractal.json --mode v2.fractal \
+python -m cli.btcmi run --input btcmi/examples/intraday_fractal.json --mode v2.fractal \
     --fixed-ts 2025-01-01T00:00:00Z --out tests/golden/intraday_fractal.golden.json
-python -m cli.btcmi run --input examples/swing_fractal.json --mode v2.fractal \
+python -m cli.btcmi run --input btcmi/examples/swing_fractal.json --mode v2.fractal \
     --fixed-ts 2025-01-01T00:00:00Z --out tests/golden/swing_fractal.golden.json
 ```
 

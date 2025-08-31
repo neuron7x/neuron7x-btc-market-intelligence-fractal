@@ -149,6 +149,7 @@ def main() -> None:
         "--input",
         type=Path,
         default=Path(__file__).resolve().parents[2]
+        / "btcmi"
         / "examples"
         / "intraday_fractal.json",
         help="Path to input JSON payload",
