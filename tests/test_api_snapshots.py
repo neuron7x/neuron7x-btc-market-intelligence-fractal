@@ -16,6 +16,9 @@ def _load_example(name: str) -> dict:
     return json.loads((R / "examples" / f"{name}.json").read_text())
 
 
+HEADERS = {"X-API-Key": "changeme"}
+
+
 def _prepare_client(monkeypatch) -> TestClient:
     def r1(p, _t, *, out_path=None):
         return run_v1(p, FIXED_TS, out_path)
@@ -29,7 +32,7 @@ def _prepare_client(monkeypatch) -> TestClient:
 
 
 def _assert_snapshot(client: TestClient, payload: dict, golden: Path) -> None:
-    resp = client.post("/run", json=payload)
+    resp = client.post("/run", json=payload, headers=HEADERS)
     assert resp.status_code == 200
     data = resp.json()
     if os.getenv("UPDATE_SNAPSHOTS"):

@@ -12,15 +12,19 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
+from collections import defaultdict, deque
 from functools import lru_cache
+from time import monotonic
+from typing import Any, Callable, Dict
 
-from fastapi import FastAPI, HTTPException, Request, Response
-from pydantic import BaseModel, ConfigDict
-from typing import Any, Dict, Callable
+from fastapi import Depends, FastAPI, HTTPException, Request, Response, Security
+from fastapi.security import APIKeyHeader
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
+from pydantic import BaseModel, ConfigDict
 
 from btcmi.enums import Scenario, Window
-from btcmi.runner import run_v1, run_v2, run_nf3p
+from btcmi.runner import run_nf3p, run_v1, run_v2
 from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
 
 logger = logging.getLogger(__name__)
@@ -40,6 +44,20 @@ def load_runners() -> Dict[str, Callable]:
 
 REQUEST_COUNTER = Counter("btcmi_requests_total", "Total HTTP requests", ["endpoint"])
 
+# store recent request timestamps per client for throttling
+_req_times: defaultdict[str, deque] = defaultdict(deque)
+
+API_KEY_NAME = "X-API-Key"
+api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
+
+
+def get_api_key(api_key: str = Security(api_key_header)) -> str:
+    """Validate API key from request headers."""
+    expected = os.getenv("BTCMI_API_KEY", "changeme")
+    if api_key == expected:
+        return api_key
+    raise HTTPException(status_code=401, detail="invalid or missing API key")
+
 
 @app.middleware("http")
 async def count_requests(request: Request, call_next: Callable):
@@ -49,6 +67,22 @@ async def count_requests(request: Request, call_next: Callable):
     finally:
         REQUEST_COUNTER.labels(endpoint=request.url.path).inc()
     return response
+
+
+@app.middleware("http")
+async def throttle_requests(request: Request, call_next: Callable):
+    """Naive rate limiter to reduce brute-force attempts."""
+    limit = int(os.getenv("BTCMI_RATE_LIMIT", "60"))
+    window = int(os.getenv("BTCMI_RATE_LIMIT_WINDOW", "60"))
+    client = request.client.host if request.client else "unknown"
+    now = monotonic()
+    q = _req_times[client]
+    while q and q[0] <= now - window:
+        q.popleft()
+    if len(q) >= limit:
+        return Response(status_code=429, content="too many requests")
+    q.append(now)
+    return await call_next(request)
 
 
 class RunRequest(BaseModel):
@@ -84,7 +118,9 @@ class ValidateRequest(BaseModel):
 
 
 @app.post("/run", response_model=RunResponse)
-async def run_endpoint(payload: RunRequest) -> RunResponse:
+async def run_endpoint(
+    payload: RunRequest, api_key: str = Depends(get_api_key)
+) -> RunResponse:
     data = payload.model_dump()
     mode = data.get("mode", "v1")
     runner = load_runners().get(mode)
@@ -109,7 +145,9 @@ async def run_endpoint(payload: RunRequest) -> RunResponse:
 
 
 @app.post("/validate/{schema_name}")
-async def validate_endpoint(schema_name: str, payload: ValidateRequest):
+async def validate_endpoint(
+    schema_name: str, payload: ValidateRequest, api_key: str = Depends(get_api_key)
+):
     schema_path = SCHEMA_REGISTRY.get(schema_name)
     if schema_path is None:
         raise HTTPException(status_code=404, detail="schema not found")
@@ -135,3 +173,4 @@ async def healthz() -> dict[str, str]:
 
 
 __all__ = ["app", "load_runners", "REQUEST_COUNTER"]
+
