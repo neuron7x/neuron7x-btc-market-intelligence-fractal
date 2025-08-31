@@ -49,20 +49,34 @@ def main() -> int:
     run_id = new_run_id()
 
     def report(error: str, level: str = "exception", **details) -> None:
+        msg = details.pop("message", None)
         if args.json_errors:
-            print(json.dumps({"error": error, "details": details}))
+            payload = {"error": error, "details": details}
+            if msg is not None:
+                payload["message"] = msg
+            print(json.dumps(payload))
         else:
+            if msg is not None:
+                details["error_message"] = msg
             getattr(logger, level)(error, extra=details)
 
     if args.cmd == "run":
         if args.input == "-":
-            data = json.load(sys.stdin)
+            try:
+                data = json.load(sys.stdin)
+            except json.JSONDecodeError as e:
+                report("invalid_json", run_id=run_id, message=str(e))
+                return 2
         else:
-            data = load_json(args.input)
+            try:
+                data = load_json(args.input)
+            except json.JSONDecodeError as e:
+                report("invalid_json", run_id=run_id, message=str(e))
+                return 2
         try:
             validate_json(data, SCHEMA_REGISTRY["input"])
-        except Exception:
-            report("input_schema_validation_failed", run_id=run_id)
+        except Exception as e:
+            report("input_schema_validation_failed", run_id=run_id, message=str(e))
             return 2
 
         # If explicit mode present, enforce consistency with --mode argument
@@ -91,11 +105,12 @@ def main() -> int:
         if args.mode != "v2.nf3p":
             try:
                 validate_json(out, SCHEMA_REGISTRY["output"])
-            except Exception:
+            except Exception as e:
                 report(
                     "output_schema_validation_failed",
                     run_id=run_id,
                     mode=mode,
+                    message=str(e),
                 )
                 return 2
         if args.out is None:
@@ -109,11 +124,15 @@ def main() -> int:
         )
         return 0
 
-    data = load_json(args.data)
+    try:
+        data = load_json(args.data)
+    except json.JSONDecodeError as e:
+        report("invalid_json", run_id=run_id, message=str(e))
+        return 2
     try:
         validate_json(data, args.schema)
-    except Exception:
-        report("schema_validation_failed", run_id=run_id)
+    except Exception as e:
+        report("schema_validation_failed", run_id=run_id, message=str(e))
         return 2
     print("OK")
     return 0
