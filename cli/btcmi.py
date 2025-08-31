@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 from btcmi.logging_cfg import configure_logging, new_run_id
-from btcmi.runner import run_v1, run_v2, run_nf3p
+from btcmi.engines import load_engines
 from btcmi.schema_util import SCHEMA_REGISTRY, load_json, validate_json
 
 
@@ -90,13 +90,10 @@ def main() -> int:
         if mode is not None and mode != args.mode:
             logger.warning("mode_mismatch", extra={"run_id": run_id, "mode": mode})
 
+        engines = load_engines()
+        engine = engines[args.mode]
         try:
-            if args.mode == "v2.fractal":
-                out = run_v2(data, args.fixed_ts, args.out)
-            elif args.mode == "v2.nf3p":
-                out = run_nf3p(data, args.fixed_ts, args.out)
-            else:
-                out = run_v1(data, args.fixed_ts, args.out)
+            out = engine.run(data, args.fixed_ts, args.out)
         except ValueError as e:
             report(
                 "runner_error",

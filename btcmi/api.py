@@ -24,7 +24,7 @@ from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 from pydantic import BaseModel, ConfigDict
 
 from btcmi.enums import Scenario, Window
-from btcmi.runner import run_nf3p, run_v1, run_v2
+from btcmi.engines import load_engines
 from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
 
 logger = logging.getLogger(__name__)
@@ -33,13 +33,9 @@ app = FastAPI()
 
 
 @lru_cache()
-def load_runners() -> Dict[str, Callable]:
-    """Return a mapping of mode names to runner implementations."""
-    return {
-        "v1": run_v1,
-        "v2.fractal": run_v2,
-        "v2.nf3p": run_nf3p,
-    }
+def load_runners() -> Dict[str, Any]:
+    """Return a mapping of mode names to engine instances."""
+    return load_engines()
 
 
 REQUEST_COUNTER = Counter("btcmi_requests_total", "Total HTTP requests", ["endpoint"])
@@ -123,8 +119,8 @@ async def run_endpoint(
 ) -> RunResponse:
     data = payload.model_dump()
     mode = data.get("mode", "v1")
-    runner = load_runners().get(mode)
-    if runner is None:
+    engine = load_runners().get(mode)
+    if engine is None:
         raise HTTPException(status_code=400, detail=f"unknown mode: {mode}")
     try:
         await asyncio.to_thread(validate_json, data, SCHEMA_REGISTRY["input"])
@@ -134,7 +130,7 @@ async def run_endpoint(
     try:
         # API requests should not leave artifacts on disk; explicitly disable
         # writing the output file.
-        result = await asyncio.to_thread(runner, data, None, out_path=None)
+        result = await asyncio.to_thread(engine.run, data, None, out_path=None)
     except (KeyError, ValueError) as exc:
         logger.exception("runner_error")
         raise HTTPException(status_code=400, detail=str(exc)) from exc

@@ -46,10 +46,11 @@ def test_run_runner_exception(monkeypatch, caplog):
     caplog.handler.setFormatter(JsonFormatter())
     caplog.set_level(logging.ERROR)
 
-    def bad_runner(*args, **kwargs):  # pragma: no cover
-        raise RuntimeError("boom")
+    class BadRunner:  # pragma: no cover - simple stub
+        def run(self, *args, **kwargs):
+            raise RuntimeError("boom")
 
-    monkeypatch.setitem(load_runners(), "v1", bad_runner)
+    monkeypatch.setitem(load_runners(), "v1", BadRunner())
     client = TestClient(app)
     payload = _load_example("intraday")
     resp = client.post("/run", json=payload, headers=HEADERS)
@@ -64,17 +65,18 @@ def test_run_runner_exception(monkeypatch, caplog):
 def test_run_out_path_none(monkeypatch):
     seen = {}
 
-    def runner(p, _t, *, out_path: str | pathlib.Path | None = None):
-        seen["out_path"] = out_path
-        return {
-            "schema_version": "2.0.0",
-            "lineage": {},
-            "summary": {"scenario": "intraday", "window": "1h"},
-            "details": {},
-            "asof": "1970-01-01T00:00:00Z",
-        }
+    class Runner:
+        def run(self, p, _t, out_path: str | pathlib.Path | None = None):
+            seen["out_path"] = out_path
+            return {
+                "schema_version": "2.0.0",
+                "lineage": {},
+                "summary": {"scenario": "intraday", "window": "1h"},
+                "details": {},
+                "asof": "1970-01-01T00:00:00Z",
+            }
 
-    monkeypatch.setitem(load_runners(), "v1", runner)
+    monkeypatch.setitem(load_runners(), "v1", Runner())
     client = TestClient(app)
     payload = _load_example("intraday")
     resp = client.post("/run", json=payload, headers=HEADERS)

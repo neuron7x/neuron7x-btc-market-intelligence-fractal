@@ -1,9 +1,11 @@
 import json
+import json
 from pathlib import Path
 
 import pytest
 
 from btcmi import runner
+import btcmi.io
 
 R = Path(__file__).resolve().parents[1]
 
@@ -19,14 +21,14 @@ def test_run_nf3p_round_trip(tmp_path, monkeypatch):
     out_file = tmp_path / "out.json"
 
     seen = {}
-    original = runner.write_output
+    original = btcmi.io.write_output
 
     def fake_write_output(d, p):
         seen["data"] = d
         seen["path"] = p
         original(d, p)
 
-    monkeypatch.setattr(runner, "write_output", fake_write_output)
+    monkeypatch.setattr(btcmi.io, "write_output", fake_write_output)
 
     result = runner.run_nf3p(data, "2024-01-01T00:00:00Z", out_file)
     assert "predictions" in result

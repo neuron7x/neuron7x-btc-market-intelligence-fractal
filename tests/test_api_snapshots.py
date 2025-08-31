@@ -20,14 +20,16 @@ HEADERS = {"X-API-Key": "changeme"}
 
 
 def _prepare_client(monkeypatch) -> TestClient:
-    def r1(p, _t, *, out_path=None):
-        return run_v1(p, FIXED_TS, out_path)
+    class R1:
+        def run(self, p, _t, out_path=None):
+            return run_v1(p, FIXED_TS, out_path)
 
-    def r2(p, _t, *, out_path=None):
-        return run_v2(p, FIXED_TS, out_path)
+    class R2:
+        def run(self, p, _t, out_path=None):
+            return run_v2(p, FIXED_TS, out_path)
 
-    monkeypatch.setitem(load_runners(), "v1", r1)
-    monkeypatch.setitem(load_runners(), "v2.fractal", r2)
+    monkeypatch.setitem(load_runners(), "v1", R1())
+    monkeypatch.setitem(load_runners(), "v2.fractal", R2())
     return TestClient(app)
 
 
