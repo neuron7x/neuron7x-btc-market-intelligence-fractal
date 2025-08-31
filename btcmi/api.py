@@ -41,8 +41,10 @@ REQUEST_COUNTER = Counter("btcmi_requests_total", "Total HTTP requests", ["endpo
 @app.middleware("http")
 async def count_requests(request: Request, call_next: Callable):
     """Increment a Prometheus counter for each incoming HTTP request."""
-    response = await call_next(request)
-    REQUEST_COUNTER.labels(endpoint=request.url.path).inc()
+    try:
+        response = await call_next(request)
+    finally:
+        REQUEST_COUNTER.labels(endpoint=request.url.path).inc()
     return response
 
 
