@@ -41,6 +41,7 @@ version = {file = "VERSION"}
 
 [tool.setuptools.package-data]
 btcmi = ["py.typed"]
+examples = ["*"]
 
 [tool.black]
 line-length = 88

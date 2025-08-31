@@ -1,1 +1,2 @@
 include btcmi/py.typed
+recursive-include examples *
