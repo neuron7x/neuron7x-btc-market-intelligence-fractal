@@ -9,7 +9,7 @@ from typing import Any, Dict, Callable
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
 from btcmi.enums import Scenario, Window
-from btcmi.runner import run_v1, run_v2
+from btcmi.runner import run_v1, run_v2, run_nf3p
 from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
 
 app = FastAPI()
@@ -21,6 +21,7 @@ def load_runners() -> Dict[str, Callable]:
     return {
         "v1": run_v1,
         "v2.fractal": run_v2,
+        "v2.nf3p": run_nf3p,
     }
 
 REQUEST_COUNTER = Counter("btcmi_requests_total", "Total HTTP requests", ["endpoint"])

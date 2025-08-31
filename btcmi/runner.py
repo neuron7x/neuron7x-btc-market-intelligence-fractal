@@ -7,6 +7,7 @@ from typing import Dict
 
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
+from btcmi import engine_nf3p as nf3p
 from btcmi.config import SCENARIO_WEIGHTS
 from btcmi.enums import Scenario, Window
 
@@ -148,4 +149,30 @@ def run_v2(data, fixed_ts, out_path: str | Path | None = None):
     return out
 
 
-__all__ = ["run_v1", "run_v2"]
+def run_nf3p(
+    data, fixed_ts, out_path: str | Path | None = None
+):  # noqa: D401 - short wrapper
+    """Run the NF3P engine and optionally persist the output."""
+    scenario, window = _validate_scenario_window(data)
+    f1 = data.get("features_micro", {})
+    f2 = data.get("features_mezo", {})
+    f3 = data.get("features_macro", {})
+    predictions, backtest = nf3p.predictions_and_backtest(f1, f2, f3)
+    asof = fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+    out = {
+        "schema_version": data.get("schema_version", "2.0.0"),
+        "lineage": data.get("lineage", {}),
+        "asof": asof,
+        "scenario": scenario.value,
+        "window": window.value,
+        "predictions": predictions,
+        "backtest": backtest,
+    }
+    if out_path is not None:
+        p = Path(out_path)
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps(out, indent=2), encoding="utf-8")
+    return out
+
+
+__all__ = ["run_v1", "run_v2", "run_nf3p"]

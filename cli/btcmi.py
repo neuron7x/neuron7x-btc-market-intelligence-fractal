@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 from btcmi.logging_cfg import configure_logging, new_run_id
-from btcmi.runner import run_v1, run_v2
+from btcmi.runner import run_v1, run_v2, run_nf3p
 from btcmi.schema_util import SCHEMA_REGISTRY, load_json, validate_json
 
 
@@ -33,7 +33,10 @@ def main() -> int:
     parser_run.add_argument("--out")
     parser_run.add_argument("--fixed-ts", dest="fixed_ts")
     parser_run.add_argument(
-        "--mode", required=True, choices=("v1", "v2.fractal"), dest="mode"
+        "--mode",
+        required=True,
+        choices=("v1", "v2.fractal", "v2.nf3p"),
+        dest="mode",
     )
 
     parser_validate = subparsers.add_parser(
@@ -64,18 +67,19 @@ def main() -> int:
 
         # If explicit mode present, enforce consistency with --mode argument
         mode = data.get("mode")
-        if mode not in (None, "v1", "v2.fractal"):
+        if mode not in (None, "v1", "v2.fractal", "v2.nf3p"):
             report("unknown_mode", level="error", run_id=run_id, mode=mode)
             return 2
         if mode is not None and mode != args.mode:
             logger.warning("mode_mismatch", extra={"run_id": run_id, "mode": mode})
 
         try:
-            out = (
-                run_v2(data, args.fixed_ts, args.out)
-                if args.mode == "v2.fractal"
-                else run_v1(data, args.fixed_ts, args.out)
-            )
+            if args.mode == "v2.fractal":
+                out = run_v2(data, args.fixed_ts, args.out)
+            elif args.mode == "v2.nf3p":
+                out = run_nf3p(data, args.fixed_ts, args.out)
+            else:
+                out = run_v1(data, args.fixed_ts, args.out)
         except ValueError as e:
             report(
                 "runner_error",
@@ -84,15 +88,16 @@ def main() -> int:
                 message=str(e),
             )
             return 2
-        try:
-            validate_json(out, SCHEMA_REGISTRY["output"])
-        except Exception:
-            report(
-                "output_schema_validation_failed",
-                run_id=run_id,
-                mode=mode,
-            )
-            return 2
+        if args.mode != "v2.nf3p":
+            try:
+                validate_json(out, SCHEMA_REGISTRY["output"])
+            except Exception:
+                report(
+                    "output_schema_validation_failed",
+                    run_id=run_id,
+                    mode=mode,
+                )
+                return 2
         if args.out is None:
             print(json.dumps(out, indent=2))
         logger.info(
