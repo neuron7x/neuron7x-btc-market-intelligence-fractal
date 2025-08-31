@@ -105,6 +105,14 @@ def main() -> int:
                 message=str(e),
             )
             return 2
+        except (RuntimeError, OSError) as e:
+            report(
+                "output_write_failed",
+                run_id=run_id,
+                path=args.out,
+                message=str(e),
+            )
+            return 2
         if args.mode != "v2.nf3p":
             try:
                 validate_json(out, SCHEMA_REGISTRY["output"])
