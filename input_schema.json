@@ -41,7 +41,8 @@
       "type": "string",
       "enum": [
         "v1",
-        "v2.fractal"
+        "v2.fractal",
+        "v2.nf3p"
       ]
     },
     "features": {
@@ -124,6 +125,19 @@
       "properties": {
         "mode": {
           "const": "v2.fractal"
+        }
+      }
+    },
+    {
+      "required": [
+        "features_micro",
+        "features_mezo",
+        "features_macro",
+        "vol_regime_pctl"
+      ],
+      "properties": {
+        "mode": {
+          "const": "v2.nf3p"
         }
       }
     }
