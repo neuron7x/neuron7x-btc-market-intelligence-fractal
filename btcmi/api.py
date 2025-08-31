@@ -1,3 +1,13 @@
+"""Web API for running BTC market intelligence scenarios and utilities.
+
+This FastAPI application exposes several endpoints:
+
+* ``POST /run`` – execute a scenario and return the results.
+* ``POST /validate/{schema_name}`` – validate a payload against a schema.
+* ``GET /metrics`` – expose Prometheus metrics about the service.
+* ``GET /healthz`` – basic health check endpoint.
+"""
+
 from __future__ import annotations
 
 import asyncio
@@ -23,6 +33,7 @@ def load_runners() -> Dict[str, Callable]:
         "v2.fractal": run_v2,
         "v2.nf3p": run_nf3p,
     }
+
 
 REQUEST_COUNTER = Counter("btcmi_requests_total", "Total HTTP requests", ["endpoint"])
 
