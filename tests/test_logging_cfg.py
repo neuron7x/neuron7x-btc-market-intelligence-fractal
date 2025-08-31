@@ -1,7 +1,9 @@
 import json
 import logging
 
-from btcmi.logging_cfg import configure_logging, new_run_id
+import uvicorn.config
+
+from btcmi.logging_cfg import configure_logging, new_run_id, JsonFormatter
 
 
 def test_json_log_format(capsys):
@@ -19,3 +21,9 @@ def test_json_log_format(capsys):
     assert rec["mode"] == "test"
     assert rec["scenario"] is None
     assert isinstance(rec["ts"], int)
+
+
+def test_uvicorn_log_config_uses_json_formatter():
+    configure_logging()
+    fmt = uvicorn.config.LOGGING_CONFIG["formatters"]["default"]["()"]
+    assert fmt is JsonFormatter

@@ -35,11 +35,58 @@ def configure_logging() -> None:
 
     level_name = os.getenv("LOG_LEVEL", "INFO").upper()
     level = getattr(logging, level_name, logging.INFO)
+
     handler = logging.StreamHandler(sys.stderr)
     handler.setFormatter(JsonFormatter())
+
     root = logging.getLogger()
     root.setLevel(level)
     root.handlers = [handler]
+
+    # Configure Uvicorn's loggers to use the same JSON formatter. Uvicorn
+    # reads a module-level ``LOGGING_CONFIG`` during startup; overriding it
+    # here ensures server and access logs also emit JSON records.
+    try:  # pragma: no cover - defensive; uvicorn should be available
+        import uvicorn.config as uvconfig
+
+        uvconfig.LOGGING_CONFIG = {
+            "version": 1,
+            "disable_existing_loggers": False,
+            "formatters": {
+                "default": {"()": JsonFormatter},
+            },
+            "handlers": {
+                "default": {
+                    "formatter": "default",
+                    "class": "logging.StreamHandler",
+                    "stream": "ext://sys.stderr",
+                },
+                "access": {
+                    "formatter": "default",
+                    "class": "logging.StreamHandler",
+                    "stream": "ext://sys.stderr",
+                },
+            },
+            "loggers": {
+                "uvicorn": {
+                    "handlers": ["default"],
+                    "level": level_name,
+                    "propagate": False,
+                },
+                "uvicorn.error": {
+                    "handlers": ["default"],
+                    "level": level_name,
+                    "propagate": False,
+                },
+                "uvicorn.access": {
+                    "handlers": ["access"],
+                    "level": level_name,
+                    "propagate": False,
+                },
+            },
+        }
+    except Exception:  # pragma: no cover - uvicorn not installed
+        pass
 
 
 def new_run_id() -> str:

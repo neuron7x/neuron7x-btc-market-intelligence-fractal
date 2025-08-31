@@ -1,11 +1,13 @@
 import json
 import pathlib
+import logging
 
 from fastapi.testclient import TestClient
 from prometheus_client import CONTENT_TYPE_LATEST
 from prometheus_client.parser import text_string_to_metric_families
 
 from btcmi.api import app, load_runners, REQUEST_COUNTER
+from btcmi.logging_cfg import JsonFormatter
 
 R = pathlib.Path(__file__).resolve().parents[1]
 
@@ -81,6 +83,18 @@ def test_validate_input_invalid():
     client = TestClient(app)
     resp = client.post("/validate/input", json={"schema_version": "2.0.0"})
     assert resp.status_code == 400
+
+
+def test_validate_input_invalid_logs_json(caplog):
+    with TestClient(app) as client:
+        caplog.set_level(logging.ERROR)
+        resp = client.post("/validate/input", json={"schema_version": "2.0.0"})
+        assert resp.status_code == 400
+    record = next(r for r in caplog.records if r.name == "btcmi.api")
+    line = JsonFormatter().format(record)
+    rec = json.loads(line)
+    assert rec["msg"] == "validation_failed"
+    assert rec["level"] == "error"
 
 
 def test_metrics_prometheus_text_and_counters():

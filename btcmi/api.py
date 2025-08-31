@@ -22,6 +22,9 @@ from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 from btcmi.enums import Scenario, Window
 from btcmi.runner import run_v1, run_v2, run_nf3p
 from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
+from btcmi.logging_cfg import configure_logging
+
+configure_logging()
 
 logger = logging.getLogger(__name__)
 
