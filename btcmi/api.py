@@ -88,7 +88,7 @@ async def run_endpoint(payload: RunRequest) -> RunResponse:
     if runner is None:
         raise HTTPException(status_code=400, detail=f"unknown mode: {mode}")
     try:
-        validate_json(data, SCHEMA_REGISTRY["input"])
+        await asyncio.to_thread(validate_json, data, SCHEMA_REGISTRY["input"])
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     try:
@@ -108,7 +108,9 @@ async def validate_endpoint(schema_name: str, payload: ValidateRequest):
     if schema_path is None:
         raise HTTPException(status_code=404, detail="schema not found")
     try:
-        validate_json(payload.model_dump(), schema_path)
+        await asyncio.to_thread(
+            validate_json, payload.model_dump(), schema_path
+        )
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return {"valid": True}
