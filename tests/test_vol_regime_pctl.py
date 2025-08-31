@@ -17,3 +17,9 @@ def test_run_v2_vol_regime_pctl_invalid(pctl):
     data = dict(BASE_DATA, vol_regime_pctl=pctl)
     with pytest.raises(ValueError, match="vol_regime_pctl"):
         run_v2(data, None)
+
+
+def test_run_v2_vol_regime_pctl_non_numeric():
+    data = dict(BASE_DATA, vol_regime_pctl="invalid")
+    with pytest.raises(ValueError, match="vol_regime_pctl"):
+        run_v2(data, None)

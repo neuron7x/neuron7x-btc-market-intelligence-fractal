@@ -100,9 +100,12 @@ def run_v2(data, fixed_ts, out_path: str | Path | None = None):
     f1 = data.get("features_micro", {})
     f2 = data.get("features_mezo", {})
     f3 = data.get("features_macro", {})
-    vol_pctl = float(data.get("vol_regime_pctl", 0.5))
+    try:
+        vol_pctl = float(data.get("vol_regime_pctl", 0.5))
+    except (TypeError, ValueError) as exc:
+        raise ValueError("'vol_regime_pctl' must be a number in [0, 1]") from exc
     if not 0.0 <= vol_pctl <= 1.0:
-        raise ValueError("'vol_regime_pctl' must be between 0 and 1 inclusive")
+        raise ValueError("'vol_regime_pctl' must be a number in [0, 1]")
     n1 = v2.normalize_layer(f1, v2.SCALES["L1"])
     n2 = v2.normalize_layer(f2, v2.SCALES["L2"])
     n3 = v2.normalize_layer(f3, v2.SCALES["L3"])
