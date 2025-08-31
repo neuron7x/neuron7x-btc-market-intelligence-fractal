@@ -45,7 +45,9 @@ def normalize_layer(
     }
 
 
-def linear_score(norm: Dict[str, float], weights: Dict[str, float]):
+def linear_score(
+    norm: Dict[str, float], weights: Dict[str, float]
+) -> tuple[float, Dict[str, float]]:
     """Compute weighted linear score for normalized features.
 
     Args:
@@ -96,7 +98,11 @@ def nagr(nodes: List[dict]) -> float:
     return max(-1.0, min(1.0, num / den))
 
 
-def level_signal(norm, weights, nagr_nodes):
+def level_signal(
+    norm: Dict[str, float],
+    weights: Dict[str, float],
+    nagr_nodes: List[dict],
+) -> tuple[float, Dict[str, float]]:
     """Blend linear feature score with network rating for one level.
 
     Args:
