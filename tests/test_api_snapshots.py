@@ -1,5 +1,6 @@
 import json
 import os
+import importlib.resources
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -8,12 +9,13 @@ from btcmi.api import app, load_runners
 from btcmi.runner import run_v1, run_v2
 
 R = Path(__file__).resolve().parents[1]
+f = importlib.resources.files("btcmi")
 
 FIXED_TS = "2025-01-01T00:00:00Z"
 
 
 def _load_example(name: str) -> dict:
-    return json.loads((R / "examples" / f"{name}.json").read_text())
+    return json.loads(f.joinpath(f"examples/{name}.json").read_text())
 
 
 def _prepare_client(monkeypatch) -> TestClient:

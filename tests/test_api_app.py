@@ -1,4 +1,5 @@
 import json
+import importlib.resources
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -7,11 +8,11 @@ from prometheus_client.parser import text_string_to_metric_families
 
 from btcmi.api import app, load_runners, REQUEST_COUNTER
 
-R = Path(__file__).resolve().parents[1]
+f = importlib.resources.files("btcmi")
 
 
 def _load_example(name: str) -> dict:
-    return json.loads((R / "examples" / f"{name}.json").read_text())
+    return json.loads(f.joinpath(f"examples/{name}.json").read_text())
 
 
 def test_run_success():

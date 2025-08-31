@@ -2,13 +2,13 @@ import json
 import pytest
 import subprocess
 import sys
-from pathlib import Path
+import importlib.resources
 
 import cli.btcmi as btcmi
 from btcmi.runner import run_v1, run_v2
 from btcmi.schema_util import SCHEMA_REGISTRY
 
-R = Path(__file__).resolve().parents[1]
+f = importlib.resources.files("btcmi")
 CLI = "cli.btcmi"
 
 
@@ -197,7 +197,7 @@ def test_run_cli_prints_json_without_out():
             CLI,
             "run",
             "--input",
-            str(R / "examples/intraday.json"),
+            str(f.joinpath("examples/intraday.json")),
             "--mode",
             "v1",
         ],

@@ -2,9 +2,11 @@
 import json
 import subprocess
 import sys
+import importlib.resources
 from pathlib import Path
 
 R = Path(__file__).resolve().parents[1]
+f = importlib.resources.files("btcmi")
 CLI = "cli.btcmi"
 
 
@@ -17,7 +19,7 @@ def test_drift_guard_mid():
             CLI,
             "run",
             "--input",
-            str(R / "examples/intraday.json"),
+            str(f.joinpath("examples/intraday.json")),
             "--out",
             str(out1),
             "--fixed-ts",

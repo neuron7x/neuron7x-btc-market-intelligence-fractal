@@ -1,0 +1,26 @@
+{
+  "schema_version": "2.0.0",
+  "lineage": {"request_id": "1234567890abcdef1234567890abcdef"},
+  "scenario": "intraday",
+  "window": "1h",
+  "mode": "v1",
+  "features": {
+    "price_change_pct": 0.8,
+    "volume_change_pct": 35.0,
+    "funding_rate_bps": 4.0,
+    "oi_change_pct": 12.0,
+    "onchain_active_addrs_change_pct": 5.0
+  },
+  "nagr_nodes": [
+    {
+      "id": "macro_trend",
+      "weight": 0.6,
+      "score": 0.2
+    },
+    {
+      "id": "liquidity",
+      "weight": 0.4,
+      "score": 0.1
+    }
+  ]
+}

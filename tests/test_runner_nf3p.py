@@ -1,15 +1,15 @@
 import json
-from pathlib import Path
+import importlib.resources
 
 import pytest
 
 from btcmi.runner import run_nf3p
 
-R = Path(__file__).resolve().parents[1]
+f = importlib.resources.files("btcmi")
 
 
 def _load_data():
-    data = json.loads((R / "examples/intraday_fractal.json").read_text())
+    data = json.loads((f.joinpath("examples/intraday_fractal.json")).read_text())
     data["mode"] = "v2.nf3p"
     return data
 

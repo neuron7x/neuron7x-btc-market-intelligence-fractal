@@ -1,14 +1,14 @@
 import json
 import subprocess
 import sys
-from pathlib import Path
+import importlib.resources
 
 CLI = "cli.btcmi"
-R = Path(__file__).resolve().parents[1]
+f = importlib.resources.files("btcmi")
 
 
 def test_cli_runs_nf3p(tmp_path):
-    data = json.loads((R / "examples/intraday_fractal.json").read_text())
+    data = json.loads((f.joinpath("examples/intraday_fractal.json")).read_text())
     data["mode"] = "v2.nf3p"
     inp = tmp_path / "in.json"
     inp.write_text(json.dumps(data))
