@@ -4,7 +4,7 @@ import asyncio
 from functools import lru_cache
 
 from fastapi import FastAPI, HTTPException, Response
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import Any, Dict, Callable
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 
@@ -38,16 +38,18 @@ class RunRequest(BaseModel):
     window: Window
     mode: str = "v1"
 
-    class Config:
-        extra = "allow"
+    # Allow additional, unmodelled fields in the request payload. Using
+    # ``ConfigDict`` avoids deprecation warnings from Pydantic v2 where the
+    # old ``class Config`` style is no longer supported.
+    model_config = ConfigDict(extra="allow")
 
 
 class Summary(BaseModel):
     scenario: Scenario
     window: Window
 
-    class Config:
-        extra = "allow"
+    # Permit additional keys when parsing summary data.
+    model_config = ConfigDict(extra="allow")
 
 
 class RunResponse(BaseModel):
@@ -59,8 +61,8 @@ class RunResponse(BaseModel):
 
 
 class ValidateRequest(BaseModel):
-    class Config:
-        extra = "allow"
+    # Permit arbitrary fields during validation requests.
+    model_config = ConfigDict(extra="allow")
 
 
 @app.post("/run", response_model=RunResponse)
