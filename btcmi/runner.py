@@ -8,7 +8,6 @@ from typing import Dict
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 from btcmi import engine_nf3p as nf3p
-from btcmi.config import SCENARIO_WEIGHTS
 from btcmi.enums import Scenario, Window
 
 
@@ -55,9 +54,9 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
     scenario, window = _validate_scenario_window(data)
     feats: Dict[str, float] = data.get("features", {})
     norm = v1.normalize(feats)
-    base, weights, contrib = v1.base_signal(scenario.value, norm)
+    base_res = v1.base_signal(scenario.value, norm)
     ng = v1.nagr_score(data.get("nagr_nodes", []))
-    overall = v1.combine(base, ng)
+    overall = v1.combine(base_res.score, ng)
     comp = v1.completeness(feats)
     conf = round(0.5 + 0.5 * comp, 3)
     notes: list[str] = []
@@ -80,8 +79,10 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
         },
         "details": {
             "normalized_features": {k: round(v, 6) for k, v in norm.items()},
-            "weights": SCENARIO_WEIGHTS[scenario.value],
-            "contributions": {k: round(v, 6) for k, v in contrib.items()},
+            "weights": base_res.weights,
+            "contributions": {
+                k: round(v, 6) for k, v in base_res.contributions.items()
+            },
             "constraints_applied": constraints,
             "diagnostics": {"completeness": round(comp, 3), "notes": notes},
         },

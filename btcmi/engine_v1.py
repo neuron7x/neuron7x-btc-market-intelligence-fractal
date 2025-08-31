@@ -3,11 +3,21 @@
 from __future__ import annotations
 from typing import Dict, Any
 import math
+from dataclasses import dataclass
 from btcmi.utils import is_number
 from btcmi.config import NORM_SCALE, SCENARIO_WEIGHTS
 
 
 FeatureMap = Dict[str, float]
+
+
+@dataclass
+class BaseSignalResult:
+    """Container for :func:`base_signal` outputs."""
+
+    score: float
+    weights: FeatureMap
+    contributions: FeatureMap
 
 
 def normalize(features: FeatureMap) -> FeatureMap:
@@ -42,7 +52,7 @@ def completeness(features: FeatureMap) -> float:
     return len(pres) / len(exp) if exp else 1.0
 
 
-def base_signal(scenario: str, norm: FeatureMap):
+def base_signal(scenario: str, norm: FeatureMap) -> BaseSignalResult:
     """Calculate weighted signal for a trading scenario.
 
     Args:
@@ -50,20 +60,22 @@ def base_signal(scenario: str, norm: FeatureMap):
         norm: Normalized feature values.
 
     Returns:
-        Tuple of overall score, applied weights, and individual contributions.
+        :class:`BaseSignalResult` with overall score, applied weights, and
+        individual contributions.
 
     """
     weights = SCENARIO_WEIGHTS[scenario]
     s = 0.0
     den = 0.0
-    contrib = {}
+    contrib: FeatureMap = {}
     for k, w in weights.items():
         if k in norm:
             c = norm[k] * w
             contrib[k] = c
             s += c
             den += abs(w)
-    return (max(-1.0, min(1.0, s / den)) if den else 0.0, weights, contrib)
+    score = max(-1.0, min(1.0, s / den)) if den else 0.0
+    return BaseSignalResult(score, weights, contrib)
 
 
 def nagr_score(nodes: Any) -> float:

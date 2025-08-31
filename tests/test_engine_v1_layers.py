@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 import pytest
 
-from btcmi.engine_v1 import normalize, completeness, base_signal, nagr_score, combine
+from btcmi.engine_v1 import (
+    normalize,
+    completeness,
+    base_signal,
+    nagr_score,
+    combine,
+)
 from btcmi.config import NORM_SCALE, SCENARIO_WEIGHTS
 
 
@@ -41,24 +47,24 @@ def test_completeness_counts_numeric_only(raw_features):
 
 
 def test_base_signal_empty_inputs():
-    score, weights, contrib = base_signal("intraday", {})
-    assert score == 0.0
-    assert contrib == {}
-    assert weights == SCENARIO_WEIGHTS["intraday"]
+    res = base_signal("intraday", {})
+    assert res.score == 0.0
+    assert res.contributions == {}
+    assert res.weights == SCENARIO_WEIGHTS["intraday"]
 
 
 def test_base_signal_uses_present_features():
-    score, _, contrib = base_signal("intraday", {"price_change_pct": 1.0})
-    assert score == 1.0
-    assert contrib == {"price_change_pct": pytest.approx(0.35)}
+    res = base_signal("intraday", {"price_change_pct": 1.0})
+    assert res.score == 1.0
+    assert res.contributions == {"price_change_pct": pytest.approx(0.35)}
 
 
 def test_base_signal_clips_extreme(norm_extreme):
-    score, _, _ = base_signal("intraday", norm_extreme)
-    assert score == 1.0
+    res = base_signal("intraday", norm_extreme)
+    assert res.score == 1.0
     neg = {k: -v for k, v in norm_extreme.items()}
-    score_neg, _, _ = base_signal("intraday", neg)
-    assert score_neg == -1.0
+    res_neg = base_signal("intraday", neg)
+    assert res_neg.score == -1.0
 
 
 def test_nagr_score_handles_empty_and_zero_weights():
