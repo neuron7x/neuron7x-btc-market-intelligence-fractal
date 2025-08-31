@@ -4,11 +4,15 @@ from __future__ import annotations
 from typing import Dict, Any
 import math
 from dataclasses import dataclass
+import logging
 from btcmi.utils import is_number
 from btcmi.config import NORM_SCALE, SCENARIO_WEIGHTS
 
 
 FeatureMap = Dict[str, float]
+
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -93,8 +97,12 @@ def nagr_score(nodes: Any) -> float:
     num = 0.0
     den = 0.0
     for n in nodes:
-        w = float(n.get("weight", 0.0))
-        sc = float(n.get("score", 0.0))
+        try:
+            w = float(n.get("weight", 0.0))
+            sc = float(n.get("score", 0.0))
+        except (TypeError, ValueError) as exc:
+            logger.debug("Skipping node with non-numeric data %s: %s", n, exc)
+            continue
         num += w * sc
         den += abs(w)
     return max(-1.0, min(1.0, num / den if den else 0.0))
