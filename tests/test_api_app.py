@@ -1,5 +1,5 @@
 import json
-from pathlib import Path
+import pathlib
 
 from fastapi.testclient import TestClient
 from prometheus_client import CONTENT_TYPE_LATEST
@@ -7,7 +7,7 @@ from prometheus_client.parser import text_string_to_metric_families
 
 from btcmi.api import app, load_runners, REQUEST_COUNTER
 
-R = Path(__file__).resolve().parents[1]
+R = pathlib.Path(__file__).resolve().parents[1]
 
 
 def _load_example(name: str) -> dict:
@@ -51,7 +51,7 @@ def test_run_runner_exception(monkeypatch):
 def test_run_out_path_none(monkeypatch):
     seen = {}
 
-    def runner(p, _t, *, out_path: str | Path | None = None):
+    def runner(p, _t, *, out_path: str | pathlib.Path | None = None):
         seen["out_path"] = out_path
         return {
             "schema_version": "2.0.0",
