@@ -7,6 +7,7 @@ from btcmi.engine_v2 import (
     level_signal,
     router_weights,
     combine_levels,
+    nagr,
 )
 
 
@@ -93,3 +94,12 @@ def test_combine_levels_extreme_values_clipped():
     assert sig == 1.0
     sig_neg = combine_levels(-10.0, -10.0, -10.0, {"L1": 0.3, "L2": 0.3, "L3": 0.4})
     assert sig_neg == -1.0
+
+
+def test_nagr_skips_non_numeric_nodes():
+    nodes = [
+        {"weight": 1.0, "score": 0.5},
+        {"weight": None, "score": 1.0},
+        {"weight": 1.0, "score": "bad"},
+    ]
+    assert nagr(nodes) == pytest.approx(0.5)

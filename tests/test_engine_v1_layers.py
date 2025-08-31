@@ -77,6 +77,15 @@ def test_nagr_score_clips_extreme():
     assert nagr_score(nodes) == 1.0
 
 
+def test_nagr_score_skips_non_numeric_nodes():
+    nodes = [
+        {"weight": 1.0, "score": 0.5},
+        {"weight": "bad", "score": 1.0},
+        {"weight": 1.0, "score": "bad"},
+    ]
+    assert nagr_score(nodes) == pytest.approx(0.5)
+
+
 def test_combine_zero_scores():
     assert combine(0.0, 0.0) == 0.0
 

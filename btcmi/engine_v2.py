@@ -3,10 +3,14 @@
 from __future__ import annotations
 from typing import Dict, List
 import math
+import logging
 from btcmi.utils import is_number
 from btcmi.config import SCALES as CONFIG_SCALES
 
 SCALES = CONFIG_SCALES
+
+
+logger = logging.getLogger(__name__)
 
 
 def tanh_norm(x: float, s: float) -> float:
@@ -77,8 +81,18 @@ def nagr(nodes: List[dict]) -> float:
     """
     if not nodes:
         return 0.0
-    num = sum(float(n.get("weight", 0.0)) * float(n.get("score", 0.0)) for n in nodes)
-    den = sum(abs(float(n.get("weight", 0.0))) for n in nodes) or 1.0
+    num = 0.0
+    den = 0.0
+    for n in nodes:
+        try:
+            w = float(n.get("weight", 0.0))
+            sc = float(n.get("score", 0.0))
+        except (TypeError, ValueError) as exc:
+            logger.debug("Skipping node with non-numeric data %s: %s", n, exc)
+            continue
+        num += w * sc
+        den += abs(w)
+    den = den or 1.0
     return max(-1.0, min(1.0, num / den))
 
 
