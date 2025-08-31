@@ -8,7 +8,7 @@ Production-grade toolkit for Bitcoin market intelligence: strict data contracts,
 * **Data contracts:** `input_schema.json`, `output_schema.json`
 * **Validation & integrity:** structural validator, checksums, SBOM/provenance
 * **Observability:** Prometheus job, Grafana dashboard
-* **HTTP API:** `/run`, `/validate/{schema}`, `/metrics`, `/healthz` ([docs/API.md](docs/API.md), [openapi.json](docs/openapi.json))
+* **HTTP API:** `/run`, `/validate/{schema}`, `/metrics`, `/healthz` (API key via `X-API-Key`; [docs/API.md](docs/API.md), [openapi.json](docs/openapi.json))
 * **Containerized runtime:** Docker Compose
 * **Versioning:** update the root `VERSION` file (single source of truth) and sync `CHANGELOG.md`
 * **Conventional Commits** for history hygiene
@@ -64,10 +64,12 @@ python tests/validate_output.py out.json  # validate against output_schema.json
 Start the HTTP API server:
 
 ```bash
+export BTCMI_API_KEY=changeme  # set your preferred token
 uvicorn btcmi.api:app
 ```
 
-Refer to [docs/API.md](docs/API.md) or the [OpenAPI schema](docs/openapi.json) for available endpoints and examples.
+Requests to `/run` and `/validate/{schema}` must include `X-API-Key` in the
+headers. Refer to [docs/API.md](docs/API.md) or the [OpenAPI schema](docs/openapi.json) for available endpoints and examples.
 
 ### Platform notes
 
