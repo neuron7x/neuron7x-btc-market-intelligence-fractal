@@ -1,13 +1,15 @@
+import importlib
 import json
 import logging
 
-from btcmi.logging_cfg import configure_logging, new_run_id
+import btcmi.logging_cfg as logging_cfg
 
 
 def test_json_log_format(capsys):
-    configure_logging()
+    importlib.reload(logging_cfg)
+    logging_cfg.configure_logging()
     logger = logging.getLogger("test")
-    run_id = new_run_id()
+    run_id = logging_cfg.new_run_id()
     logger.info("hello", extra={"run_id": run_id, "mode": "test"})
     captured = capsys.readouterr()
     line = captured.err.strip()
@@ -19,3 +21,12 @@ def test_json_log_format(capsys):
     assert rec["mode"] == "test"
     assert rec["scenario"] is None
     assert isinstance(rec["ts"], int)
+
+
+def test_configure_logging_runs_once():
+    importlib.reload(logging_cfg)
+    logging_cfg.configure_logging()
+    root = logging.getLogger()
+    handlers_first = root.handlers
+    logging_cfg.configure_logging()
+    assert root.handlers is handlers_first
