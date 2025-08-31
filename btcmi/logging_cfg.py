@@ -7,6 +7,7 @@ import uuid
 
 
 logger = logging.getLogger(__name__)
+_LOGGING_CONFIGURED = False
 
 try:
     import uvicorn  # noqa: F401
@@ -43,6 +44,11 @@ def configure_logging() -> None:
     defaulting to ``INFO`` if not provided.
     """
 
+    global _LOGGING_CONFIGURED
+
+    if _LOGGING_CONFIGURED:
+        return
+
     level_name = os.getenv("LOG_LEVEL", "INFO").upper()
     level = getattr(logging, level_name, logging.INFO)
     handler = logging.StreamHandler(sys.stderr)
@@ -50,6 +56,7 @@ def configure_logging() -> None:
     root = logging.getLogger()
     root.setLevel(level)
     root.handlers = [handler]
+    _LOGGING_CONFIGURED = True
 
 
 def new_run_id() -> str:
