@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 from typing import Dict, Any
-import math
 from dataclasses import dataclass
 import logging
 from btcmi.utils import is_number
 from btcmi.config import NORM_SCALE, SCENARIO_WEIGHTS
+from btcmi.feature_processing import normalize_features, weighted_score
 
 
 FeatureMap = Dict[str, float]
@@ -23,22 +23,10 @@ class BaseSignalResult:
     weights: FeatureMap
     contributions: FeatureMap
 
-
 def normalize(features: FeatureMap) -> FeatureMap:
-    """Scale raw feature values using hyperbolic tangent.
+    """Scale raw feature values using hyperbolic tangent."""
 
-    Args:
-        features: Mapping from feature names to raw numeric values.
-
-    Returns:
-        A feature map with each numeric value normalized to the [-1, 1] range.
-
-    """
-    return {
-        k: math.tanh(v / NORM_SCALE.get(k, 1.0))
-        for k, v in features.items()
-        if is_number(v)
-    }
+    return normalize_features(features, NORM_SCALE)
 
 
 def completeness(features: FeatureMap) -> float:
@@ -69,16 +57,7 @@ def base_signal(scenario: str, norm: FeatureMap) -> BaseSignalResult:
 
     """
     weights = SCENARIO_WEIGHTS[scenario]
-    s = 0.0
-    den = 0.0
-    contrib: FeatureMap = {}
-    for k, w in weights.items():
-        if k in norm:
-            c = norm[k] * w
-            contrib[k] = c
-            s += c
-            den += abs(w)
-    score = max(-1.0, min(1.0, s / den)) if den else 0.0
+    score, contrib = weighted_score(norm, weights)
     return BaseSignalResult(score, weights, contrib)
 
 

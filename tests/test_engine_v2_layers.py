@@ -2,36 +2,35 @@
 import pytest
 
 from btcmi.engine_v2 import (
-    normalize_layer,
-    linear_score,
     level_signal,
     router_weights,
     combine_levels,
     nagr,
 )
+from btcmi.feature_processing import normalize_features, weighted_score
 
 
-def test_normalize_layer_handles_empty_and_non_numeric_and_extreme():
-    assert normalize_layer({}, {"a": 1.0}) == {}
+def test_normalize_features_handles_empty_and_non_numeric_and_extreme():
+    assert normalize_features({}, {"a": 1.0}) == {}
     feats = {"x": 1e6, "y": "bad"}
     scales = {"x": 1.0}
-    norm = normalize_layer(feats, scales)
+    norm = normalize_features(feats, scales)
     assert set(norm.keys()) == {"x"}
     assert norm["x"] == pytest.approx(1.0)
 
 
-def test_linear_score_zero_weights_and_missing_features():
+def test_weighted_score_zero_weights_and_missing_features():
     norm = {"a": 0.5}
     weights = {"a": 0.0, "b": 1.0}
-    score, contrib = linear_score(norm, weights)
+    score, contrib = weighted_score(norm, weights)
     assert score == 0.0
     assert contrib == {"a": 0.0}
 
 
-def test_linear_score_clips_extreme_values():
+def test_weighted_score_clips_extreme_values():
     norm = {"a": 5.0}
     weights = {"a": 1.0}
-    score, contrib = linear_score(norm, weights)
+    score, contrib = weighted_score(norm, weights)
     assert score == 1.0
     assert contrib["a"] == 5.0
 

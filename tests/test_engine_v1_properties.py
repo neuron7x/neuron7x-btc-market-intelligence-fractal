@@ -3,7 +3,9 @@ import pytest
 pytest.importorskip("hypothesis")
 from hypothesis import given, strategies as st
 
-from btcmi.engine_v1 import normalize, nagr_score, combine
+from btcmi.engine_v1 import nagr_score, combine
+from btcmi.config import NORM_SCALE
+from btcmi.feature_processing import normalize_features
 
 
 @given(
@@ -15,7 +17,7 @@ from btcmi.engine_v1 import normalize, nagr_score, combine
     )
 )
 def test_normalize_outputs_clamped(features):
-    norm = normalize(features)
+    norm = normalize_features(features, NORM_SCALE)
     assert all(-1.0 <= v <= 1.0 for v in norm.values())
 
 

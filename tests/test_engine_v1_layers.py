@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 import pytest
 
-from btcmi.engine_v1 import (
-    normalize,
-    completeness,
-    base_signal,
-    nagr_score,
-    combine,
-)
+from btcmi.engine_v1 import completeness, base_signal, nagr_score, combine
 from btcmi.config import NORM_SCALE, SCENARIO_WEIGHTS
+from btcmi.feature_processing import normalize_features
 
 
 @pytest.fixture
@@ -28,8 +23,8 @@ def norm_extreme():
 
 
 def test_normalize_handles_non_numeric_and_extreme(raw_features):
-    assert normalize({}) == {}
-    norm = normalize(raw_features)
+    assert normalize_features({}, NORM_SCALE) == {}
+    norm = normalize_features(raw_features, NORM_SCALE)
     assert set(norm.keys()) == {
         "price_change_pct",
         "volume_change_pct",

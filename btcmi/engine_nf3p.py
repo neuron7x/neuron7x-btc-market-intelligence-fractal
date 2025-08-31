@@ -3,12 +3,8 @@ from __future__ import annotations
 
 from typing import Dict, Tuple
 
-from btcmi.engine_v2 import (
-    SCALES,
-    normalize_layer,
-    layer_equal_weights,
-    linear_score,
-)
+from btcmi.engine_v2 import SCALES, normalize_layer, layer_equal_weights
+from btcmi.feature_processing import weighted_score
 
 
 def predictions_and_backtest(
@@ -37,9 +33,9 @@ def predictions_and_backtest(
     w2 = layer_equal_weights(n2)
     w3 = layer_equal_weights(n3)
 
-    p1, _ = linear_score(n1, w1)
-    p2, _ = linear_score(n2, w2)
-    p3, _ = linear_score(n3, w3)
+    p1, _ = weighted_score(n1, w1)
+    p2, _ = weighted_score(n2, w2)
+    p3, _ = weighted_score(n3, w3)
 
     predictions = {
         "L1": round(p1, 6),
