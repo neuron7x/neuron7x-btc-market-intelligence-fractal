@@ -70,6 +70,9 @@ def main() -> int:
         else:
             try:
                 data = load_json(args.input)
+            except FileNotFoundError:
+                report("input_file_not_found", run_id=run_id, path=args.input)
+                return 2
             except json.JSONDecodeError as e:
                 report("invalid_json", run_id=run_id, message=str(e))
                 return 2
@@ -126,8 +129,16 @@ def main() -> int:
 
     try:
         data = load_json(args.data)
+    except FileNotFoundError:
+        report("file_not_found", run_id=run_id, path=str(args.data))
+        return 2
     except json.JSONDecodeError as e:
         report("invalid_json", run_id=run_id, message=str(e))
+        return 2
+    try:
+        args.schema.read_text()
+    except FileNotFoundError:
+        report("file_not_found", run_id=run_id, path=str(args.schema))
         return 2
     try:
         validate_json(data, args.schema)
