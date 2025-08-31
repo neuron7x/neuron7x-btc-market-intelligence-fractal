@@ -36,6 +36,14 @@ def _validate_scenario_window(data: dict) -> tuple[Scenario, Window]:
     return scenario_enum, window_enum
 
 
+def write_output(data: dict, out_path: Path | str) -> None:
+    """Write ``data`` to ``out_path`` as JSON, creating parents if needed."""
+
+    p = Path(out_path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+
 def run_v1(data, fixed_ts, out_path: str | Path | None = None):
     """Run the v1 engine and optionally persist the output.
 
@@ -88,9 +96,7 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
         },
     }
     if out_path is not None:
-        p = Path(out_path)
-        p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(out, indent=2), encoding="utf-8")
+        write_output(out, out_path)
     return out
 
 
@@ -147,9 +153,7 @@ def run_v2(data, fixed_ts, out_path: str | Path | None = None):
         },
     }
     if out_path is not None:
-        p = Path(out_path)
-        p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(out, indent=2), encoding="utf-8")
+        write_output(out, out_path)
     return out
 
 
@@ -173,9 +177,7 @@ def run_nf3p(
         "backtest": backtest,
     }
     if out_path is not None:
-        p = Path(out_path)
-        p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(out, indent=2), encoding="utf-8")
+        write_output(out, out_path)
     return out
 
 
