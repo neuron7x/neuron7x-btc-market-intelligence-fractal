@@ -74,8 +74,18 @@ def test_router_weights_boundaries(vol_pctl, expected):
 
 
 def test_combine_levels_zero_weights():
-    sig = combine_levels(1.0, -1.0, 0.5, {"L1": 0.0, "L2": 0.0, "L3": 0.0})
-    assert sig == 0.0
+    with pytest.raises(ValueError):
+        combine_levels(1.0, -1.0, 0.5, {"L1": 0.0, "L2": 0.0, "L3": 0.0})
+
+
+def test_combine_levels_normalizes_weights():
+    sig = combine_levels(1.0, 0.0, 0.0, {"L1": 2.0, "L2": 1.0, "L3": 1.0})
+    assert sig == pytest.approx(0.5)
+
+
+def test_combine_levels_missing_weight_raises():
+    with pytest.raises(ValueError):
+        combine_levels(0.0, 0.0, 0.0, {"L1": 0.5, "L2": 0.5})
 
 
 def test_combine_levels_extreme_values_clipped():
