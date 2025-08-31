@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 from functools import lru_cache
 
-from fastapi import FastAPI, HTTPException, Response
+from fastapi import FastAPI, HTTPException, Request, Response
 from pydantic import BaseModel, ConfigDict
 from typing import Any, Dict, Callable
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
@@ -28,7 +28,8 @@ REQUEST_COUNTER = Counter("btcmi_requests_total", "Total HTTP requests", ["endpo
 
 
 @app.middleware("http")
-async def count_requests(request, call_next):
+async def count_requests(request: Request, call_next: Callable):
+    """Increment a Prometheus counter for each incoming HTTP request."""
     response = await call_next(request)
     REQUEST_COUNTER.labels(endpoint=request.url.path).inc()
     return response
