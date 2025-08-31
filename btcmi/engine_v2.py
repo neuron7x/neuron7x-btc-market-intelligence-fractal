@@ -128,6 +128,17 @@ def combine_levels(L1: float, L2: float, L3: float, w):
         Combined score clipped to [-1, 1].
 
     """
+    req = {"L1", "L2", "L3"}
+    if not req.issubset(w):
+        missing = ", ".join(sorted(req - w.keys()))
+        raise ValueError(f"missing weights for: {missing}")
+
+    total = w["L1"] + w["L2"] + w["L3"]
+    if math.isclose(total, 0.0, abs_tol=1e-12):
+        raise ValueError("sum of weights must be non-zero")
+    if not math.isclose(total, 1.0, rel_tol=1e-9, abs_tol=1e-9):
+        w = {k: v / total for k, v in w.items()}
+
     s = w["L1"] * L1 + w["L2"] * L2 + w["L3"] * L3
     return max(-1.0, min(1.0, s))
 
