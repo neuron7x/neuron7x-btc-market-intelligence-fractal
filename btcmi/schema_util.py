@@ -1,4 +1,5 @@
 import json
+from functools import lru_cache
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -8,9 +9,6 @@ SCHEMA_REGISTRY = {
 }
 
 __all__ = ["load_json", "_load_schema", "validate_json", "SCHEMA_REGISTRY"]
-
-
-_SCHEMA_CACHE: dict[str, dict] = {}
 
 
 def load_json(path: str | Path) -> dict:
@@ -37,6 +35,7 @@ def load_json(path: str | Path) -> dict:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
+@lru_cache(maxsize=None)
 def _load_schema(schema_path: str | Path) -> dict:
     """Load and cache the JSON schema located at *schema_path*.
 
@@ -58,12 +57,7 @@ def _load_schema(schema_path: str | Path) -> dict:
         If the schema file contains invalid JSON.
     """
 
-    key = str(schema_path)
-    schema = _SCHEMA_CACHE.get(key)
-    if schema is None:
-        schema = load_json(schema_path)
-        _SCHEMA_CACHE[key] = schema
-    return schema
+    return load_json(schema_path)
 
 
 def validate_json(data: dict, schema_path: str | Path) -> None:
