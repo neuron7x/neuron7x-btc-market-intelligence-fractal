@@ -45,7 +45,7 @@ def test_validate_json_without_jsonschema(monkeypatch, tmp_path):
 
 def test_schema_cached(monkeypatch, tmp_path):
     pytest.importorskip("jsonschema")
-    schema_util._SCHEMA_CACHE.clear()
+    schema_util._load_schema.cache_clear()
     schema = {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "type": "object",
