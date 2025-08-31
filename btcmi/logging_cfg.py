@@ -6,6 +6,16 @@ import time
 import uuid
 
 
+logger = logging.getLogger(__name__)
+
+try:
+    import uvicorn  # noqa: F401
+except ImportError:
+    logger.warning(
+        "Uvicorn is not installed; skipping Uvicorn-specific logging configuration."
+    )
+
+
 class JsonFormatter(logging.Formatter):
     """Format log records as JSON with standard metadata.
 
