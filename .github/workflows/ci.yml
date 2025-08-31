@@ -18,6 +18,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Ensure requirements match constraints
+        run: |
+          if [ -f requirements.txt ] && [ -f constraints.txt ]; then
+            while IFS= read -r line; do
+              line=$(echo "$line" | xargs)
+              [ -z "$line" ] && continue
+              case "$line" in \#*) continue ;; esac
+              if ! grep -Fxq "$line" constraints.txt; then
+                echo "requirements.txt line '$line' not found in constraints.txt"
+                exit 1
+              fi
+            done < requirements.txt
+          fi
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
