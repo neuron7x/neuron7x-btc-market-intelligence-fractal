@@ -4,71 +4,19 @@ from __future__ import annotations
 from typing import Dict, List
 import math
 import logging
-from btcmi.utils import is_number
 from btcmi.config import SCALES as CONFIG_SCALES
+from btcmi.feature_processing import normalize_features, weighted_score
 
 SCALES = CONFIG_SCALES
-
-
 logger = logging.getLogger(__name__)
-
-
-def tanh_norm(x: float, s: float) -> float:
-    """Normalize a value using hyperbolic tangent scaling.
-
-    Args:
-        x: Input value.
-        s: Scale factor determining steepness.
-
-    Returns:
-        The normalized value in [-1, 1].
-
-    """
-    return math.tanh(x / s) if s else 0.0
 
 
 def normalize_layer(
     feats: Dict[str, float], scales: Dict[str, float]
 ) -> Dict[str, float]:
-    """Apply normalization to a layer's feature set.
+    """Apply normalization to a layer's feature set."""
 
-    Args:
-        feats: Raw feature values for the layer.
-        scales: Scaling factors keyed by feature name.
-
-    Returns:
-        Dictionary of normalized feature values.
-
-    """
-    return {
-        k: tanh_norm(v, scales.get(k, 1.0)) for k, v in feats.items() if is_number(v)
-    }
-
-
-def linear_score(
-    norm: Dict[str, float], weights: Dict[str, float]
-) -> tuple[float, Dict[str, float]]:
-    """Compute weighted linear score for normalized features.
-
-    Args:
-        norm: Normalized feature values.
-        weights: Weight assigned to each feature.
-
-    Returns:
-        Tuple of overall score and per-feature contributions.
-
-    """
-    s = 0.0
-    den = 0.0
-    contrib = {}
-    for k, w in weights.items():
-        if k in norm:
-            c = norm[k] * w
-            contrib[k] = c
-            s += c
-            den += abs(w)
-    score = max(-1.0, min(1.0, s / den)) if den else 0.0
-    return score, contrib
+    return normalize_features(feats, scales)
 
 
 def nagr(nodes: List[dict]) -> float:
@@ -114,7 +62,7 @@ def level_signal(
         Tuple of combined level signal and feature contributions.
 
     """
-    base, contrib = linear_score(norm, weights)
+    base, contrib = weighted_score(norm, weights)
     return 0.8 * base + 0.2 * nagr(nagr_nodes), contrib
 
 
