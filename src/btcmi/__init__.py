@@ -2,7 +2,8 @@
 
 from pathlib import Path
 
-VERSION_FILE = Path(__file__).resolve().parent.parent / "VERSION"
+# project root is two levels above ``src/btcmi``
+VERSION_FILE = Path(__file__).resolve().parents[2] / "VERSION"
 __version__ = VERSION_FILE.read_text().strip()
 
 __all__ = [

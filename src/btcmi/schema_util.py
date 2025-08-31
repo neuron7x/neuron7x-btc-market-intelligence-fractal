@@ -1,7 +1,9 @@
 import json
+
+# SCHEMA files live in the project root, two levels above ``src/btcmi``
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path(__file__).resolve().parents[2]
 SCHEMA_REGISTRY = {
     "input": BASE_DIR / "input_schema.json",
     "output": BASE_DIR / "output_schema.json",

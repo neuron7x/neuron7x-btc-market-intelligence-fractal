@@ -33,6 +33,10 @@ dev = [
 [project.scripts]
 btcmi = "cli.btcmi:main"
 
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["btcmi", "cli"]
+
 [tool.setuptools.dynamic]
 version = {file = "VERSION"}
 
@@ -41,7 +45,6 @@ version = {file = "VERSION"}
 
 [tool.setuptools.package-data]
 btcmi = ["py.typed"]
-"" = ["examples/*.csv", "examples/*.json"]
 
 [tool.black]
 line-length = 88
