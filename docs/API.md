@@ -131,7 +131,7 @@ curl http://localhost:8000/metrics
 **Response**
 
 ```
-btcmi_requests_total{endpoint="/run"} 1
+btcmi_requests{endpoint="/run"} 1
 ```
 
 **Error codes**
