@@ -3,12 +3,23 @@ from __future__ import annotations
 import datetime as dt
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, Protocol
 
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 from btcmi import engine_nf3p as nf3p
 from btcmi.enums import Scenario, Window
+
+
+class Engine(Protocol):
+    def __call__(
+        self,
+        data: dict[str, Any],
+        fixed_ts: str | None,
+        out_path: str | Path | None = None,
+    ) -> dict[str, Any]:
+        """Protocol for engine implementations."""
+        ...
 
 
 def _validate_scenario_window(data: dict) -> tuple[Scenario, Window]:
@@ -194,4 +205,4 @@ def run_nf3p(
     return out
 
 
-__all__ = ["run_v1", "run_v2", "run_nf3p"]
+__all__ = ["Engine", "run_v1", "run_v2", "run_nf3p"]

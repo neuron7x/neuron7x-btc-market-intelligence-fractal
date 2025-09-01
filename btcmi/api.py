@@ -24,7 +24,7 @@ from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 from pydantic import BaseModel, ConfigDict
 
 from btcmi.enums import Scenario, Window
-from btcmi.runner import run_nf3p, run_v1, run_v2
+from btcmi.runner import Engine, run_nf3p, run_v1, run_v2
 from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
 
 logger = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ app = FastAPI()
 
 
 @lru_cache()
-def load_runners() -> Dict[str, Callable]:
+def load_runners() -> dict[str, Engine]:
     """Return a mapping of mode names to runner implementations."""
     return {
         "v1": run_v1,
