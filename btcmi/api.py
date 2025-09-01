@@ -24,6 +24,7 @@ from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 from pydantic import BaseModel, ConfigDict
 
 from btcmi.enums import Scenario, Window
+from btcmi.engines import Engine
 from btcmi.runner import run_nf3p, run_v1, run_v2
 from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
 
@@ -33,7 +34,7 @@ app = FastAPI()
 
 
 @lru_cache()
-def load_runners() -> Dict[str, Callable]:
+def load_runners() -> dict[str, Engine]:
     """Return a mapping of mode names to runner implementations."""
     return {
         "v1": run_v1,
@@ -152,9 +153,7 @@ async def validate_endpoint(
     if schema_path is None:
         raise HTTPException(status_code=404, detail="schema not found")
     try:
-        await asyncio.to_thread(
-            validate_json, payload.model_dump(), schema_path
-        )
+        await asyncio.to_thread(validate_json, payload.model_dump(), schema_path)
     except Exception as exc:  # noqa: BLE001
         logger.exception("validation_failed")
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -173,4 +172,3 @@ async def healthz() -> dict[str, str]:
 
 
 __all__ = ["app", "load_runners", "REQUEST_COUNTER"]
-
