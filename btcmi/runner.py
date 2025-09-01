@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 from pathlib import Path
-from typing import Dict
+from typing import Any, Dict
 
 from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
@@ -47,7 +47,11 @@ def write_output(data: dict, out_path: Path | str) -> None:
         raise RuntimeError(f"failed to write output to {out_path}: {e}") from e
 
 
-def run_v1(data, fixed_ts, out_path: str | Path | None = None):
+def run_v1(
+    data: dict[str, Any],
+    fixed_ts: str | None,
+    out_path: str | Path | None = None,
+) -> dict[str, Any]:
     """Run the v1 engine and optionally persist the output.
 
     Parameters
@@ -75,7 +79,7 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
     if comp < 0.6:
         notes.append("low_feature_completeness")
     asof = fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
-    out = {
+    out: dict[str, Any] = {
         "schema_version": data.get("schema_version", "2.0.0"),
         "lineage": data.get("lineage", {}),
         "asof": asof,
@@ -103,7 +107,11 @@ def run_v1(data, fixed_ts, out_path: str | Path | None = None):
     return out
 
 
-def run_v2(data, fixed_ts, out_path: str | Path | None = None):
+def run_v2(
+    data: dict[str, Any],
+    fixed_ts: str | None,
+    out_path: str | Path | None = None,
+) -> dict[str, Any]:
     """Run the v2 fractal engine and optionally persist the output."""
     scenario, window = _validate_scenario_window(data)
     f1 = data.get("features_micro", {})
@@ -130,7 +138,7 @@ def run_v2(data, fixed_ts, out_path: str | Path | None = None):
     conf = round(0.5 + 0.5 * min(coverage, 1.0), 3)
     notes: list[str] = []
     asof = fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
-    out = {
+    out: dict[str, Any] = {
         "schema_version": data.get("schema_version", "2.0.0"),
         "lineage": data.get("lineage", {}),
         "asof": asof,
@@ -161,8 +169,10 @@ def run_v2(data, fixed_ts, out_path: str | Path | None = None):
 
 
 def run_nf3p(
-    data, fixed_ts, out_path: str | Path | None = None
-):  # noqa: D401 - short wrapper
+    data: dict[str, Any],
+    fixed_ts: str | None,
+    out_path: str | Path | None = None,
+) -> dict[str, Any]:  # noqa: D401 - short wrapper
     """Run the NF3P engine and optionally persist the output."""
     scenario, window = _validate_scenario_window(data)
     f1 = data.get("features_micro", {})
@@ -170,7 +180,7 @@ def run_nf3p(
     f3 = data.get("features_macro", {})
     predictions, backtest = nf3p.predictions_and_backtest(f1, f2, f3)
     asof = fixed_ts or dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
-    out = {
+    out: dict[str, Any] = {
         "schema_version": data.get("schema_version", "2.0.0"),
         "lineage": data.get("lineage", {}),
         "asof": asof,
