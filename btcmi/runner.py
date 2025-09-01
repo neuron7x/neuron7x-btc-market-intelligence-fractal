@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import datetime as dt
-import json
 from pathlib import Path
 from typing import Any, Dict
 
@@ -9,9 +8,10 @@ from btcmi import engine_v1 as v1
 from btcmi import engine_v2 as v2
 from btcmi import engine_nf3p as nf3p
 from btcmi.enums import Scenario, Window
+from btcmi.io import write_output as write_output  # noqa: F401
 
 
-def _validate_scenario_window(data: dict) -> tuple[Scenario, Window]:
+def _validate_scenario_window(data: dict[str, Any]) -> tuple[Scenario, Window]:
     """Return the scenario and window ensuring both are valid."""
 
     scenario = data.get("scenario")
@@ -34,17 +34,6 @@ def _validate_scenario_window(data: dict) -> tuple[Scenario, Window]:
         allowed = ", ".join(sorted(w.value for w in Window))
         raise ValueError("'window' must be one of: " + allowed) from exc
     return scenario_enum, window_enum
-
-
-def write_output(data: dict, out_path: Path | str) -> None:
-    """Write ``data`` to ``out_path`` as JSON, creating parents if needed."""
-
-    p = Path(out_path)
-    try:
-        p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(json.dumps(data, indent=2), encoding="utf-8")
-    except OSError as e:  # pragma: no cover - handled by unit test
-        raise RuntimeError(f"failed to write output to {out_path}: {e}") from e
 
 
 def run_v1(
