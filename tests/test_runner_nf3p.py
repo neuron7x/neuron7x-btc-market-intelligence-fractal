@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 
 import pytest
@@ -9,12 +8,16 @@ R = Path(__file__).resolve().parents[1]
 
 
 def _load_data():
+    import json
+
     data = json.loads((R / "examples/intraday_fractal.json").read_text())
     data["mode"] = "v2.nf3p"
     return data
 
 
 def test_run_nf3p_round_trip(tmp_path, monkeypatch):
+    import json
+
     data = _load_data()
     out_file = tmp_path / "out.json"
 
