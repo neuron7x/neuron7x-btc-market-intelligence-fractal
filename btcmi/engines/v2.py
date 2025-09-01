@@ -7,6 +7,7 @@ from btcmi import runner
 
 
 def run(
+    self: Any,
     data: dict[str, Any],
     fixed_ts: str | None,
     out_path: str | Path | None = None,
