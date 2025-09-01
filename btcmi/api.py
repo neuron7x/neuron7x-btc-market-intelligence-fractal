@@ -22,9 +22,10 @@ from fastapi import Depends, FastAPI, HTTPException, Request, Response, Security
 from fastapi.security import APIKeyHeader
 from prometheus_client import CONTENT_TYPE_LATEST, Counter, generate_latest
 from pydantic import BaseModel, ConfigDict
+from importlib.metadata import entry_points
 
 from btcmi.enums import Scenario, Window
-from btcmi.runner import run_nf3p, run_v1, run_v2
+from btcmi.engines import ENGINE_REGISTRY, register_engine
 from btcmi.schema_util import SCHEMA_REGISTRY, validate_json
 
 logger = logging.getLogger(__name__)
@@ -34,12 +35,19 @@ app = FastAPI()
 
 @lru_cache()
 def load_runners() -> Dict[str, Callable]:
-    """Return a mapping of mode names to runner implementations."""
-    return {
-        "v1": run_v1,
-        "v2.fractal": run_v2,
-        "v2.nf3p": run_nf3p,
-    }
+    """Return a mapping of mode names to runner implementations.
+
+    Engines can be registered either via :func:`register_engine` or exposed
+    through the ``btcmi.engines`` entry point group.
+    """
+
+    try:
+        for ep in entry_points(group="btcmi.engines"):
+            if ep.name not in ENGINE_REGISTRY:
+                register_engine(ep.name, ep.load())
+    except Exception:  # pragma: no cover - defensive for older Python
+        pass
+    return ENGINE_REGISTRY
 
 
 REQUEST_COUNTER = Counter("btcmi_requests", "Total HTTP requests", ["endpoint"])

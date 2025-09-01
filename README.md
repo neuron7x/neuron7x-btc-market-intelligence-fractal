@@ -86,6 +86,25 @@ docker compose up --build
 docker compose run --rm app --input /data/input.json --out /data/out.json
 ```
 
+## Custom engines
+
+Third-party packages can expose additional engines by registering a callable in
+the engine registry:
+
+```python
+# mypkg/myengine.py
+from btcmi.engines import register_engine
+
+def run(self, data, fixed_ts, out_path=None):
+    # ... perform custom processing ...
+    return {"schema_version": "2.0.0", "summary": {"scenario": data["scenario"], "window": data["window"]}, "details": {}}
+
+register_engine("my.mode", run)
+```
+
+Importing this module (or exposing it via the ``btcmi.engines`` entry point
+group) makes ``my.mode`` available to ``load_runners()`` and the HTTP API.
+
 ## Modes
 
 | mode            | purpose                                 | output                               |
