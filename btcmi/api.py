@@ -42,7 +42,7 @@ def load_runners() -> Dict[str, Callable]:
     }
 
 
-REQUEST_COUNTER = Counter("btcmi_requests_total", "Total HTTP requests", ["endpoint"])
+REQUEST_COUNTER = Counter("btcmi_requests", "Total HTTP requests", ["endpoint"])
 
 # store recent request timestamps per client for throttling
 _req_times: defaultdict[str, deque] = defaultdict(deque)
